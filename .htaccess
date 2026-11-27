@@ -2,7 +2,7 @@
 
 # No servir la carpeta .git ni archivos de desarrollo
 RedirectMatch 404 /\.git
-RedirectMatch 404 /(tests|tools|node_modules)(/|$)
+RedirectMatch 404 /(tests|tools|node_modules|server)(/|$)
 RedirectMatch 404 /(package\.json|README\.md)$
 
 # Tipos correctos para módulos y manifiesto

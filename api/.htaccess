@@ -1,0 +1,4 @@
+# Respuestas de la API: nunca en caché.
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-store"
+</IfModule>

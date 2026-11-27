@@ -5,8 +5,8 @@
  * Antes los módulos salían de la caché y tras un git pull se mezclaban versiones.
  * Sube CACHE_VERSION al publicar cambios grandes para empezar con una caché limpia.
  */
-const CACHE_VERSION = 'besttris-v35';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './assets/favicon.svg', './assets/icon-192.png', './assets/icon-512.png', './src/main.js'];
+const CACHE_VERSION = 'besttris-v36';
+const SHELL = ['./', './index.html', './manifest.webmanifest', './assets/favicon.svg', './assets/icon-192.png', './assets/icon-512.png', './src/boot.js', './src/main.js'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE_VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -20,7 +20,9 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   const req = e.request;
-  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  const url = new URL(req.url);
+  if (req.method !== 'GET' || url.origin !== self.location.origin) return;
+  if (url.pathname.includes('/api/')) return; // cuentas y progreso: siempre directo al servidor, nunca en caché
   const key = req.mode === 'navigate' ? './index.html' : req;
   // Red primero y revalidando (cache: 'no-cache'): página, estilos y módulos siempre de la misma versión.
   // Sin conexión, la copia guardada.

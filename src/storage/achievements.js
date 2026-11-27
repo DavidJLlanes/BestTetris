@@ -1,7 +1,8 @@
-import { load, save } from './store.js';
+import { load, save, onReplace } from './store.js';
 
 /** Logros desbloqueados: { id: fecha }. */
 let unlocked = null;
+onReplace(() => { unlocked = null; });
 
 export function getUnlocked() {
   if (!unlocked) unlocked = load('achievements', {});

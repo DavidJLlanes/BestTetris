@@ -1,4 +1,4 @@
-import { load, save } from './store.js';
+import { load, save, onReplace } from './store.js';
 
 /** Estadísticas acumuladas de todas las partidas del jugador. */
 const EMPTY = {
@@ -11,6 +11,7 @@ const EMPTY = {
 };
 
 let profile = null;
+onReplace(() => { profile = null; }); // progreso traído de la cuenta: se vuelve a leer
 
 export function getProfile() {
   if (!profile) profile = { ...EMPTY, ...load('profile', {}) };

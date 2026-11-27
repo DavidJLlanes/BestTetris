@@ -26,7 +26,7 @@ function renderStats() {
   ].map(([k, v]) => `<span>${k}</span><b>${v}</b>`).join('');
 }
 
-/** Perfil local: nombre, foto, estadísticas y copia de seguridad. Nada sale del dispositivo. */
+/** Perfil: nombre, foto, estadísticas y copia de seguridad (la cuenta está en ui/account). */
 export function bindProfilePanel() {
   const name = $('profile-name'), photoInput = $('profile-photo-input'), importInput = $('profile-import-input');
   const draw = () => { const id = loadIdentity(); name.value = id.name; paintAvatar($('profile-avatar'), id); };

@@ -1,6 +1,6 @@
 # BestTris
 
-Juego de puzle de bloques que caen. HTML, CSS y JavaScript con módulos ES nativos: sin dependencias, sin paso de compilación y sin servidor propio. Todo el progreso se queda en el navegador del jugador.
+Juego de puzle de bloques que caen. HTML, CSS y JavaScript con módulos ES nativos: sin dependencias y sin paso de compilación. Sin sesión, todo el progreso se queda en el navegador del jugador. Con sesión (cuentas creadas solo desde el servidor), se sincroniza entre dispositivos con una pequeña API en PHP.
 
 ## Jugar en local
 
@@ -39,6 +39,9 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 | `src/social/` | Retos por enlace (semilla y marca dentro del enlace) y clasificación local por periodos |
 | `src/versus/` | Dos jugadores en el mismo equipo: dos tableros, basura entre ellos, teclado partido y dos mandos |
 | `src/decor/` | Decoración del fondo y del tablero: polvo de luz, latido con la música, profundidad y calidad automática |
+| `src/sync/` | Cuentas: inicio de sesión, subida y bajada del progreso y fusión sin pérdidas (`merge/rules/`, una regla por tipo de dato) |
+| `api/` | API de cuentas en PHP: `login.php`, `logout.php`, `me.php`, `progreso.php` |
+| `server/` | Código PHP de la API (una función por archivo en `lib/`) y comandos de cuentas en `cli/`. Nunca se sirve por la web |
 | `src/pwa/` | Registro del service worker (`sw.js`) y botón de instalar |
 | `styles/` | Un CSS por zona de la interfaz |
 | `tests/` | Pruebas del núcleo, los modos, los logros y la copia de seguridad |
@@ -84,8 +87,28 @@ Requisitos del servidor:
 
   ```nginx
   location ~ /\.(?!well-known) { deny all; }
-  location ~ ^/tetris/(tests|tools|node_modules)/ { deny all; }
+  location ~ ^/tetris/(tests|tools|node_modules|server)/ { deny all; }
   location = /tetris/sw.js { add_header Cache-Control "no-cache"; }
   ```
 
 - Al publicar cambios grandes, sube `CACHE_VERSION` en `sw.js` para que los jugadores reciban la versión nueva al momento (si no, la reciben en la siguiente visita).
+
+## Cuentas y sincronización
+
+El registro está cerrado: no hay alta en la web. Las cuentas se crean en el servidor y el progreso se guarda **fuera** de la carpeta pública (por defecto `/var/lib/besttris`, se cambia con la variable de entorno `BESTTRIS_DATA`).
+
+- Contraseñas con Argon2id (o bcrypt si PHP no lo trae). Sesión con token aleatorio de 256 bits en cookie `HttpOnly`, `Secure`, `SameSite=Strict`, limitada a la carpeta `api/`; en disco solo se guarda su resumen SHA-256.
+- Límite de intentos: 5 fallos por usuario o 20 por dirección en 15 minutos bloquean durante 15 minutos.
+- Sin sesión el juego funciona igual (modo local). Al iniciar sesión se fusiona lo de este dispositivo con lo de la cuenta sin perder nada: contadores al máximo, récords y logros juntos, y en nombre, foto y ajustes gana el último cambio. La calidad visual y el sonido son de cada dispositivo.
+- Si dos dispositivos suben a la vez, el servidor rechaza al segundo (versión) y este vuelve a fusionar. Se guarda siempre la versión anterior como respaldo (`progreso/<usuario>.anterior.json`).
+
+Requisitos: PHP 7.4 o superior (Apache con PHP, o nginx con PHP-FPM). En el servidor, desde la carpeta del juego:
+
+```sh
+sudo install -d -o www-data -g www-data -m 700 /var/lib/besttris    # carpeta privada de datos
+sudo -u www-data php server/cli/crear-usuario.php NOMBRE              # crear usuario o cambiar su contraseña
+sudo -u www-data php server/cli/listar-usuarios.php                   # ver usuarios
+sudo -u www-data php server/cli/borrar-usuario.php NOMBRE             # borrar usuario y su progreso en el servidor
+```
+
+En nginx, añade también `location ~ ^/tetris/server/ { deny all; }`. Prueba de navegador: `php -S localhost:8123` con `BESTTRIS_DATA` de pruebas, usuario `prueba` / `prueba1234` y `node tests/e2e/account-sync.e2e.cjs`.

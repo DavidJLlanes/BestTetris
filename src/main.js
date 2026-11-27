@@ -26,6 +26,8 @@ import { bindSettingsPanel } from './ui/settingsPanel.js';
 import { bindRecordsPanel } from './ui/recordsPanel.js';
 import { bindTrophiesPanel } from './ui/trophiesPanel.js';
 import { bindProfilePanel } from './ui/profilePanel.js';
+import { bindAccountPanel } from './ui/account/bindAccountPanel.js';
+import { watchSync } from './sync/watchSync.js';
 import { bindSharePanel } from './ui/sharePanel.js';
 import { refreshIdentityBadge } from './ui/identityBadge.js';
 import { showOverlay } from './ui/overlays.js';
@@ -90,6 +92,7 @@ bindSettingsPanel();
 bindRecordsPanel();
 bindTrophiesPanel();
 bindProfilePanel();
+bindAccountPanel();
 bindSharePanel();
 bindPuzzlesPanel();
 bindCodePanel();
@@ -112,6 +115,7 @@ bindTouchGestures($('board-wrap'));
 watchConnection();
 bindInstallPrompt();
 registerServiceWorker();
+watchSync();
 if (app.device.touch) app.lastInput = 'touch';
 
 if (load('muted', false)) { setMuted(true); $('btn-mute').classList.add('off'); }

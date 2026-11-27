@@ -1,0 +1,35 @@
+/* Perfil > Cuenta: iniciar sesión y estado de la sincronización. */
+.account {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 14px; text-align: left; min-width: 0;
+  border: 1px solid var(--line); border-radius: 16px;
+  background: linear-gradient(160deg, rgba(70, 230, 255, .09), rgba(255, 79, 216, .06) 60%, rgba(255, 255, 255, .02));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 10px 30px rgba(0, 0, 0, .25);
+}
+.account-head { display: flex; align-items: center; gap: 12px; }
+.account-text { display: grid; gap: 3px; min-width: 0; }
+.account-text b { font-size: 15px; overflow-wrap: anywhere; }
+.account-text small { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.account-icon {
+  flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center;
+  background: radial-gradient(circle at 30% 25%, rgba(70, 230, 255, .35), rgba(70, 230, 255, .06) 70%);
+  border: 1px solid rgba(70, 230, 255, .3);
+  transition: background .5s var(--ease-out), border-color .5s var(--ease-out);
+}
+.account-icon svg { width: 32px; height: 32px; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.account-icon .cloud { stroke: var(--accent2); stroke-width: 2.6; fill: rgba(70, 230, 255, .12); }
+.account-icon .tick { stroke: #5cff9d; stroke-width: 3; stroke-dasharray: 18; stroke-dashoffset: 18; transition: stroke-dashoffset .6s var(--ease-out) .1s; }
+.account-icon .spin { stroke: var(--ink); stroke-width: 2.6; opacity: 0; transform-origin: 24px 26px; transition: opacity .25s; }
+.account[data-state=ok] .account-icon { border-color: rgba(92, 255, 157, .45); background: radial-gradient(circle at 30% 25%, rgba(92, 255, 157, .3), rgba(92, 255, 157, .05) 70%); }
+.account[data-state=ok] .tick { stroke-dashoffset: 0; }
+.account[data-state=busy] .spin { opacity: 1; animation: account-spin 0.9s linear infinite; }
+.account[data-state=pending] .account-icon { border-color: rgba(255, 211, 79, .45); }
+.account[data-state=error] .account-icon { border-color: rgba(255, 92, 122, .5); background: radial-gradient(circle at 30% 25%, rgba(255, 92, 122, .28), rgba(255, 92, 122, .05) 70%); }
+@keyframes account-spin { to { transform: rotate(360deg); } }
+.account-form { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; }
+.account-form .field { min-width: 0; }
+.account-form input { width: 100%; box-sizing: border-box; min-width: 0; }
+.account-form .btn { grid-column: 1 / -1; }
+.account-form[hidden], .account-actions[hidden] { display: none; }
+.account .status:empty { display: none; }
+@media (max-width: 480px) { .account-form { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .account[data-state=busy] .spin { animation-duration: 2.4s; } }

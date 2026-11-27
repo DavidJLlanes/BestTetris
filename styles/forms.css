@@ -13,7 +13,7 @@ input[type=checkbox] { accent-color: var(--accent); width: 20px; height: 20px; }
 
 /* Pantallas táctiles: todo lo que se toca mide al menos 40 px */
 .is-touch input[type=range] { height: 40px; }
-.is-touch select, .is-touch input[type=number], .is-touch input[type=text] { min-height: 40px; }
+.is-touch select, .is-touch input[type=number], .is-touch input[type=text], .is-touch input[type=password] { min-height: 44px; }
 .is-touch .tabs button { min-height: 40px; }
 .is-touch .ed-swatch, .is-touch .ed-piece { min-width: 40px; min-height: 40px; }
 
