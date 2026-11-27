@@ -12,6 +12,7 @@ export const DEFAULT_SETTINGS = {
   focus: false,
   slowmo: true,
   musical: true,      // las jugadas tocan notas de la canción
+  scenes: true,       // escenas que evolucionan durante la partida
   particles: true,    // partículas, estelas, salpicaduras y cámara que respira
   gems: 'prisma',     // tema de gemas (se desbloquean subiendo de nivel)
   bg: 'aurora',       // fondo

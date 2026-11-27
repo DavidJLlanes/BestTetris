@@ -16,3 +16,9 @@ body[data-season=spring] .aurora::after { background: radial-gradient(90% 70% at
 body[data-season=summer] .aurora::after { background: radial-gradient(90% 70% at 50% 0%, rgba(255,211,79,.18), transparent 70%); }
 body[data-season=autumn] .aurora::after { background: radial-gradient(90% 70% at 50% 100%, rgba(255,140,60,.2), transparent 70%); }
 body[data-season=winter] .aurora::after { background: radial-gradient(100% 80% at 50% 0%, rgba(160,220,255,.2), transparent 70%); }
+
+/* Escenas: los colores del fondo se funden despacio al cambiar (las variables se animan) */
+@property --au1 { syntax: '<color>'; inherits: true; initial-value: #5a1fff; }
+@property --au2 { syntax: '<color>'; inherits: true; initial-value: #ff2fb4; }
+@property --au3 { syntax: '<color>'; inherits: true; initial-value: #00b3d9; }
+body { transition: --au1 3.2s ease-in-out, --au2 3.6s ease-in-out, --au3 4s ease-in-out, opacity .5s var(--ease-out); }
