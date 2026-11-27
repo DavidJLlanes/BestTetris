@@ -1,7 +1,6 @@
 import { COLS, ROWS } from '../config/board.js';
 import { view } from './view.js';
 import { computeLayout } from './layoutMetrics.js';
-import { safeArea } from '../util/safeArea.js';
 
 function sizeCanvas(canvas, w, h) {
   w = Math.max(1, Math.round(w)); h = Math.max(1, Math.round(h));
@@ -14,10 +13,12 @@ function sizeCanvas(canvas, w, h) {
 /** Ajusta el tablero y los paneles al espacio disponible del dispositivo. */
 export function resize({ board, hold, next }, device) {
   view.dpr = Math.min(window.devicePixelRatio || 1, 3);
-  const vv = window.visualViewport;
-  const sa = safeArea();
-  const width = (vv ? vv.width : innerWidth) - sa.left - sa.right;
-  const height = (vv ? vv.height : innerHeight) - sa.top - sa.bottom;
+  // Se mide la caja real de la aplicación (ya sin márgenes seguros): el tablero y los botones
+  // caben siempre en ella, diga lo que diga el navegador de sus barras.
+  const app = document.getElementById('app'), cs = getComputedStyle(app);
+  const px = (k) => parseFloat(cs[k]) || 0;
+  const width = app.clientWidth - px('paddingLeft') - px('paddingRight');
+  const height = app.clientHeight - px('paddingTop') - px('paddingBottom');
   const stacked = device.stacked;
   const { cell, side, touchH = 0, strip = false, hud = 0 } = computeLayout({ width, height, stacked, touch: device.touch });
 
