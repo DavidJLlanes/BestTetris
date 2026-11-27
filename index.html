@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="styles/hint.css">
   <link rel="stylesheet" href="styles/puzzles.css">
   <link rel="stylesheet" href="styles/editor.css">
+  <link rel="stylesheet" href="styles/scrollbars.css">
   <script type="module" src="src/main.js"></script>
 </head>
 <body>
@@ -34,7 +35,7 @@
 
   <div id="app">
     <header class="topbar">
-      <button class="badge" id="badge" aria-label="Perfil"><span class="avatar" id="badge-avatar"></span><span class="badge-name" id="badge-name"></span></button>
+      <button class="badge" id="badge" aria-label="Perfil"><span class="avatar" id="badge-avatar"></span><span class="badge-text"><span class="badge-name" id="badge-name"></span><small class="badge-level" id="badge-level"></small></span></button>
       <div class="logo">BestTris</div>
       <div class="topbar-actions">
         <button class="icon-btn power-btn" id="btn-power" title="Usar poder (V)" aria-label="Usar poder" hidden><span id="power-icon">✦</span></button>
@@ -95,6 +96,7 @@
             <h2 id="over-title">Fin de la partida</h2>
             <div class="result" id="over-result"></div>
             <p class="newbest" id="over-best" hidden>¡Nuevo récord!</p>
+            <div class="xp-gain" id="over-xp" hidden><div class="xp-head"><span id="over-xp-level"></span><b id="over-xp-text"></b></div><div class="xp-bar"><i id="over-xp-bar"></i></div></div>
             <p class="tip" id="over-note" hidden></p>
             <div class="menu">
               <button class="btn primary" id="btn-next" hidden>Siguiente puzle</button>

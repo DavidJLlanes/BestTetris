@@ -41,3 +41,8 @@
 .layout-stacked.hud-strip .stat b { font-size: 15px; }
 .layout-stacked.hud-strip .stat-best:not(.race) { display: none; }
 @media (min-width: 600px) { .layout-stacked.hud-strip .stat b { font-size: 22px; } .layout-stacked.hud-strip .stat-best:not(.race) { display: block; } }
+
+/* Nivel y rango del jugador junto al avatar */
+.badge-text { display: grid; text-align: left; min-width: 0; line-height: 1.15; }
+.badge-level { font-size: 10px; font-weight: 700; color: var(--rank, var(--muted)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#badge-avatar { box-shadow: 0 0 0 2px var(--rank, var(--accent2)), 0 0 0 4px color-mix(in srgb, var(--rank, #ff4fd8) 35%, transparent); }

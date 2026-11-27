@@ -1,5 +1,6 @@
 import { $ } from '../util/dom.js';
 import { TIERS } from '../achievements/tiers.js';
+import { RARITY } from '../progress/rarity.js';
 import { playSfx } from '../audio/index.js';
 import { vibrate } from '../input/haptics.js';
 import { rumble } from '../input/gamepad/rumble.js';
@@ -12,11 +13,13 @@ function next() {
   const a = queue.shift();
   if (!a) { busy = false; return; }
   busy = true;
-  const tier = TIERS[a.tier];
+  const tier = TIERS[a.tier] || TIERS.gold;
+  const color = a.color || tier.color;
+  const kicker = a.kicker || `Logro desbloqueado · ${RARITY[a.tier].name}`;
   const el = document.createElement('div');
   el.className = 'toast';
-  el.style.setProperty('--tier', tier.color);
-  el.innerHTML = `<span class="toast-icon">${a.icon}</span><span class="toast-text"><small>Logro desbloqueado · ${tier.name}</small><b>${a.name}</b><em>${a.desc}</em></span>`;
+  el.style.setProperty('--tier', color);
+  el.innerHTML = `<span class="toast-icon">${a.icon}</span><span class="toast-text"><small>${kicker}</small><b>${a.name}</b><em>${a.desc}</em></span>`;
   $('toasts').appendChild(el);
   playSfx('achievement', { tier: a.tier });
   vibrate([10, 40, 10]);

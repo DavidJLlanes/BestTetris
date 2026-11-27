@@ -13,6 +13,7 @@ import { bindUndoButton } from './ui/undoButton.js';
 import { blockZoom } from './ui/blockZoom.js';
 import { bindRaceHud } from './ui/raceHud.js';
 import { bindPowerButton } from './ui/powerButton.js';
+import { bindLevelBadge } from './ui/levelBadge.js';
 import { bindReplayButtons } from './ui/replayButtons.js';
 import { watchReplay } from './replay/watchReplay.js';
 import { watchSpectate } from './replay/watchSpectate.js';
@@ -31,6 +32,7 @@ import { bindTouchGestures } from './input/touchGestures.js';
 import { watchConnection } from './input/gamepad/watchConnection.js';
 import { trackProfile } from './achievements/trackProfile.js';
 import { watchAchievements } from './achievements/watchAchievements.js';
+import { trackProgress } from './progress/trackProgress.js';
 import { watchFinish } from './app/onFinish.js';
 import { wireReactions } from './app/reactions/index.js';
 import { startLoop } from './app/loop.js';
@@ -52,6 +54,7 @@ blockZoom();
 
 trackProfile();       // primero: los logros leen el perfil ya actualizado
 watchAchievements();
+trackProgress();      // experiencia: después de los logros (cuentan los de esta partida)
 watchReplay();        // antes de watchFinish: la grabación se cierra antes de decidir si es récord
 watchFinish();
 wireReactions();
@@ -75,6 +78,7 @@ bindPuzzlesPanel();
 bindCodePanel();
 bindEditorPanel();
 refreshIdentityBadge();
+bindLevelBadge();
 
 bindKeyboard();
 bindTouchButtons($('game')); // botones de abajo y, en táctil, la caja de reserva
