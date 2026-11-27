@@ -38,6 +38,7 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 | `src/progress/` | Experiencia, niveles, rangos, rarezas, racha, temporada mensual y temas que se desbloquean |
 | `src/social/` | Retos por enlace (semilla y marca dentro del enlace) y clasificación local por periodos |
 | `src/versus/` | Dos jugadores en el mismo equipo: dos tableros, basura entre ellos, teclado partido y dos mandos |
+| `src/decor/` | Decoración del fondo y del tablero: polvo de luz, latido con la música, profundidad y calidad automática |
 | `src/pwa/` | Registro del service worker (`sw.js`) y botón de instalar |
 | `styles/` | Un CSS por zona de la interfaz |
 | `tests/` | Pruebas del núcleo, los modos, los logros y la copia de seguridad |
@@ -54,6 +55,8 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 - **Capa musical nueva:** añade una función a `src/audio/music/layers.js`; decide si suena según la tensión del tablero.
 - **Paleta nueva:** añade una entrada a `src/config/palettes.js` y, para que se pueda elegir, a `src/progress/themes.js` con el nivel que la desbloquea.
 - **Fondo o arreglo musical nuevo:** una entrada en `src/progress/themes.js` (y en `src/audio/music/styles.js` si es música).
+- **Adorno nuevo del fondo:** una entrada en `src/config/decor.js` (sale solo en Ajustes > Decoración), su capa en `index.html` y su CSS en `styles/decor.css` con la clase `.no-<id>` para apagarlo.
+- **Módulo nuevo:** tras añadir archivos, `npm run preload` actualiza la lista de precarga (una prueba avisa si se olvida).
 - **Ataque a dos jugadores:** la tabla de basura está en `src/config/versus.js`, junto a las teclas de cada jugador.
 - **Cambio de formato del guardado:** sube `VERSION` en `src/storage/backup/format.js` y añade el paso en `migrate.js`; las copias antiguas siguen valiendo.
 

@@ -22,7 +22,16 @@ export function startMusic() {
   if (!audio.ctx || seq.playing) return;
   seq.playing = true;
   seq.next = audio.ctx.currentTime + 0.08;
+  seq.anchor = seq.next;
   seq.timer = setInterval(pump, INTERVAL_MS);
+}
+/** Golpe del pulso musical 0..1 (1 justo en cada tiempo), para que el fondo lata con la música. */
+export function musicPulse() {
+  if (!seq.playing || !audio.ctx) return 0;
+  const beats = (audio.ctx.currentTime - seq.anchor) * (seq.bpm * seq.style.tempo) / 60;
+  if (beats < 0) return 0;
+  const phase = beats % 1;
+  return (1 - phase) ** 4;
 }
 export function stopMusic() { seq.playing = false; clearInterval(seq.timer); }
 export function restartMusic() { seq.step = 0; }

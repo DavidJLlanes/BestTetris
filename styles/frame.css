@@ -1,0 +1,55 @@
+/*
+ * Marco de cristal del tablero: borde con reflejo, resplandor del color de la pieza en juego
+ * (--piece), filigrana fina en las esquinas y un brillo que recorre el borde al subir de nivel.
+ * Encima del tablero pero sin tapar nada: solo bordes, sin pointer-events.
+ */
+.board-wrap { --piece: #a98bff; }
+#board { position: relative; z-index: 0; }
+.board-frame { position: absolute; inset: -5px; z-index: 1; pointer-events: none; border-radius: 14px; }
+.board-frame::before { /* borde de cristal con reflejo arriba */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px;
+  background: linear-gradient(160deg, rgba(255,255,255,.55), rgba(255,255,255,.06) 30%, rgba(255,255,255,.02) 60%, color-mix(in srgb, var(--piece) 60%, transparent));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.board-frame::after { /* resplandor que sigue el color de la pieza */
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  box-shadow: 0 0 28px color-mix(in srgb, var(--piece) 32%, transparent), 0 0 70px color-mix(in srgb, var(--piece) 14%, transparent), inset 0 0 22px rgba(0, 0, 0, .55);
+  transition: box-shadow .5s var(--ease-out);
+}
+/* Filigrana: dos trazos finos y un punto de luz en cada esquina */
+.fc { position: absolute; width: 26px; height: 26px; background:
+  radial-gradient(circle at 4px 4px, #fff 0 1.6px, transparent 2.4px),
+  linear-gradient(90deg, rgba(255,255,255,.75), transparent) 6px 3px / 20px 1px no-repeat,
+  linear-gradient(180deg, rgba(255,255,255,.75), transparent) 3px 6px / 1px 20px no-repeat;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--piece) 80%, transparent)); }
+.fc.tl { left: -3px; top: -3px; }
+.fc.tr { right: -3px; top: -3px; transform: scaleX(-1); }
+.fc.bl { left: -3px; bottom: -3px; transform: scaleY(-1); }
+.fc.br { right: -3px; bottom: -3px; transform: scale(-1, -1); }
+/* Brillo que recorre el contorno (subida de nivel, récord) */
+.sheen { position: absolute; inset: 0; border-radius: inherit; padding: 2px; opacity: 0;
+  background: conic-gradient(from var(--sheen-a, 0deg), transparent 0 80%, rgba(255,255,255,.95) 88%, transparent 96%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.sheen.go { animation: sheen 1.3s var(--ease-out) both; }
+@property --sheen-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes sheen { from { opacity: 1; --sheen-a: 0deg; } 85% { opacity: 1; } to { opacity: 0; --sheen-a: 360deg; } }
+
+/* Logotipo grande, casi transparente, sobre la rejilla */
+.board-mark { position: absolute; inset: 0; z-index: 1; display: grid; place-items: center; pointer-events: none; overflow: hidden; border-radius: 10px; }
+.board-mark span { writing-mode: vertical-rl; transform: rotate(180deg); font-weight: 900; font-size: calc(var(--cell) * 3.2); letter-spacing: .18em; color: #fff; opacity: .035; white-space: nowrap; }
+
+.no-frame .board-frame { display: none; }
+.no-mark .board-mark { display: none; }
+.focus-mode .board-mark, .focus-mode .fc { display: none; }
+
+/* Paneles: cristal esmerilado con borde fino y luz interior */
+.box { background: linear-gradient(180deg, rgba(40, 30, 96, .72), rgba(18, 13, 48, .78)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .09), inset 0 0 24px rgba(120, 90, 255, .08), 0 10px 30px rgba(0, 0, 0, .25); }
+.stat b.bump { animation: bump .32s var(--ease-spring); }
+@keyframes bump { 40% { transform: scale(1.14); color: #fff; text-shadow: 0 0 12px var(--accent2); } }
+.stat b { display: inline-block; }
+
+/* Medidor de nivel en forma de gema: se llena con las líneas hacia el siguiente nivel */
+.gem-meter { display: block; width: 100%; max-width: 110px; height: 8px; margin-top: 4px; clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 6px 100%, 0 50%); background: rgba(255, 255, 255, .08); }
+.gem-meter em { display: block; height: 100%; width: 100%; transform-origin: left; transform: scaleX(var(--p, 0)); transition: transform .5s var(--ease-out); background: linear-gradient(90deg, var(--accent2), #a98bff, var(--accent)); }
+.layout-stacked .gem-meter { margin: 3px auto 0; height: 5px; }
+.no-level .gem-meter { display: none; }

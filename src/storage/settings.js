@@ -7,5 +7,8 @@ function systemDefaults() {
   return calm ? { shake: false, slowmo: false } : {};
 }
 
-export function loadSettings() { return { ...DEFAULT_SETTINGS, ...systemDefaults(), ...load('settings', {}) }; }
+export function loadSettings() {
+  const saved = load('settings', {});
+  return { ...DEFAULT_SETTINGS, ...systemDefaults(), ...saved, decor: { ...DEFAULT_SETTINGS.decor, ...(saved.decor || {}) } };
+}
 export function saveSettings(settings) { save('settings', settings); }

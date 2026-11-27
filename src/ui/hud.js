@@ -6,14 +6,22 @@ import { formatNumber } from '../util/formatNumber.js';
 const els = {};
 const last = {};
 
+const BUMP = new Set(['score', 'level', 'lines']);
+let gem = null;
+
+/** Cambia una cifra; las que suben dan un pequeño salto (los números se sienten vivos). */
 function set(key, value) {
   if (last[key] === value) return;
+  const grew = last[key] !== undefined && BUMP.has(key);
   last[key] = value;
-  els[key].textContent = value;
+  const el = els[key];
+  el.textContent = value;
+  if (grew) { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
 }
 
 export function bindHud() {
   for (const k of ['score', 'level', 'lines', 'time', 'best']) els[k] = $(`s-${k}`);
+  gem = $('s-gem');
 }
 
 export function updateHud(g) {
@@ -22,6 +30,9 @@ export function updateHud(g) {
   set('score', formatNumber(g.score));
   set('level', g.rules.levelUp ? String(g.level) : '—');
   set('lines', mode.progress ? mode.progress(g) : g.rules.goalLines ? `${g.lines}/${g.rules.goalLines}` : String(g.lines));
+  const per = g.rules.linesPerLevel || 10;
+  const fill = g.rules.levelUp ? String(Math.round(((g.lines % per) / per) * 100) / 100) : '0';
+  if (last.gem !== fill) { last.gem = fill; gem.style.setProperty('--p', fill); }
   const remaining = g.rules.timeLimit ? Math.max(0, g.rules.timeLimit - g.time) : g.time;
   set('time', formatTime(remaining, mode.record === 'time'));
 }

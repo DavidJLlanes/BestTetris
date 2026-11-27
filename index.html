@@ -30,6 +30,8 @@
   <link rel="stylesheet" href="styles/scrollbars.css">
   <link rel="stylesheet" href="styles/progress.css">
   <link rel="stylesheet" href="styles/versus.css">
+  <link rel="stylesheet" href="styles/decor.css">
+  <link rel="stylesheet" href="styles/frame.css">
   <script type="module" src="src/main.js"></script>
   <!-- modulepreload:start (generado: npm run preload) -->
   <link rel="modulepreload" href="src/achievements/catalog/lifetime.js">
@@ -84,6 +86,7 @@
   <link rel="modulepreload" href="src/config/board.js">
   <link rel="modulepreload" href="src/config/colors.js">
   <link rel="modulepreload" href="src/config/controls.js">
+  <link rel="modulepreload" href="src/config/decor.js">
   <link rel="modulepreload" href="src/config/defaults.js">
   <link rel="modulepreload" href="src/config/gestures.js">
   <link rel="modulepreload" href="src/config/kicks.js">
@@ -141,6 +144,14 @@
   <link rel="modulepreload" href="src/core/undo/takeSnapshot.js">
   <link rel="modulepreload" href="src/core/undo/undoCost.js">
   <link rel="modulepreload" href="src/core/undo/undoMove.js">
+  <link rel="modulepreload" href="src/decor/applyDecor.js">
+  <link rel="modulepreload" href="src/decor/autoQuality.js">
+  <link rel="modulepreload" href="src/decor/decorLoop.js">
+  <link rel="modulepreload" href="src/decor/decorReactions.js">
+  <link rel="modulepreload" href="src/decor/dustLayer.js">
+  <link rel="modulepreload" href="src/decor/index.js">
+  <link rel="modulepreload" href="src/decor/parallax.js">
+  <link rel="modulepreload" href="src/decor/state.js">
   <link rel="modulepreload" href="src/effects/floatText.js">
   <link rel="modulepreload" href="src/effects/impact.js">
   <link rel="modulepreload" href="src/effects/resetEffects.js">
@@ -299,6 +310,7 @@
   <link rel="modulepreload" href="src/ui/challenge/challengeButton.js">
   <link rel="modulepreload" href="src/ui/challenge/openSharedChallenge.js">
   <link rel="modulepreload" href="src/ui/countdown.js">
+  <link rel="modulepreload" href="src/ui/decorSettings.js">
   <link rel="modulepreload" href="src/ui/editor/buildEditorPuzzle.js">
   <link rel="modulepreload" href="src/ui/editor/editorGrid.js">
   <link rel="modulepreload" href="src/ui/editor/editorPalette.js">
@@ -329,6 +341,7 @@
   <link rel="modulepreload" href="src/ui/replayButtons.js">
   <link rel="modulepreload" href="src/ui/settingsPanel.js">
   <link rel="modulepreload" href="src/ui/sharePanel.js">
+  <link rel="modulepreload" href="src/ui/sidePanels.js">
   <link rel="modulepreload" href="src/ui/themes/applyTheme.js">
   <link rel="modulepreload" href="src/ui/themes/themeSwatch.js">
   <link rel="modulepreload" href="src/ui/themes/themesPanel.js">
@@ -373,6 +386,15 @@
 </head>
 <body>
   <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="decor" id="decor" aria-hidden="true">
+    <div class="d-layer d-orbs"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="d-layer d-facets"><i></i><i></i><i></i><i></i></div>
+    <canvas class="d-layer d-dust" id="decor-dust"></canvas>
+    <div class="d-glow"></div>
+    <div class="d-ring" id="decor-ring"></div>
+    <div class="d-tension"></div>
+    <div class="d-grain"></div>
+  </div>
 
   <div class="versus" id="versus" hidden></div>
 
@@ -397,7 +419,7 @@
 
       <section class="box stats">
         <div class="stat stat-score"><span>Puntos</span><b id="s-score">0</b></div>
-        <div class="stat stat-level"><span>Nivel</span><b id="s-level">1</b></div>
+        <div class="stat stat-level"><span>Nivel</span><b id="s-level">1</b><i class="gem-meter" aria-hidden="true"><em id="s-gem"></em></i></div>
         <div class="stat stat-lines"><span>Líneas</span><b id="s-lines">0</b></div>
         <div class="stat stat-time"><span>Tiempo</span><b id="s-time">0:00</b></div>
         <div class="stat stat-best"><span>Récord</span><b id="s-best">—</b></div>
@@ -405,6 +427,8 @@
 
       <div class="board-wrap" id="board-wrap">
         <canvas id="board"></canvas>
+        <div class="board-mark" aria-hidden="true"><span>BestTris</span></div>
+        <div class="board-frame" aria-hidden="true"><i class="fc tl"></i><i class="fc tr"></i><i class="fc bl"></i><i class="fc br"></i><i class="sheen" id="board-sheen"></i></div>
 
         <div class="overlay" id="ov-menu">
           <div class="card">
@@ -530,6 +554,11 @@
               <label class="check"><input type="checkbox" id="set-slowmo"> Cámara lenta en las grandes jugadas</label>
               <label class="check"><input type="checkbox" id="set-colorblind"> Modo daltónico (colores seguros y símbolos)</label>
               <label class="check"><input type="checkbox" id="set-focus"> Modo foco (menos distracciones)</label>
+              <details class="decor-settings">
+                <summary>Decoración</summary>
+                <label>Calidad de los efectos<select id="set-quality"></select></label>
+                <div id="decor-parts"></div>
+              </details>
             </div>
             <button class="btn ghost" data-back>Volver</button>
           </div>
@@ -705,6 +734,9 @@
         <h3 data-short="Próximas"><span>Siguientes</span></h3>
         <canvas id="next"></canvas>
       </section>
+
+      <section class="box side-card side-left" aria-label="Tu rango"><h3>Tu rango</h3><div id="side-rank"></div></section>
+      <section class="box side-card side-right" aria-label="Hoy"><h3>Hoy</h3><div class="result" id="side-today"></div></section>
 
       <div class="touch" id="touch" aria-label="Controles táctiles">
         <nav class="touch-group touch-left">

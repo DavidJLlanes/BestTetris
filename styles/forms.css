@@ -16,3 +16,11 @@ input[type=checkbox] { accent-color: var(--accent); width: 20px; height: 20px; }
 .is-touch select, .is-touch input[type=number], .is-touch input[type=text] { min-height: 40px; }
 .is-touch .tabs button { min-height: 40px; }
 .is-touch .ed-swatch, .is-touch .ed-piece { min-width: 40px; min-height: 40px; }
+
+/* Ajustes > Decoración */
+.decor-settings { border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; background: rgba(255,255,255,.03); }
+.decor-settings summary { cursor: pointer; font-weight: 700; padding: 6px 0; list-style-position: inside; }
+.decor-settings[open] summary { margin-bottom: 6px; }
+.decor-settings > label, #decor-parts { display: grid; gap: 8px; margin-top: 6px; }
+.decor-settings select { display: block; width: 100%; margin-top: 4px; font: 600 15px var(--font); color: var(--ink); background: rgba(255,255,255,.07); border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px; }
+.decor-settings select option { background: #1a1440; }

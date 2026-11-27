@@ -1,0 +1,53 @@
+/*
+ * Decoración del fondo, por capas. Todo lo que se mueve anima solo transform u opacity
+ * (lo hace la GPU sin coste). Cada capa se apaga con una clase del body (Ajustes > Decoración).
+ * --px/--py: profundidad al mover el móvil o el ratón. --live: latido (música y jugadas).
+ */
+.decor { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; --px: 0; --py: 0; --live: 0; --tension: 0; }
+.d-layer { position: absolute; inset: -40px; transform: translate3d(calc(var(--px) * var(--d, 10) * 1px), calc(var(--py) * var(--d, 10) * 1px), 0); will-change: transform; }
+.d-orbs { --d: 18; } .d-facets { --d: 10; } .d-dust { --d: 26; }
+
+/* Orbes de luz: esferas suaves que flotan despacio */
+.d-orbs i { position: absolute; border-radius: 50%; opacity: .55; will-change: transform; animation: orb 26s ease-in-out infinite alternate; }
+.d-orbs i:nth-child(1) { width: 34vmax; height: 34vmax; left: 4%; top: 12%; background: radial-gradient(closest-side, color-mix(in srgb, var(--au2, #ff2fb4) 38%, transparent), transparent); }
+.d-orbs i:nth-child(2) { width: 22vmax; height: 22vmax; right: 6%; top: 52%; background: radial-gradient(closest-side, color-mix(in srgb, var(--au3, #00b3d9) 42%, transparent), transparent); animation-duration: 31s; animation-delay: -9s; }
+.d-orbs i:nth-child(3) { width: 14vmax; height: 14vmax; left: 62%; top: 6%; background: radial-gradient(closest-side, color-mix(in srgb, var(--au1, #5a1fff) 55%, transparent), transparent); animation-duration: 22s; animation-delay: -4s; }
+.d-orbs i:nth-child(4) { width: 10vmax; height: 10vmax; left: 18%; bottom: 8%; background: radial-gradient(closest-side, rgba(255, 211, 79, .22), transparent); animation-duration: 36s; animation-delay: -15s; }
+.d-orbs i:nth-child(5) { width: 18vmax; height: 18vmax; right: 24%; bottom: -4%; background: radial-gradient(closest-side, color-mix(in srgb, var(--au2, #ff2fb4) 30%, transparent), transparent); animation-duration: 29s; animation-delay: -20s; }
+@keyframes orb { 33% { transform: translate3d(4vmax, -3vmax, 0) scale(1.08); } 66% { transform: translate3d(-3vmax, 2vmax, 0) scale(.94); } to { transform: translate3d(2vmax, 4vmax, 0) scale(1.04); } }
+
+/* Facetas de prisma: cristales translúcidos que giran muy despacio (cada uno es su propia capa) */
+.d-facets i { position: absolute; width: 26vmax; height: 26vmax; clip-path: polygon(50% 0, 100% 78%, 0 100%); will-change: transform; animation: facet 90s linear infinite;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--au1, #5a1fff) 16%, transparent), color-mix(in srgb, var(--au3, #00b3d9) 3%, transparent) 70%), linear-gradient(90deg, rgba(255,255,255,.08), transparent 30%); }
+.d-facets i:nth-child(1) { left: 4%; top: 2%; }
+.d-facets i:nth-child(2) { right: 2%; top: 14%; width: 20vmax; height: 20vmax; animation-duration: 120s; animation-direction: reverse; background: linear-gradient(200deg, color-mix(in srgb, var(--au2, #ff2fb4) 14%, transparent), transparent 70%); }
+.d-facets i:nth-child(3) { left: 0; bottom: 4%; width: 22vmax; height: 22vmax; animation-duration: 105s; background: linear-gradient(20deg, color-mix(in srgb, var(--au2, #ff2fb4) 12%, transparent), transparent 70%); }
+.d-facets i:nth-child(4) { right: 6%; bottom: 0; animation-duration: 140s; animation-direction: reverse; }
+@keyframes facet { to { transform: rotate(360deg); } }
+
+/* Polvo de luz (lienzo propio, dibujado por src/decor/dustLayer.js) */
+.d-dust { width: calc(100% + 80px); height: calc(100% + 80px); }
+
+/* Latido: luz que se enciende con el pulso de la música, las líneas y la tensión */
+.d-glow { position: absolute; inset: 0; background: radial-gradient(60% 50% at 50% 45%, color-mix(in srgb, var(--glow, var(--rank-glow, #a98bff)) 40%, transparent), transparent 70%); opacity: calc(var(--live) * .9); will-change: opacity; }
+.d-tension { position: absolute; inset: 0; box-shadow: inset 0 0 18vmin rgba(255, 40, 90, .55); opacity: var(--tension); will-change: opacity; transition: opacity .4s; }
+.d-ring { position: absolute; left: 50%; top: 45%; width: 20vmax; height: 20vmax; margin: -10vmax 0 0 -10vmax; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .7); box-shadow: 0 0 40px rgba(169, 139, 255, .8), inset 0 0 40px rgba(70, 230, 255, .5); opacity: 0; }
+.d-ring.go { animation: ring 1.4s var(--ease-out) both; }
+@keyframes ring { from { opacity: .9; transform: scale(.2); } to { opacity: 0; transform: scale(4); } }
+
+/* Viñeta y grano en una sola capa: profundidad y textura de papel fotográfico */
+.d-grain { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(4, 2, 14, .65)), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* Estaciones: la decoración toma el color de la estación */
+body[data-season=spring] .decor { --glow: #5cff9d; }
+body[data-season=summer] .decor { --glow: #ffd34f; }
+body[data-season=autumn] .decor { --glow: #ff8c3c; }
+body[data-season=winter] .decor { --glow: #a0dcff; }
+
+/* Interruptores (Ajustes) y calidad */
+.no-orbs .d-orbs, .no-facets .d-facets, .no-dust .d-dust, .no-grain .d-grain, .no-live .d-glow, .no-live .d-ring, .no-live .d-tension { display: none; }
+.q-low .d-dust, .q-low .d-facets { display: none; }
+.q-low .d-orbs i, .q-low .aurora span { animation: none; }
+.q-medium .d-orbs i:nth-child(n+4), .q-medium .d-facets i:nth-child(n+3) { display: none; }
+.focus-mode .decor > :not(.d-grain):not(.d-tension) { display: none; }
+@media (prefers-reduced-motion: reduce) { .d-orbs i, .d-facets i { animation: none; } .d-layer { transform: none; } }

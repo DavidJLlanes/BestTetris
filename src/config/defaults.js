@@ -14,4 +14,6 @@ export const DEFAULT_SETTINGS = {
   gems: 'prisma',     // tema de gemas (se desbloquean subiendo de nivel)
   bg: 'aurora',       // fondo
   musicStyle: 'cascada', // arreglo de la música
+  quality: 'auto',    // calidad de la decoración: auto | high | medium | low
+  decor: { orbs: true, dust: true, facets: true, frame: true, mark: true, grain: true, live: true, tilt: true },
 };

@@ -3,6 +3,7 @@ import { app } from '../app/state.js';
 import { saveSettings } from '../storage/settings.js';
 import { setVolumes, playSfx } from '../audio/index.js';
 import { applyTheme } from './themes/applyTheme.js';
+import { applyDecor } from '../decor/applyDecor.js';
 
 const SLIDERS = ['music', 'sfx', 'das', 'arr'];
 const CHECKS = ['ghost', 'shake', 'grid', 'haptics', 'colorblind', 'focus', 'slowmo'];
@@ -20,6 +21,7 @@ export function bindSettingsPanel() {
     setVolumes(s.music / 100, s.sfx / 100);
     applyTheme(s);
     document.body.classList.toggle('focus-mode', s.focus);
+    applyDecor(s);
     saveSettings(s);
   };
   [...SLIDERS, ...CHECKS].forEach((k) => $(`set-${k}`).addEventListener('input', apply));

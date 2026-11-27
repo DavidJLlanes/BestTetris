@@ -13,6 +13,7 @@ import { perf } from './perf.js';
 import { timeScale } from '../effects/slowMotion.js';
 import { updateMusicTension } from './musicTension.js';
 import { versusActive, updateVersus } from '../versus/versusLoop.js';
+import { updateDecor } from '../decor/index.js';
 
 /** Bucle principal: un paso por fotograma de pantalla (60, 120 o 144 Hz, lo que dé el monitor). */
 let last = 0;
@@ -33,6 +34,7 @@ function frame(now) {
   if (versusActive()) { // dos jugadores: su propio bucle, el tablero normal no se dibuja
     if (app.screen === 'vpause' || app.screen === 'vover') pollGamepad(dt);
     updateVersus(dt);
+    updateDecor(dt, null);
     perf.record(dt, performance.now() - t0);
     requestAnimationFrame(frame);
     return;
@@ -44,6 +46,7 @@ function frame(now) {
   updateMotion(g, gdt);
   updateEffects(gdt);
   updateMusicTension(g, dt);
+  updateDecor(dt, g);
   drawBoard(g, app.settings, now);
   drawSide(g);
   updateHud(g);
