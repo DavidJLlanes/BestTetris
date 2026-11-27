@@ -4,7 +4,7 @@
  * barra superior, con un panel propio, y el menú pasa a tres columnas para caber entero.
  */
 .is-touch:not(.is-phone).layout-side .overlay {
-  position: fixed; z-index: 20; top: calc(env(safe-area-inset-top) + 52px); left: 0; right: 0; bottom: 0;
+  position: fixed; z-index: 20; top: calc(var(--pad-t, env(safe-area-inset-top)) + 48px); left: 0; right: 0; bottom: 0;
   padding: 14px max(24px, env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
   border-radius: 0; align-items: flex-start;
   background: radial-gradient(120% 60% at 50% 0%, rgba(90, 60, 200, .22), transparent 60%), linear-gradient(180deg, rgba(14, 10, 40, .97), rgba(7, 5, 26, .98));

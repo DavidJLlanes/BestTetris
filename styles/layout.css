@@ -61,3 +61,13 @@ body:not(.is-touch) .touch { display: none; }
 }
 .layout-stacked.hud-strip .hold-box, .layout-stacked.hud-strip .next-box, .layout-stacked.hud-strip .stats { justify-self: stretch; height: var(--hud-h); }
 .layout-stacked:not(.hud-strip) .board-wrap { align-self: center; }
+
+/* Barra superior con fondo propio, opaco y quieto: así no se ven a través de ella los pulsos de luz
+   del fondo (música, líneas, escenas), que en la franja de arriba parecían destellos. */
+.topbar { position: relative; z-index: 3; isolation: isolate; }
+.topbar::before {
+  content: ""; position: absolute; z-index: -1; left: 50%; width: 100vw; transform: translateX(-50%);
+  top: calc(-1 * var(--pad-t, 0px)); bottom: 0;
+  background: linear-gradient(180deg, #17103f, #100b2e); border-bottom: 1px solid rgba(190, 180, 255, .12);
+  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, .7);
+}

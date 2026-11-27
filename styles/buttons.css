@@ -22,8 +22,7 @@
 /* Poder: anillo de carga que se llena con las líneas (conic-gradient, sin repintar el resto) */
 .power-btn { position: relative; font-size: 17px; background: conic-gradient(var(--pc, #a98bff) calc(var(--charge, 0) * 360deg), rgba(255,255,255,.06) 0) padding-box; border: 2px solid transparent; }
 .power-btn span { position: absolute; inset: 3px; display: grid; place-items: center; border-radius: 8px; background: var(--bg, #0b0820); }
-.power-btn.ready { animation: power-ready 1.2s ease-in-out infinite; }
-@keyframes power-ready { 50% { box-shadow: 0 0 0 2px var(--pc), 0 0 22px var(--pc); } }
+.power-btn.ready { box-shadow: 0 0 0 2px var(--pc), 0 0 16px var(--pc); }
 
 /* Pantalla completa: icono de entrar o de salir */
 .fs-btn { display: grid; place-items: center; padding: 0; }
@@ -45,10 +44,9 @@ body:has(#ov-menu:not([hidden])) .update-btn { display: grid; }
 .star-btn::before { content: ""; position: absolute; inset: 3px; border-radius: 9px; padding: 2px;
   background: conic-gradient(#ffd34f calc(var(--charge, 0) * 360deg), rgba(255, 255, 255, .08) 0);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-.star-btn.ready { color: #ffe08a; box-shadow: 0 0 14px rgba(255, 211, 79, .35); animation: star-ready 1.4s ease-in-out infinite; }
+.star-btn.ready { color: #ffe08a; box-shadow: 0 0 14px rgba(255, 211, 79, .35); }
 .star-btn.full { color: #fff3c4; box-shadow: 0 0 22px rgba(255, 211, 79, .6); }
 .star-btn.active { color: #fff; border-color: rgba(255, 211, 79, .7); box-shadow: 0 0 24px rgba(255, 211, 79, .55); }
-@keyframes star-ready { 50% { transform: scale(1.06); } }
 /* Sonido apagado: el ♪ se tacha con una barra bien visible */
 #btn-mute { position: relative; }
 #btn-mute.off { text-decoration: none; }
