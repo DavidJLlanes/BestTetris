@@ -7,7 +7,7 @@
   "scripts": {
     "start": "python3 -m http.server 8000",
     "test": "node --test \"tests/**/*.test.js\"",
-    "test:e2e": "node tests/e2e/controls-visible.e2e.cjs && node tests/e2e/ios26-visible.e2e.cjs && node tests/e2e/keyboard-portrait.e2e.cjs && node tests/e2e/touch-buttons.e2e.cjs && node tests/e2e/gestures-locked.e2e.cjs",
+    "test:e2e": "node tests/e2e/controls-visible.e2e.cjs && node tests/e2e/ios26-visible.e2e.cjs && node tests/e2e/keyboard-portrait.e2e.cjs && node tests/e2e/touch-buttons.e2e.cjs && node tests/e2e/gestures-locked.e2e.cjs && node tests/e2e/installed-fullheight.e2e.cjs",
     "preload": "node tools/writePreload.js"
   }
 }

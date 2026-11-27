@@ -2,9 +2,6 @@
 * { box-sizing: border-box; }
 html, body {
   margin: 0;
-  /* Fijas al cristal: la página no puede desplazarse en ninguna dirección */
-  position: fixed; inset: 0;
-  width: 100%;
   height: 100%;
   background: var(--bg);
   color: var(--ink);
@@ -30,3 +27,11 @@ input, select, textarea { touch-action: manipulation; -webkit-user-select: text;
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/*
+ * App instalada en iPhone: el área de diseño de iOS puede quedarse más corta que la pantalla
+ * (le resta la barra de estado) aunque se pinta desde arriba del todo. Se fija todo al alto real
+ * de la pantalla (--fill-h, lo pone pinViewport) para que no quede una franja vacía abajo.
+ */
+html.installed, html.installed body { height: var(--fill-h, 100%); }
+html.installed .aurora, html.installed .decor { bottom: auto; height: var(--fill-h, 100%); }
