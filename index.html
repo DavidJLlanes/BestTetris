@@ -232,6 +232,7 @@
   <link rel="modulepreload" href="src/puzzles/solver/placements.js">
   <link rel="modulepreload" href="src/puzzles/solver/solvable.js">
   <link rel="modulepreload" href="src/puzzles/targetCells.js">
+  <link rel="modulepreload" href="src/pwa/checkForUpdate.js">
   <link rel="modulepreload" href="src/pwa/installPrompt.js">
   <link rel="modulepreload" href="src/pwa/registerServiceWorker.js">
   <link rel="modulepreload" href="src/render/applyPalette.js">
@@ -360,6 +361,7 @@
   <link rel="modulepreload" href="src/ui/toast.js">
   <link rel="modulepreload" href="src/ui/trophiesPanel.js">
   <link rel="modulepreload" href="src/ui/undoButton.js">
+  <link rel="modulepreload" href="src/ui/updateButton.js">
   <link rel="modulepreload" href="src/ui/versus/versusPanel.js">
   <link rel="modulepreload" href="src/ui/watchViewport.js">
   <link rel="modulepreload" href="src/ui/watchVisibility.js">
@@ -415,6 +417,7 @@
       <button class="badge" id="badge" aria-label="Perfil"><span class="avatar" id="badge-avatar"></span><span class="badge-text"><span class="badge-name" id="badge-name"></span><small class="badge-level" id="badge-level"></small></span></button>
       <div class="logo">BestTris</div>
       <div class="topbar-actions">
+        <button class="icon-btn update-btn" id="btn-update" title="Actualizar a la última versión" aria-label="Actualizar a la última versión"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19.6 4.2v4.2h-4.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button class="icon-btn power-btn" id="btn-power" title="Usar poder (V)" aria-label="Usar poder" hidden><span id="power-icon">✦</span></button>
         <button class="icon-btn undo-btn" id="btn-undo" title="Deshacer (Retroceso)" aria-label="Deshacer la última pieza" hidden>↶<small id="undo-left"></small></button>
         <button class="icon-btn fs-btn" id="btn-fullscreen" title="Pantalla completa" aria-label="Pantalla completa"><svg class="fs-enter" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="fs-exit" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>

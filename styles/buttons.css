@@ -41,3 +41,11 @@
 .fs-btn svg { width: 18px; height: 18px; }
 .fs-btn .fs-exit, .fs-btn.is-on .fs-enter { display: none; }
 .fs-btn.is-on .fs-exit { display: block; }
+
+/* Actualizar: solo en la pantalla principal; gira mientras comprueba */
+.update-btn { display: none; place-items: center; padding: 0; }
+body:has(#ov-menu:not([hidden])) .update-btn { display: grid; }
+.update-btn svg { width: 18px; height: 18px; }
+.update-btn.spinning svg { animation: update-spin .7s cubic-bezier(.45, .05, .35, 1) infinite; filter: drop-shadow(0 0 6px rgba(70, 230, 255, .7)); }
+.update-btn.spinning { border-color: rgba(70, 230, 255, .5); box-shadow: 0 0 16px rgba(70, 230, 255, .3); }
+@keyframes update-spin { to { transform: rotate(360deg); } }
