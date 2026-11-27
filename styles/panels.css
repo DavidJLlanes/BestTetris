@@ -1,0 +1,37 @@
+/* Paneles laterales: reserva, marcador, siguientes y avatar. */
+.box { background: var(--glass); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px; }
+.box h3 { margin: 0 0 6px; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.box canvas { display: block; margin: 0 auto; }
+.stats { display: grid; gap: 8px; }
+.stat span { display: block; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.stat b { font-size: 20px; font-variant-numeric: tabular-nums; }
+.no-hold .hold-box { opacity: .35; }
+.no-hold [data-act=hold] { visibility: hidden; }
+
+.badge { display: flex; align-items: center; gap: 8px; background: none; border: 0; padding: 4px; border-radius: 99px; cursor: pointer; min-width: 0; max-width: 40%; }
+.badge-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.avatar { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 14px; background: #241a5e center / cover no-repeat; box-shadow: 0 0 0 2px var(--accent2), 0 0 0 4px rgba(255, 79, 216, .35); }
+.avatar.big { width: 88px; height: 88px; font-size: 36px; }
+
+/* Móvil: franja compacta */
+.layout-stacked .box { padding: 5px 6px; border-radius: 10px; }
+.layout-stacked .box h3 { font-size: 8px; letter-spacing: .08em; margin-bottom: 2px; }
+.layout-stacked .stats { grid-template-columns: repeat(3, 1fr); gap: 4px; align-content: center; }
+.layout-stacked .stat { text-align: center; }
+.layout-stacked .stat b { font-size: 15px; }
+.layout-stacked .stat span { font-size: 8px; letter-spacing: .06em; }
+.layout-stacked .stat-best,
+.layout-stacked .stat-time,
+.layout-stacked.no-level .stat-level { display: none; }
+.layout-stacked.no-level .stat-time { display: block; }
+.layout-stacked .logo { display: none; }
+
+/* Tablet en vertical: franja más amplia */
+@media (min-width: 600px) {
+  .layout-stacked .box h3 { font-size: 11px; }
+  .layout-stacked .stat b { font-size: 24px; }
+  .layout-stacked .stat span { font-size: 10px; }
+  .layout-stacked .stats { grid-template-columns: repeat(4, 1fr); }
+  .layout-stacked .stat-time { display: block; }
+  .layout-stacked.no-level .stat-level { display: none; }
+}

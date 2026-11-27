@@ -1,0 +1,42 @@
+/*
+ * Pantallas superpuestas. Entran con un leve ascenso y escala, y salen al revés:
+ * solo opacity y transform, que se animan en la GPU a la frecuencia de la pantalla.
+ */
+.overlay { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; padding: 12px; border-radius: 10px; background: rgba(8, 5, 26, .82); }
+.overlay.enter { animation: ov-in .36s var(--ease-out) both; }
+.overlay.enter .card { animation: card-in .46s var(--ease-out) both; }
+.overlay.leave { animation: ov-out .22s ease-in both; pointer-events: none; }
+.overlay.leave .card { animation: card-out .22s ease-in both; }
+@keyframes ov-in { from { opacity: 0; } }
+@keyframes ov-out { to { opacity: 0; } }
+@keyframes card-in { from { opacity: 0; transform: translate3d(0, 16px, 0) scale(.96); } }
+@keyframes card-out { to { opacity: 0; transform: translate3d(0, -10px, 0) scale(.98); } }
+
+.card { width: 100%; max-height: 100%; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; text-align: center; display: flex; flex-direction: column; gap: 12px; padding: 4px; }
+.card h2 { margin: 0; font-size: 22px; letter-spacing: .1em; }
+.card h3.sub { margin: 4px 0 0; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.title { margin: 0; font-size: clamp(32px, calc(var(--cell) * 1.5), 56px); font-weight: 900; letter-spacing: .18em; background: linear-gradient(120deg, #46e6ff, #a98bff 45%, #ff4fd8 75%, #ffd34f, #46e6ff); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer 6s linear infinite; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+.subtitle { margin: -6px 0 2px; color: var(--muted); font-size: 13px; }
+.menu { display: flex; flex-direction: column; gap: 8px; }
+.menu-row { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+
+.result { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; text-align: left; font-size: 14px; }
+.result span { color: var(--muted); }
+.result b { text-align: right; font-variant-numeric: tabular-nums; }
+.newbest { margin: 0; color: var(--gold); font-weight: 800; letter-spacing: .1em; animation: pulse 1s ease-in-out infinite alternate; }
+@keyframes pulse { to { opacity: .55; transform: scale(1.05); } }
+
+.records { text-align: left; font-size: 13px; display: grid; gap: 12px; }
+.records h4 { margin: 0 0 4px; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.records ol { margin: 0; padding-left: 22px; }
+.records li { font-variant-numeric: tabular-nums; }
+.records .empty { margin: 0; color: var(--muted); font-style: italic; }
+
+.keys { margin: 0 auto; border-collapse: collapse; font-size: 13px; text-align: left; }
+.keys td { padding: 3px 8px; }
+kbd { display: inline-block; min-width: 22px; padding: 1px 6px; border-radius: 6px; border: 1px solid var(--line); background: rgba(255,255,255,.08); font: 600 11px/18px var(--font); text-align: center; }
+.tip { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.45; }
+.status { margin: 0; min-height: 1.2em; font-size: 13px; }
+.status.ok { color: #5cff9d; }
+.status.error { color: #ff5c7a; }

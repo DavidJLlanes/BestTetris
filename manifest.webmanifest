@@ -1,0 +1,10 @@
+{
+  "name": "PRISMA",
+  "short_name": "PRISMA",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#0b0820",
+  "theme_color": "#0b0820",
+  "icons": [{ "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

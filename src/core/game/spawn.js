@@ -1,0 +1,16 @@
+import { createPiece } from '../pieces/createPiece.js';
+import { collides } from '../pieces/collides.js';
+import { takeNext } from './takeNext.js';
+import { topOut } from './topOut.js';
+
+/** Hace aparecer una pieza (la indicada o la siguiente de la cola). */
+export function spawn(g, type = null) {
+  const p = createPiece(type || takeNext(g));
+  g.cur = p;
+  g.lockTimer = 0; g.resets = 0; g.lowestY = p.y; g.gravAcc = 0;
+  g.lastRotate = false;
+  if (collides(g.board, p)) { topOut(g); return; }
+  if (!collides(g.board, p, p.rot, p.x, p.y + 1)) p.y++;
+  g.lowestY = p.y;
+  g.emit('spawn', { piece: p });
+}

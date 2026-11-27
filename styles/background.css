@@ -1,0 +1,10 @@
+/*
+ * Auroras de fondo. Se pintan con degradados radiales (sin filtro de desenfoque)
+ * y solo se anima transform, así el navegador las mueve en la GPU sin coste.
+ */
+.aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: radial-gradient(120% 90% at 50% 0%, var(--bg2), var(--bg) 60%); }
+.aurora span { position: absolute; width: 90vmax; height: 90vmax; border-radius: 50%; will-change: transform; animation: drift 28s ease-in-out infinite alternate; }
+.aurora span:nth-child(1) { left: -40vmax; top: -40vmax; background: radial-gradient(closest-side, rgba(90, 31, 255, .55), transparent); }
+.aurora span:nth-child(2) { right: -45vmax; top: -5vmax; background: radial-gradient(closest-side, rgba(255, 47, 180, .35), transparent); animation-duration: 34s; }
+.aurora span:nth-child(3) { left: -10vmax; bottom: -55vmax; background: radial-gradient(closest-side, rgba(0, 179, 217, .35), transparent); animation-duration: 40s; }
+@keyframes drift { to { transform: translate3d(8vmax, -6vmax, 0) scale(1.12); } }

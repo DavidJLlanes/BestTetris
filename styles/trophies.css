@@ -1,0 +1,25 @@
+/* Vitrina de trofeos y avisos de logro. */
+.trophy-summary { font-size: 14px; }
+.trophy-summary .bar { height: 8px; margin-top: 8px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
+.trophy-summary .bar i { display: block; height: 100%; transform-origin: left; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: transform .8s var(--ease-out); }
+.trophy-list { display: grid; gap: 6px; text-align: left; }
+.trophy-list h4 { margin: 10px 0 2px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; }
+.trophy { display: grid; grid-template-columns: 36px 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 12px; background: rgba(255,255,255,.04); border: 1px solid var(--line); }
+.trophy-icon { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 900; color: #120c33; background: radial-gradient(circle at 35% 30%, #fff, var(--tier) 45%, color-mix(in srgb, var(--tier) 50%, #000)); }
+.trophy-text b { display: block; font-size: 13px; }
+.trophy-text small { font-size: 11px; color: var(--muted); }
+.trophy-tier { font-size: 10px; color: var(--tier); text-transform: uppercase; letter-spacing: .08em; }
+.trophy.locked { opacity: .5; }
+.trophy.locked .trophy-icon { filter: grayscale(1); }
+
+.toasts { position: fixed; z-index: 50; left: 50%; top: calc(env(safe-area-inset-top) + 56px); transform: translateX(-50%); width: min(92vw, 380px); pointer-events: none; }
+.toast { position: relative; overflow: hidden; display: grid; grid-template-columns: 46px 1fr; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 16px; background: var(--glass-strong); border: 1px solid color-mix(in srgb, var(--tier) 60%, transparent); box-shadow: 0 16px 50px rgba(0,0,0,.55), 0 0 30px color-mix(in srgb, var(--tier) 35%, transparent); animation: toast-in .6s var(--ease-spring) both; }
+.toast::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.22) 50%, transparent 70%); transform: translateX(-100%); animation: shine 1.2s .35s var(--ease-out) both; }
+.toast.out { animation: toast-out .4s ease-in both; }
+.toast-icon { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; font-weight: 900; color: #120c33; background: radial-gradient(circle at 35% 30%, #fff, var(--tier) 45%, color-mix(in srgb, var(--tier) 50%, #000)); }
+.toast-text small { display: block; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--tier); }
+.toast-text b { display: block; font-size: 16px; }
+.toast-text em { display: block; font-style: normal; font-size: 12px; color: var(--muted); }
+@keyframes toast-in { from { opacity: 0; transform: translate3d(0, -30px, 0) scale(.9); } }
+@keyframes toast-out { to { opacity: 0; transform: translate3d(0, -20px, 0) scale(.96); } }
+@keyframes shine { to { transform: translateX(100%); } }

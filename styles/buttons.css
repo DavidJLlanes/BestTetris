@@ -1,0 +1,23 @@
+/* Botones con respuesta inmediata al tacto. */
+.icon-btn { width: 38px; height: 38px; border-radius: 11px; border: 1px solid var(--line); background: var(--glass); font-size: 15px; cursor: pointer; transition: transform .12s var(--ease-out), background .15s; }
+.icon-btn:active { transform: scale(.92); }
+.icon-btn.off { opacity: .45; text-decoration: line-through; }
+
+.btn { background: rgba(255,255,255,.06); border: 1px solid var(--line); border-radius: 12px; padding: 11px 12px; cursor: pointer; font-weight: 700; font-size: 15px; transition: transform .12s var(--ease-out), background .15s, border-color .15s, box-shadow .2s; }
+.btn small { display: block; font-weight: 400; font-size: 11px; color: var(--muted); margin-top: 2px; }
+.btn:hover { background: rgba(255,255,255,.12); border-color: rgba(200,190,255,.4); }
+.btn:active { transform: scale(.97); }
+.btn.primary { background: linear-gradient(135deg, rgba(70,230,255,.25), rgba(255,79,216,.25)); border-color: rgba(200,160,255,.5); }
+.btn.ghost { font-size: 13px; padding: 9px 10px; font-weight: 600; }
+:focus { outline: none; }
+:focus-visible { box-shadow: 0 0 0 2px var(--accent2), 0 0 18px rgba(70,230,255,.45) !important; }
+
+.mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mode { position: relative; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto auto; column-gap: 8px; text-align: left; padding: 10px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.05); cursor: pointer; transition: transform .14s var(--ease-out), background .15s, border-color .15s; }
+.mode:hover { background: rgba(255,255,255,.1); border-color: rgba(200,190,255,.45); transform: translateY(-1px); }
+.mode:active { transform: scale(.97); }
+.mode-icon { grid-row: span 3; font-size: 20px; width: 28px; text-align: center; }
+.mode-name { font-weight: 800; font-size: 14px; }
+.mode-desc { font-size: 11px; color: var(--muted); line-height: 1.25; }
+.mode-best { font-size: 10px; color: var(--gold); margin-top: 2px; }
+.mode-best:empty { display: none; }

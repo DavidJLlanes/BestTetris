@@ -1,0 +1,47 @@
+/*
+ * Disposición. Dos variantes, elegidas por JS con clases en <body>:
+ *  - layout-side: tablet y PC, columnas laterales (botones táctiles bajo los paneles).
+ *  - layout-stacked: móvil en vertical, todo apilado y botones abajo.
+ */
+#app {
+  position: relative; z-index: 1;
+  height: 100%;
+  display: flex; flex-direction: column; align-items: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+.topbar { width: 100%; max-width: 980px; height: 48px; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 16px; }
+.logo { font-weight: 900; letter-spacing: .35em; font-size: 15px; background: linear-gradient(90deg, var(--accent2), #a98bff, var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.topbar-actions { display: flex; gap: 8px; }
+
+.game { flex: 1; min-height: 0; display: grid; gap: 10px; justify-content: center; align-content: start; padding: 10px 16px 0; }
+.hold-box { grid-area: hold; }
+.stats { grid-area: stats; }
+.board-wrap { grid-area: board; }
+.next-box { grid-area: next; }
+
+/* Tablet y PC */
+.layout-side .game {
+  grid-template-columns: var(--side) var(--board-w) var(--side);
+  grid-template-rows: auto auto 1fr;
+  grid-template-areas: "hold board next" "stats board next" "tl board tr";
+  flex: none; /* la rejilla mide lo que el tablero: los botones quedan alineados con su borde inferior */
+  align-items: start;
+}
+.layout-side .touch { display: contents; }
+.layout-side .touch-left { grid-area: tl; align-self: end; }
+.layout-side .touch-right { grid-area: tr; align-self: end; }
+
+/* Móvil en vertical */
+.layout-stacked .topbar { height: 48px; padding: 0 10px; }
+.layout-stacked .game {
+  width: 100%;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: var(--hud-h, 70px) auto 1fr;
+  grid-template-areas: "hold stats next" "board board board" "touch touch touch";
+  gap: 8px; padding: 6px 8px 0;
+  justify-items: center;
+}
+.layout-stacked .hold-box, .layout-stacked .next-box, .layout-stacked .stats { justify-self: stretch; }
+.layout-stacked .touch { grid-area: touch; align-self: end; width: 100%; }
+
+body:not(.is-touch) .touch { display: none; }

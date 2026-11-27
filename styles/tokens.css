@@ -1,0 +1,20 @@
+/* Variables de diseño: colores, radios y curvas de animación. */
+:root {
+  --bg: #0b0820;
+  --bg2: #150f36;
+  --ink: #ecebff;
+  --muted: #9b97c9;
+  --line: rgba(190, 180, 255, 0.16);
+  --glass: rgba(24, 18, 62, 0.78);
+  --glass-strong: rgba(14, 10, 40, 0.9);
+  --accent: #ff4fd8;
+  --accent2: #46e6ff;
+  --gold: #ffd34f;
+  --radius: 14px;
+  --cell: 30px;
+  --side: 140px;
+  --board-w: 300px;
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --font: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+}

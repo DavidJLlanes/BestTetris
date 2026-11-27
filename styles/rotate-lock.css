@@ -1,0 +1,6 @@
+/* Aviso a pantalla completa: el móvil solo se juega en vertical. */
+.rotate-lock { position: fixed; inset: 0; z-index: 100; display: none; flex-direction: column; align-items: center; justify-content: center; gap: 24px; background: var(--bg); color: var(--ink); text-align: center; font-size: 18px; font-weight: 700; padding: 24px; }
+.rotate-needed .rotate-lock { display: flex; animation: ov-in .3s var(--ease-out); }
+.rotate-phone { width: 56px; height: 96px; border: 4px solid var(--ink); border-radius: 12px; position: relative; animation: rotate-hint 2.2s var(--ease-out) infinite; }
+.rotate-phone::after { content: ""; position: absolute; left: 50%; bottom: 6px; width: 14px; height: 4px; margin-left: -7px; border-radius: 2px; background: var(--ink); }
+@keyframes rotate-hint { 0%, 20% { transform: rotate(-90deg); } 55%, 100% { transform: rotate(0deg); } }

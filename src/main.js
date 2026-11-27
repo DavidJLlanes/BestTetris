@@ -1,0 +1,66 @@
+/**
+ * PRISMA · arranque. Conecta los módulos en orden; ninguno depende de este archivo.
+ */
+import { $ } from './util/dom.js';
+import { app } from './app/state.js';
+import { load } from './storage/store.js';
+import { setMuted } from './audio/index.js';
+import { attachCanvases } from './render/view.js';
+import { watchViewport } from './ui/watchViewport.js';
+import { watchVisibility } from './ui/watchVisibility.js';
+import { bindHud } from './ui/hud.js';
+import { bindButtons } from './ui/bindButtons.js';
+import { bindModeMenu } from './ui/modeMenu.js';
+import { bindSettingsPanel } from './ui/settingsPanel.js';
+import { bindRecordsPanel } from './ui/recordsPanel.js';
+import { bindTrophiesPanel } from './ui/trophiesPanel.js';
+import { bindProfilePanel } from './ui/profilePanel.js';
+import { bindSharePanel } from './ui/sharePanel.js';
+import { refreshIdentityBadge } from './ui/identityBadge.js';
+import { showOverlay } from './ui/overlays.js';
+import { bindKeyboard } from './input/keyboard.js';
+import { bindTouchButtons } from './input/touchButtons.js';
+import { bindTouchGestures } from './input/touchGestures.js';
+import { watchConnection } from './input/gamepad/watchConnection.js';
+import { trackProfile } from './achievements/trackProfile.js';
+import { watchAchievements } from './achievements/watchAchievements.js';
+import { watchFinish } from './app/onFinish.js';
+import { wireReactions } from './app/reactions/index.js';
+import { startLoop } from './app/loop.js';
+import { perf } from './app/perf.js';
+import { press, release } from './input/press.js';
+
+const canvases = { board: $('board'), hold: $('hold'), next: $('next') };
+attachCanvases(canvases);
+watchViewport(canvases);
+watchVisibility();
+
+trackProfile();       // primero: los logros leen el perfil ya actualizado
+watchAchievements();
+watchFinish();
+wireReactions();
+
+bindHud();
+bindButtons();
+bindModeMenu();
+bindSettingsPanel();
+bindRecordsPanel();
+bindTrophiesPanel();
+bindProfilePanel();
+bindSharePanel();
+refreshIdentityBadge();
+
+bindKeyboard();
+bindTouchButtons($('touch'));
+bindTouchGestures($('board-wrap'));
+watchConnection();
+
+if (load('muted', false)) { setMuted(true); $('btn-mute').classList.add('off'); }
+if (new URLSearchParams(location.search).has('fps')) perf.show();
+
+showOverlay('ov-menu');
+startLoop();
+document.body.classList.add('ready');
+
+// Acceso para pruebas automatizadas y depuración.
+window.__prisma = { app, perf, press, release };

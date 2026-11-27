@@ -1,0 +1,10 @@
+/** Ajustes por defecto del jugador. */
+export const DEFAULT_SETTINGS = {
+  music: 50,
+  sfx: 70,
+  das: 150,
+  arr: 30,
+  ghost: true,
+  shake: true,
+  grid: true,
+};

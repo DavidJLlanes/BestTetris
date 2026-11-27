@@ -6,50 +6,63 @@
   <title>PRISMA · bloques que caen</title>
   <meta name="description" content="PRISMA: un juego de puzle de bloques que caen, con música generada en tiempo real.">
   <meta name="theme-color" content="#0b0820">
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/background.css">
+  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="styles/panels.css">
+  <link rel="stylesheet" href="styles/board.css">
+  <link rel="stylesheet" href="styles/buttons.css">
+  <link rel="stylesheet" href="styles/overlays.css">
+  <link rel="stylesheet" href="styles/forms.css">
+  <link rel="stylesheet" href="styles/trophies.css">
+  <link rel="stylesheet" href="styles/touch.css">
+  <link rel="stylesheet" href="styles/rotate-lock.css">
+  <script type="module" src="src/main.js"></script>
 </head>
 <body>
   <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
 
   <div id="app">
     <header class="topbar">
+      <button class="badge" id="badge" aria-label="Perfil"><span class="avatar" id="badge-avatar"></span><span class="badge-name" id="badge-name"></span></button>
       <div class="logo">PRISMA</div>
       <div class="topbar-actions">
+        <button class="icon-btn" id="btn-fullscreen" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
         <button class="icon-btn" id="btn-mute" title="Silenciar (M)" aria-label="Silenciar">♪</button>
         <button class="icon-btn" id="btn-pause" title="Pausa (Esc)" aria-label="Pausa">❚❚</button>
       </div>
     </header>
 
     <main class="game" id="game">
-      <aside class="panel left">
-        <section class="box">
-          <h3>Reserva</h3>
-          <canvas id="hold"></canvas>
-        </section>
-        <section class="box stats">
-          <div class="stat"><span>Puntos</span><b id="s-score">0</b></div>
-          <div class="stat"><span>Nivel</span><b id="s-level">1</b></div>
-          <div class="stat"><span>Líneas</span><b id="s-lines">0</b></div>
-          <div class="stat"><span>Tiempo</span><b id="s-time">0:00</b></div>
-          <div class="stat hide-sm"><span>Récord</span><b id="s-best">—</b></div>
-        </section>
-      </aside>
+      <section class="box hold-box">
+        <h3>Reserva</h3>
+        <canvas id="hold"></canvas>
+      </section>
+
+      <section class="box stats">
+        <div class="stat"><span>Puntos</span><b id="s-score">0</b></div>
+        <div class="stat stat-level"><span>Nivel</span><b id="s-level">1</b></div>
+        <div class="stat"><span>Líneas</span><b id="s-lines">0</b></div>
+        <div class="stat stat-time"><span>Tiempo</span><b id="s-time">0:00</b></div>
+        <div class="stat stat-best"><span>Récord</span><b id="s-best">—</b></div>
+      </section>
 
       <div class="board-wrap" id="board-wrap">
         <canvas id="board"></canvas>
 
-        <!-- Menú principal -->
         <div class="overlay" id="ov-menu">
           <div class="card">
             <h1 class="title">PRISMA</h1>
             <p class="subtitle">Encaja la luz. Rompe el prisma.</p>
-            <div class="menu">
-              <button class="btn primary" data-mode="marathon">Maratón<small>Sube de nivel cada 10 líneas</small></button>
-              <button class="btn" data-mode="sprint">Sprint 40<small>40 líneas contra el reloj</small></button>
-              <button class="btn" data-mode="zen">Zen<small>Sin prisa y sin final</small></button>
-            </div>
+            <div class="mode-grid" id="mode-list"></div>
             <div class="menu-row">
+              <button class="btn ghost" data-open="ov-trophies">Trofeos</button>
+              <button class="btn ghost" data-open="ov-profile">Perfil</button>
               <button class="btn ghost" data-open="ov-records">Récords</button>
               <button class="btn ghost" data-open="ov-settings">Ajustes</button>
               <button class="btn ghost" data-open="ov-help">Controles</button>
@@ -57,8 +70,7 @@
           </div>
         </div>
 
-        <!-- Pausa -->
-        <div class="overlay hidden" id="ov-pause">
+        <div class="overlay" id="ov-pause" hidden>
           <div class="card">
             <h2>Pausa</h2>
             <div class="menu">
@@ -70,12 +82,11 @@
           </div>
         </div>
 
-        <!-- Fin de partida -->
-        <div class="overlay hidden" id="ov-over">
+        <div class="overlay" id="ov-over" hidden>
           <div class="card">
             <h2 id="over-title">Fin de la partida</h2>
             <div class="result" id="over-result"></div>
-            <p class="newbest hidden" id="over-best">¡Nuevo récord!</p>
+            <p class="newbest" id="over-best" hidden>¡Nuevo récord!</p>
             <div class="menu">
               <button class="btn primary" id="btn-again">Otra vez</button>
               <button class="btn ghost" id="btn-menu">Menú principal</button>
@@ -83,8 +94,7 @@
           </div>
         </div>
 
-        <!-- Récords -->
-        <div class="overlay hidden" id="ov-records">
+        <div class="overlay" id="ov-records" hidden>
           <div class="card">
             <h2>Récords</h2>
             <div class="records" id="records"></div>
@@ -92,27 +102,27 @@
           </div>
         </div>
 
-        <!-- Ajustes -->
-        <div class="overlay hidden" id="ov-settings">
+        <div class="overlay" id="ov-settings" hidden>
           <div class="card">
             <h2>Ajustes</h2>
             <div class="settings">
               <label>Música <input type="range" min="0" max="100" id="set-music"></label>
               <label>Efectos <input type="range" min="0" max="100" id="set-sfx"></label>
-              <label title="Retardo antes de que la pieza empiece a deslizarse">Retardo de desplazamiento <span class="val" id="val-das"></span><input type="range" min="50" max="300" step="5" id="set-das"></label>
-              <label title="Velocidad de deslizamiento lateral">Velocidad de desplazamiento <span class="val" id="val-arr"></span><input type="range" min="0" max="100" step="5" id="set-arr"></label>
+              <label>Retardo de desplazamiento <span class="val" id="val-das"></span><input type="range" min="50" max="300" step="5" id="set-das"></label>
+              <label>Velocidad de desplazamiento <span class="val" id="val-arr"></span><input type="range" min="0" max="100" step="5" id="set-arr"></label>
               <label class="check"><input type="checkbox" id="set-ghost"> Pieza fantasma</label>
-              <label class="check"><input type="checkbox" id="set-shake"> Temblor de pantalla</label>
+              <label class="check"><input type="checkbox" id="set-shake"> Rebote y temblor</label>
               <label class="check"><input type="checkbox" id="set-grid"> Cuadrícula</label>
+              <label class="check"><input type="checkbox" id="set-haptics"> Vibración</label>
             </div>
             <button class="btn ghost" data-back>Volver</button>
           </div>
         </div>
 
-        <!-- Ayuda -->
-        <div class="overlay hidden" id="ov-help">
+        <div class="overlay" id="ov-help" hidden>
           <div class="card">
             <h2>Controles</h2>
+            <h3 class="sub">Teclado</h3>
             <table class="keys">
               <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>Mover</td></tr>
               <tr><td><kbd>↓</kbd></td><td>Bajar rápido</td></tr>
@@ -124,7 +134,7 @@
               <tr><td><kbd>Esc</kbd> <kbd>P</kbd></td><td>Pausa</td></tr>
               <tr><td><kbd>M</kbd></td><td>Silenciar</td></tr>
             </table>
-            <h2 class="sub">Mando</h2>
+            <h3 class="sub">Mando</h3>
             <table class="keys">
               <tr><td><kbd>✚</kbd> / stick</td><td>Mover y bajar</td></tr>
               <tr><td><kbd>✚↑</kbd> <kbd>RT</kbd></td><td>Soltar de golpe</td></tr>
@@ -134,36 +144,89 @@
               <tr><td><kbd>LB</kbd> <kbd>RB</kbd></td><td>Reservar pieza</td></tr>
               <tr><td><kbd>☰</kbd></td><td>Pausa</td></tr>
             </table>
-            <h2 class="sub">Táctil</h2>
-            <p class="tip">Desliza sobre el tablero para mover, toca para girar (mitad izquierda ↺, derecha ↻), desliza rápido abajo para soltar y arriba para reservar. También tienes botones debajo.</p>
+            <h3 class="sub">Táctil</h3>
+            <p class="tip">Desliza sobre el tablero para mover, toca para girar (mitad izquierda ↺, derecha ↻), desliza rápido hacia abajo para soltar y hacia arriba para reservar. También tienes botones.</p>
             <p class="tip">Completa 4 líneas a la vez para un <b>¡Prisma!</b> y encadena limpiezas para multiplicar los puntos.</p>
             <button class="btn ghost" data-back>Volver</button>
           </div>
         </div>
 
-        <div class="countdown hidden" id="countdown"></div>
+        <div class="overlay" id="ov-trophies" hidden>
+          <div class="card">
+            <h2>Trofeos</h2>
+            <div class="trophy-summary" id="trophy-summary"></div>
+            <div class="trophy-list" id="trophy-list"></div>
+            <button class="btn ghost" data-back>Volver</button>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-profile" hidden>
+          <div class="card">
+            <h2>Perfil</h2>
+            <div class="profile-head">
+              <span class="avatar big" id="profile-avatar"></span>
+              <div class="profile-photo-actions">
+                <button class="btn ghost" id="profile-photo-btn">Cambiar foto</button>
+                <button class="btn ghost" id="profile-photo-remove">Quitar foto</button>
+              </div>
+            </div>
+            <input type="file" id="profile-photo-input" accept="image/*" hidden>
+            <label class="field">Nombre <input type="text" id="profile-name" maxlength="24" autocomplete="nickname" enterkeyhint="done"></label>
+            <div class="result" id="profile-stats"></div>
+            <button class="btn primary" data-open="ov-share">Compartir tarjeta de progreso</button>
+            <div class="menu-row">
+              <button class="btn ghost" id="profile-export">Exportar progreso</button>
+              <button class="btn ghost" id="profile-import">Importar progreso</button>
+            </div>
+            <input type="file" id="profile-import-input" accept="application/json,.json" hidden>
+            <p class="status" id="profile-status" role="status"></p>
+            <p class="tip">Todo se guarda solo en este navegador. No hay cuentas ni se envía nada a ningún servidor. Exporta tu progreso para llevarlo a otro dispositivo.</p>
+            <button class="btn ghost" data-back>Volver</button>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-share" hidden>
+          <div class="card">
+            <h2>Tu tarjeta</h2>
+            <img class="share-preview" id="share-preview" alt="Tarjeta de progreso">
+            <p class="status" id="share-status" role="status"></p>
+            <div class="menu">
+              <button class="btn primary" id="share-go">Compartir</button>
+              <button class="btn ghost" id="share-download">Descargar imagen</button>
+              <button class="btn ghost" data-back>Volver</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="countdown" id="countdown" hidden></div>
       </div>
 
-      <aside class="panel right">
-        <section class="box">
-          <h3>Siguientes</h3>
-          <canvas id="next"></canvas>
-        </section>
-      </aside>
-    </main>
+      <section class="box next-box">
+        <h3>Siguientes</h3>
+        <canvas id="next"></canvas>
+      </section>
 
-    <nav class="touch" id="touch" aria-label="Controles táctiles">
-      <button data-act="hold" class="t-small">Reserva</button>
-      <button data-act="ccw">↺</button>
-      <button data-act="cw">↻</button>
-      <button data-act="left">◀</button>
-      <button data-act="soft">▼</button>
-      <button data-act="right">▶</button>
-      <button data-act="hard" class="t-wide">⤓ Soltar</button>
-    </nav>
+      <div class="touch" id="touch" aria-label="Controles táctiles">
+        <nav class="touch-group touch-left">
+          <button data-act="left" aria-label="Izquierda">◀</button>
+          <button data-act="soft" aria-label="Bajar">▼</button>
+          <button data-act="right" aria-label="Derecha">▶</button>
+          <button data-act="hold" class="t-span t-small">Reserva</button>
+        </nav>
+        <nav class="touch-group touch-right">
+          <button data-act="ccw" aria-label="Girar a la izquierda">↺</button>
+          <button data-act="cw" aria-label="Girar a la derecha">↻</button>
+          <button data-act="hard" class="t-span t-drop">⤓ Soltar</button>
+        </nav>
+      </div>
+    </main>
   </div>
 
-  <script src="js/audio.js"></script>
-  <script src="js/game.js"></script>
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <div class="rotate-lock" id="rotate-lock" aria-live="polite">
+    <div class="rotate-phone" aria-hidden="true"></div>
+    <p>Gira el móvil en vertical para jugar</p>
+  </div>
 </body>
 </html>
