@@ -1,4 +1,5 @@
-import { DECOR_PARTS, AUTO_START } from '../config/decor.js';
+import { DECOR_PARTS, AUTO_START, QUALITY } from '../config/decor.js';
+import { fx } from '../effects/state.js';
 import { decor } from './state.js';
 import { resetDust } from './dustLayer.js';
 
@@ -9,5 +10,6 @@ export function applyDecor(s) {
   const start = document.body.classList.contains('is-phone') ? 'medium' : AUTO_START; // móviles: se empieza ligero
   decor.quality = s.quality === 'auto' ? (decor.autoQuality || start) : s.quality;
   for (const q of ['high', 'medium', 'low']) b.toggle(`q-${q}`, decor.quality === q);
+  fx.budget = QUALITY[decor.quality].particles; // menos chispas si el móvil va justo
   resetDust();
 }

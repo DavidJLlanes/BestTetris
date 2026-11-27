@@ -7,10 +7,14 @@ const GRAVITY = 14;
 
 /** Avanza todas las animaciones decorativas. */
 export function updateEffects(dt) {
-  for (const p of fx.particles) { p.life -= dt; p.vy += GRAVITY * dt; p.x += p.vx * dt; p.y += p.vy * dt; }
+  for (const p of fx.particles) { p.life -= dt; p.vy += GRAVITY * (p.g ?? 1) * dt; p.x += p.vx * dt; p.y += p.vy * dt; }
   fx.particles = fx.particles.filter((p) => p.life > 0);
   for (const t of fx.texts) t.t += dt;
   fx.texts = fx.texts.filter((t) => t.t < TEXT_LIFE);
+  for (const list of ['afterimages', 'rings', 'sweeps']) {
+    for (const a of fx[list]) a.t += dt;
+    fx[list] = fx[list].filter((a) => a.t < a.life);
+  }
   for (const t of fx.trails) t.t += dt;
   fx.trails = fx.trails.filter((t) => t.t < t.life);
   if (fx.lockFlash) { fx.lockFlash.t -= dt; if (fx.lockFlash.t <= 0) fx.lockFlash = null; }

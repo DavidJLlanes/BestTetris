@@ -2,7 +2,8 @@ import { press, release } from './press.js';
 import { vibrate } from './haptics.js';
 import { setInput } from './setInput.js';
 
-const BUZZ = { hard: 14, hold: 8, cw: 6, ccw: 6, left: 4, right: 4, soft: 4 };
+// Girar, reservar y soltar vibran desde la jugada (hapticReactions), así no vibran dos veces
+const BUZZ = { left: 4, right: 4, soft: 4 };
 
 /** Botones táctiles: responden al tocar (pointerdown), no al levantar el dedo. */
 export function bindTouchButtons(root) {
@@ -13,7 +14,7 @@ export function bindTouchButtons(root) {
       b.classList.add('down');
       try { b.setPointerCapture(e.pointerId); } catch { /* sin captura */ }
       setInput('touch');
-      vibrate(BUZZ[act] || 5);
+      if (BUZZ[act]) vibrate(BUZZ[act]);
       press(act);
     };
     const up = (e) => { e.preventDefault(); b.classList.remove('down'); release(act); };

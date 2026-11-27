@@ -65,6 +65,7 @@
   <link rel="modulepreload" href="src/app/reactions/piecePan.js">
   <link rel="modulepreload" href="src/app/reactions/powerReactions.js">
   <link rel="modulepreload" href="src/app/reactions/soundReactions.js">
+  <link rel="modulepreload" href="src/app/reactions/sparkleReactions.js">
   <link rel="modulepreload" href="src/app/reactions/swayReactions.js">
   <link rel="modulepreload" href="src/app/reactions/undoReactions.js">
   <link rel="modulepreload" href="src/app/requestUndo.js">
@@ -183,6 +184,7 @@
   <link rel="modulepreload" href="src/input/state.js">
   <link rel="modulepreload" href="src/input/touchButtons.js">
   <link rel="modulepreload" href="src/input/touchGestures.js">
+  <link rel="modulepreload" href="src/input/vibrateOnBeat.js">
   <link rel="modulepreload" href="src/main.js">
   <link rel="modulepreload" href="src/modes/list/chaos.js">
   <link rel="modulepreload" href="src/modes/list/daily.js">
@@ -243,6 +245,7 @@
   <link rel="modulepreload" href="src/render/drawBoard.js">
   <link rel="modulepreload" href="src/render/drawPreview.js">
   <link rel="modulepreload" href="src/render/layers/drawActive.js">
+  <link rel="modulepreload" href="src/render/layers/drawAfterimages.js">
   <link rel="modulepreload" href="src/render/layers/drawAmbient.js">
   <link rel="modulepreload" href="src/render/layers/drawBackdrop.js">
   <link rel="modulepreload" href="src/render/layers/drawDanger.js">
@@ -253,7 +256,9 @@
   <link rel="modulepreload" href="src/render/layers/drawParticles.js">
   <link rel="modulepreload" href="src/render/layers/drawRace.js">
   <link rel="modulepreload" href="src/render/layers/drawRewind.js">
+  <link rel="modulepreload" href="src/render/layers/drawRings.js">
   <link rel="modulepreload" href="src/render/layers/drawStack.js">
+  <link rel="modulepreload" href="src/render/layers/drawSweeps.js">
   <link rel="modulepreload" href="src/render/layers/drawTarget.js">
   <link rel="modulepreload" href="src/render/layers/drawTexts.js">
   <link rel="modulepreload" href="src/render/layers/drawTrails.js">
@@ -267,6 +272,7 @@
   <link rel="modulepreload" href="src/render/sprites/backdropSprite.js">
   <link rel="modulepreload" href="src/render/sprites/gemSprite.js">
   <link rel="modulepreload" href="src/render/sprites/gemStyle.js">
+  <link rel="modulepreload" href="src/render/sprites/glowSprite.js">
   <link rel="modulepreload" href="src/render/sprites/paintGem.js">
   <link rel="modulepreload" href="src/render/sprites/paintSymbol.js">
   <link rel="modulepreload" href="src/render/sprites/textSprite.js">
@@ -584,6 +590,7 @@
               <label>Retardo de desplazamiento <span class="val" id="val-das"></span><input type="range" min="50" max="300" step="5" id="set-das"></label>
               <label>Velocidad de desplazamiento <span class="val" id="val-arr"></span><input type="range" min="0" max="100" step="5" id="set-arr"></label>
               <label class="check"><input type="checkbox" id="set-musical"> Efectos musicales (cada jugada toca con la canción)</label>
+              <label class="check"><input type="checkbox" id="set-particles"> Partículas y estelas de luz</label>
               <label class="check"><input type="checkbox" id="set-ghost"> Pieza fantasma</label>
               <label class="check"><input type="checkbox" id="set-shake"> Rebote y temblor</label>
               <label class="check"><input type="checkbox" id="set-grid"> Cuadrícula</label>

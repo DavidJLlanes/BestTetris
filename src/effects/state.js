@@ -14,4 +14,8 @@ export const fx = {
   freeze: 0,            // 1 mientras dura el poder Congelar (escarcha en los bordes)
   rewind: 0,            // 1 → 0: barrido de "rebobinar" al deshacer
   overT: 0,             // segundos desde el fin de la partida (onda gris)
+  afterimages: [],      // estelas de luz al mover o girar { cells, color, t, life }
+  rings: [],            // ondas de la salpicadura al soltar { x, y, w, color, t, life }
+  sweeps: [],           // barridos de luz por las filas hechas { y, color, t, life }
+  budget: 1,            // cuántas partículas permite la calidad (1 alta, 0.6 media, 0.3 baja)
 };

@@ -14,9 +14,9 @@ export const DECOR_PARTS = [
 ];
 
 export const QUALITY = {
-  high: { dust: 70, fps: 60, blur: true, dpr: 1.5 },
-  medium: { dust: 36, fps: 30, blur: false, dpr: 1 },
-  low: { dust: 0, fps: 0, blur: false, dpr: 1 },
+  high: { dust: 70, fps: 60, blur: true, dpr: 1.5, particles: 1 },
+  medium: { dust: 36, fps: 30, blur: false, dpr: 1, particles: 0.6 },
+  low: { dust: 0, fps: 0, blur: false, dpr: 1, particles: 0.3 },
 };
 export const QUALITY_NAMES = { auto: 'Automática', high: 'Alta', medium: 'Media', low: 'Baja' };
 export const AUTO_START = 'high';

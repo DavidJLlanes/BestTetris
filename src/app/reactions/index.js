@@ -8,6 +8,7 @@ import { undoReactions } from './undoReactions.js';
 import { swayReactions } from './swayReactions.js';
 import { bombReactions } from './bombReactions.js';
 import { powerReactions } from './powerReactions.js';
+import { sparkleReactions } from './sparkleReactions.js';
 import { seasonReactions } from '../../modes/seasons/seasonReactions.js';
 
 /** Conecta los sucesos de la partida con sonido, imagen, vibración y avisos. */
@@ -15,6 +16,7 @@ export function wireReactions() {
   motionReactions();
   soundReactions();
   effectReactions();
+  sparkleReactions();
   hapticReactions();
   undoReactions();
   seasonReactions();
