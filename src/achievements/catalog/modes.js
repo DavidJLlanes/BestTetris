@@ -3,6 +3,7 @@ const won = (mode) => ({ g }) => g.mode === mode && g.won;
 const timeUnder = (mode, s) => ({ g }) => g.mode === mode && g.won && g.time < s;
 
 export default [
+  { id: 'tutorial', name: 'Aprendiz de luz', desc: 'Completa el tutorial', tier: 'bronze', icon: '✋', on: 'finish', test: won('tutorial') },
   { id: 'sprint', name: 'Esprínter', desc: 'Completa un Sprint 40', tier: 'bronze', icon: '⏱', on: 'finish', test: won('sprint') },
   { id: 'sprint-120', name: 'Ráfaga', desc: 'Sprint 40 en menos de 2:00', tier: 'silver', icon: '⏱', on: 'finish', test: timeUnder('sprint', 120) },
   { id: 'sprint-60', name: 'Relámpago', desc: 'Sprint 40 en menos de 1:00', tier: 'prism', icon: '⏱', on: 'finish', test: timeUnder('sprint', 60) },

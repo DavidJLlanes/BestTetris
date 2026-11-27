@@ -2,6 +2,7 @@ import { app, canControl } from '../app/state.js';
 import { tryMove, tryRotate, hardDrop, holdPiece } from '../core/game/index.js';
 import { view } from '../render/view.js';
 import { vibrate } from './haptics.js';
+import { setInput } from './setInput.js';
 
 const STEP = 0.85;            // celdas de arrastre por casilla de movimiento
 const FLICK_SPEED = 1.1;      // px/ms hacia abajo para soltar de golpe
@@ -15,6 +16,7 @@ export function bindTouchGestures(el) {
   let t = null;
   el.addEventListener('pointerdown', (e) => {
     if (app.screen !== 'play' || e.pointerType === 'mouse') return;
+    setInput('touch');
     t = { id: e.pointerId, sx: e.clientX, sy: e.clientY, lx: e.clientX, ly: e.clientY, st: performance.now(), moved: false, samples: [] };
   });
   el.addEventListener('pointermove', (e) => {
@@ -27,7 +29,7 @@ export function bindTouchGestures(el) {
       if (tryMove(g, d, 0)) vibrate(3);
       t.lx += d * step; t.moved = true;
     }
-    while (e.clientY - t.ly >= step) { tryMove(g, 0, 1); t.ly += step; t.moved = true; }
+    while (e.clientY - t.ly >= step) { if (tryMove(g, 0, 1)) g.emit('softDrop', {}); t.ly += step; t.moved = true; }
   });
   const end = (e) => {
     if (!t || e.pointerId !== t.id) return;

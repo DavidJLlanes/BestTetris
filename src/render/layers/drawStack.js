@@ -4,6 +4,8 @@ import { fx } from '../../effects/state.js';
 import { view } from '../view.js';
 import { gemSprite } from '../sprites/gemSprite.js';
 
+const OVER_WAVE = 0.9; // segundos que tarda la onda gris en subir
+
 /** Celda de una fila que se está limpiando: se encoge desde el centro hacia los lados. */
 function drawClearingCell(ctx, sprite, x, px, py, cell, progress) {
   const order = Math.abs(x - (COLS - 1) / 2) / (COLS / 2);
@@ -24,6 +26,8 @@ export function drawStack(ctx, g) {
   const clearing = g.clearing;
   const progress = clearing ? clearing.t / CLEAR_ANIMATION : 0;
   ctx.globalAlpha = g.over ? 1 : g.rules.stackAlpha;
+  const lost = g.over && !g.won;
+  const wave = lost ? Math.min(1, fx.overT / OVER_WAVE) : 0;
   for (let y = HIDDEN; y < TOTAL; y++) {
     const row = g.board[y];
     const drop = fx.rowOffsets[y] || 0;
@@ -32,7 +36,8 @@ export function drawStack(ctx, g) {
     for (let x = 0; x < COLS; x++) {
       const t = row[x];
       if (!t) continue;
-      const sprite = gemSprite(t, px);
+      const grey = lost && (TOTAL - y) / (TOTAL - HIDDEN) <= wave;
+      const sprite = gemSprite(grey ? 'X' : t, px);
       if (clearingRow) drawClearingCell(ctx, sprite, x, x * cell, py, cell, progress);
       else ctx.drawImage(sprite, x * cell, py, cell, cell);
     }

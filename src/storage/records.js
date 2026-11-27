@@ -13,6 +13,7 @@ export function recordKey(mode) { return mode.recordKey ? mode.recordKey() : mod
 export function saveRecord(g) {
   const mode = getMode(g.mode);
   const key = recordKey(mode);
+  if (mode.noRecord) return false;
   const kind = RECORD_KINDS[mode.record];
   const value = kind.value(g);
   if ((kind.won && !g.won) || !value) return false;

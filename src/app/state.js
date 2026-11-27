@@ -7,6 +7,7 @@ export const app = {
   modeId: 'marathon',
   settings: loadSettings(),
   device: { touch: false, phone: false, landscape: false },
+  lastInput: 'keys', // keys | pad | touch: para mostrar las pistas adecuadas
 };
 
 export const isPlaying = () => app.screen === 'play' && !!app.game && !app.game.over;

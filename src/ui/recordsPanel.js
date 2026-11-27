@@ -8,7 +8,7 @@ import { onOpen } from './overlays.js';
 export function bindRecordsPanel() {
   onOpen('ov-records', () => {
     const all = loadRecords();
-    $('records').innerHTML = MODES.map((m) => {
+    $('records').innerHTML = MODES.filter((m) => !m.noRecord).map((m) => {
       const list = all[recordKey(m)] || [];
       const fmt = RECORD_KINDS[m.record].format;
       const items = list.length

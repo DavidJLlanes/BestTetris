@@ -10,6 +10,8 @@ import { drawPreview } from '../render/drawPreview.js';
 import { view } from '../render/view.js';
 import { updateHud } from '../ui/hud.js';
 import { perf } from './perf.js';
+import { timeScale } from '../effects/slowMotion.js';
+import { updateMusicTension } from './musicTension.js';
 
 /** Bucle principal: un paso por fotograma de pantalla (60, 120 o 144 Hz, lo que dé el monitor). */
 let last = 0;
@@ -29,9 +31,11 @@ function frame(now) {
   const t0 = performance.now();
   pollGamepad(dt);
   const g = app.game;
-  if (app.screen === 'play' && g) { updateAutoShift(dt); tick(g, dt); }
-  updateMotion(g, dt);
-  updateEffects(dt);
+  const gdt = dt * timeScale(); // cámara lenta: el juego y los efectos van más despacio
+  if (app.screen === 'play' && g) { updateAutoShift(gdt); tick(g, gdt); }
+  updateMotion(g, gdt);
+  updateEffects(gdt);
+  updateMusicTension(g, dt);
   drawBoard(g, app.settings, now);
   drawSide(g);
   updateHud(g);

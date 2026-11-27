@@ -1,10 +1,7 @@
-import { paintBoard } from '../board/paintBoard.js';
-
-/** Termina la partida (win = objetivo cumplido). */
+/** Termina la partida (win = objetivo cumplido). El tablero se apaga en el dibujo. */
 export function finish(g, win) {
   g.over = true;
   g.won = win;
   g.cur = null;
-  if (!win) paintBoard(g.board, 'X');
   g.emit('finish', { win });
 }

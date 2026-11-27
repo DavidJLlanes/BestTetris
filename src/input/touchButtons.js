@@ -1,5 +1,6 @@
 import { press, release } from './press.js';
 import { vibrate } from './haptics.js';
+import { setInput } from './setInput.js';
 
 const BUZZ = { hard: 14, hold: 8, cw: 6, ccw: 6, left: 4, right: 4, soft: 4 };
 
@@ -11,6 +12,7 @@ export function bindTouchButtons(root) {
       e.preventDefault();
       b.classList.add('down');
       try { b.setPointerCapture(e.pointerId); } catch { /* sin captura */ }
+      setInput('touch');
       vibrate(BUZZ[act] || 5);
       press(act);
     };

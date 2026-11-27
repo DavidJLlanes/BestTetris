@@ -17,5 +17,8 @@ export function updateEffects(dt) {
   fx.levelFlash = Math.max(0, fx.levelFlash - dt * 1.5);
   fx.shake = damp(fx.shake, 0, 12, dt);
   stepSpring(fx.bounce, dt);
+  stepSpring(fx.zoom, dt, 160, 16);
+  if (fx.slow) { fx.slow.t -= dt; if (fx.slow.t <= 0) fx.slow = null; }
+  fx.overT += dt;
   fx.rowOffsets = fx.rowOffsets.map((o) => damp(o, 0, 18, dt)).map((o) => (o < 0.01 ? 0 : o));
 }

@@ -3,6 +3,7 @@ import { MODES } from '../modes/registry.js';
 import { bestLabel } from '../storage/records.js';
 import { onOpen } from './overlays.js';
 import { startGame } from '../app/startGame.js';
+import { load } from '../storage/store.js';
 
 /** Genera los botones de modo a partir del registro: un modo nuevo aparece solo. */
 export function bindModeMenu() {
@@ -19,6 +20,7 @@ export function bindModeMenu() {
     if (b) startGame(b.dataset.mode);
   });
   onOpen('ov-menu', () => {
+    list.querySelector('[data-mode=tutorial]').classList.toggle('suggested', !load('tutorialDone', false));
     list.querySelectorAll('[data-best]').forEach((el) => {
       const best = bestLabel(el.dataset.best);
       el.textContent = best === '—' ? '' : `Récord: ${best}`;

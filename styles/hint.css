@@ -1,0 +1,8 @@
+/* Pistas del tutorial y modo sugerido en el menú. */
+.hint { position: absolute; z-index: 3; left: 8px; right: 8px; top: 34%; display: flex; flex-direction: column; gap: 2px; align-items: center; text-align: center; padding: 10px 12px; border-radius: 14px; background: rgba(14, 10, 40, .78); border: 1px solid rgba(70, 230, 255, .4); box-shadow: 0 10px 30px rgba(0,0,0,.4), 0 0 24px rgba(70,230,255,.18); font-size: 14px; font-weight: 600; pointer-events: none; }
+.hint.swap { animation: hint-in .45s var(--ease-spring) both; }
+.hint-progress { font-size: 10px; letter-spacing: .15em; color: var(--accent2); }
+@keyframes hint-in { from { opacity: 0; transform: translate3d(0, -10px, 0) scale(.95); } }
+
+.mode.suggested { border-color: rgba(70, 230, 255, .7); box-shadow: 0 0 0 1px rgba(70,230,255,.4), 0 0 24px rgba(70,230,255,.25); animation: suggest 2.4s ease-in-out infinite; }
+@keyframes suggest { 50% { box-shadow: 0 0 0 1px rgba(70,230,255,.6), 0 0 34px rgba(70,230,255,.4); } }

@@ -3,9 +3,10 @@ import { tone } from '../voices/tone.js';
 import { noise } from '../voices/noise.js';
 import { mtof } from '../voices/mtof.js';
 import { MELODY, CHORDS, BASS, STEPS_PER_BAR, BARS } from './score.js';
+import { TENSION_LAYERS } from './layers.js';
 
 /** Programa una semicorchea de la canción en el instante t. */
-export function scheduleStep(step, t, bpm, intensity) {
+export function scheduleStep(step, t, bpm, intensity, tension = 0) {
   const bus = audio.music;
   const sixteenth = 60 / bpm / 4;
   const bar = Math.floor(step / STEPS_PER_BAR) % BARS;
@@ -37,4 +38,6 @@ export function scheduleStep(step, t, bpm, intensity) {
   if (inBar % 4 === 0) tone(bus, { freq: 140, glideTo: 40, type: 'sine', t, dur: 0.18, vol: 0.35, r: 0.1 });
   if (inBar === 4 || inBar === 12) noise(bus, { t, dur: 0.14, vol: 0.12, type: 'bandpass', freq: 1800, q: 0.8 });
   if (inBar % 2 === 1 && intensity > 0.3) noise(bus, { t, dur: 0.04, vol: 0.05, freq: 8000, pan: 0.3 });
+
+  for (const layer of TENSION_LAYERS) layer({ bus, t, inBar, chord, sixteenth, tension });
 }

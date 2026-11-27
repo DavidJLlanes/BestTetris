@@ -7,4 +7,8 @@ export const DEFAULT_SETTINGS = {
   ghost: true,
   shake: true,
   grid: true,
+  haptics: true,
+  colorblind: false,
+  focus: false,
+  slowmo: true,
 };

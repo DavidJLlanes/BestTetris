@@ -21,3 +21,4 @@
 .mode-desc { font-size: 11px; color: var(--muted); line-height: 1.25; }
 .mode-best { font-size: 10px; color: var(--gold); margin-top: 2px; }
 .mode-best:empty { display: none; }
+.mode[data-mode=tutorial] { grid-column: 1 / -1; }

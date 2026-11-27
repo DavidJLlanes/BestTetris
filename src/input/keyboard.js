@@ -4,6 +4,7 @@ import { menuBack } from '../ui/menuNav.js';
 import { overlayDepth } from '../ui/overlays.js';
 import { app } from '../app/state.js';
 import { startGame } from '../app/startGame.js';
+import { setInput } from './setInput.js';
 
 /** Teclado. Las teclas repetidas por el sistema se ignoran: el desplazamiento es nuestro. */
 export function bindKeyboard() {
@@ -18,6 +19,7 @@ export function bindKeyboard() {
     if (app.screen !== 'play' && ['left', 'right', 'cw', 'ccw', 'soft', 'hard'].includes(act)) return; // los menús usan el foco del navegador
     e.preventDefault();
     if (e.repeat) return;
+    setInput('keys');
     if (act === 'pause' && overlayDepth() > 1) { menuBack(); return; }
     press(act);
   });

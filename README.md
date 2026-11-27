@@ -31,6 +31,8 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 | `src/ui/` | Pantallas superpuestas, menús, marcador, perfil, trofeos, avisos, disposición y orientación |
 | `src/storage/` | Guardado local, récords, perfil, logros y copia de seguridad versionada (exportar e importar) |
 | `src/share/` | Tarjeta de progreso dibujada en el navegador y compartida con el sistema |
+| `src/tutorial/` | Pasos del tutorial interactivo y pistas según el control usado |
+| `src/pwa/` | Registro del service worker (`sw.js`) y botón de instalar |
 | `styles/` | Un CSS por zona de la interfaz |
 | `tests/` | Pruebas del núcleo, los modos, los logros y la copia de seguridad |
 
@@ -38,6 +40,9 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 
 - **Modo nuevo:** crea `src/modes/list/<id>.js` (reglas y, si hace falta, `setup`, `onTick`, `onLock`, `isComplete`) y añádelo a `src/modes/registry.js`.
 - **Logro nuevo:** añade una entrada a un archivo de `src/achievements/catalog/` con `on` (evento) y `test`.
+- **Paso de tutorial nuevo:** añade una entrada a `src/tutorial/steps.js` con el evento que lo completa y el texto para teclado, mando y táctil.
+- **Capa musical nueva:** añade una función a `src/audio/music/layers.js`; decide si suena según la tensión del tablero.
+- **Paleta nueva:** añade una entrada a `src/config/palettes.js`.
 - **Cambio de formato del guardado:** sube `VERSION` en `src/storage/backup/format.js` y añade el paso en `migrate.js`; las copias antiguas siguen valiendo.
 
 ## Rendimiento
@@ -46,4 +51,4 @@ Solo se anima `transform` y `opacity` en CSS. El tablero usa sprites pre-renderi
 
 ## Despliegue
 
-Son archivos estáticos: copia `index.html`, `manifest.webmanifest`, `assets/`, `styles/` y `src/` a la carpeta pública (por ejemplo `/var/www/djl.com.es/tetris/`). Todas las rutas son relativas.
+Son archivos estáticos: copia `index.html`, `sw.js`, `manifest.webmanifest`, `assets/`, `styles/` y `src/` a la carpeta pública (por ejemplo `/var/www/djl.com.es/tetris/`). Todas las rutas son relativas. Tras publicar cambios, sube `CACHE_VERSION` en `sw.js` para que los jugadores reciban la versión nueva al momento; el juego necesita HTTPS para poder instalarse y funcionar sin conexión.

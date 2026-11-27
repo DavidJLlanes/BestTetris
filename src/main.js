@@ -29,6 +29,9 @@ import { wireReactions } from './app/reactions/index.js';
 import { startLoop } from './app/loop.js';
 import { perf } from './app/perf.js';
 import { press, release } from './input/press.js';
+import { watchTutorial } from './tutorial/watchTutorial.js';
+import { registerServiceWorker } from './pwa/registerServiceWorker.js';
+import { bindInstallPrompt } from './pwa/installPrompt.js';
 
 const canvases = { board: $('board'), hold: $('hold'), next: $('next') };
 attachCanvases(canvases);
@@ -39,6 +42,7 @@ trackProfile();       // primero: los logros leen el perfil ya actualizado
 watchAchievements();
 watchFinish();
 wireReactions();
+watchTutorial();
 
 bindHud();
 bindButtons();
@@ -54,6 +58,9 @@ bindKeyboard();
 bindTouchButtons($('touch'));
 bindTouchGestures($('board-wrap'));
 watchConnection();
+bindInstallPrompt();
+registerServiceWorker();
+if (app.device.touch) app.lastInput = 'touch';
 
 if (load('muted', false)) { setMuted(true); $('btn-mute').classList.add('off'); }
 if (new URLSearchParams(location.search).has('fps')) perf.show();

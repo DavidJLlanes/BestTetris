@@ -8,8 +8,10 @@ import { spawnParticles } from '../../effects/spawnParticles.js';
 import { floatText } from '../../effects/floatText.js';
 import { impact } from '../../effects/impact.js';
 import { LOCK_FLASH_TIME } from '../../render/layers/drawLockFlash.js';
+import { slowMotion } from '../../effects/slowMotion.js';
 
 const shakeOn = () => app.settings.shake;
+const slow = (d, s, z) => { if (app.settings.slowmo) slowMotion(d, s, z); };
 
 /** Efectos visuales de cada suceso: estelas, chispas, rebotes y rótulos. */
 export function effectReactions() {
@@ -29,17 +31,18 @@ export function effectReactions() {
   });
   on('clear', ({ rows, types }) => {
     rows.forEach((y, i) => types[i].forEach((t, x) => spawnParticles(x + 0.5, y - HIDDEN + 0.5, COLORS[t][0], 3, { speed: 6 + rows.length * 2 })));
-    if (rows.length >= 4) impact(10, shakeOn());
+    if (rows.length >= 4) { impact(10, shakeOn()); slow(0.55, 0.3, 0.05); }
   });
   on('rowsRemoved', ({ drops }) => { fx.rowOffsets = drops.slice(); });
   on('score', ({ label, points, tspin, lines, combo }) => {
     if (!label) return;
     const color = tspin ? COLORS.T[0] : lines >= 4 ? COLORS.I[0] : '#ffffff';
     floatText(label, points ? `+${points}` : '', color, lines >= 4 ? 1.3 : 1);
-    if (combo > 0) floatText(`COMBO ×${combo}`, '', '#ff4fd8', 0.8, 1.3);
+    if (combo > 0 && !app.settings.focus) floatText(`COMBO ×${combo}`, '', '#ff4fd8', 0.8, 1.3);
   });
   on('levelUp', ({ level }) => { floatText(`NIVEL ${level}`, '', '#5cff9d', 1.1, -1.4); fx.levelFlash = 1; });
-  on('perfectClear', ({ bonus }) => floatText('¡LIMPIEZA TOTAL!', `+${bonus}`, '#ffd34f', 1.3, -0.8));
+  on('perfectClear', ({ bonus }) => { floatText('¡LIMPIEZA TOTAL!', `+${bonus}`, '#ffd34f', 1.3, -0.8); slow(0.7, 0.3, 0.06); });
+  on('finish', ({ win }) => { fx.overT = 0; if (!win) slow(1.1, 0.2, 0.07); });
   on('boardReset', ({ cells }) => {
     cells.forEach(({ x, y, type }) => { if (Math.random() < 0.5) spawnParticles(x + 0.5, y - HIDDEN + 0.5, COLORS[type][0], 1, { speed: 5 }); });
     floatText('RESPIRA', 'el tablero se renueva', '#46e6ff', 1);

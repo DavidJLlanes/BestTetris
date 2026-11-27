@@ -1,5 +1,7 @@
 import { COLORS } from '../../config/colors.js';
 import { roundRect } from '../roundRect.js';
+import { gemStyle } from './gemStyle.js';
+import { paintSymbol } from './paintSymbol.js';
 
 function facet(ctx, points, color) {
   ctx.fillStyle = color;
@@ -23,4 +25,5 @@ export function paintGem(ctx, x, y, s, type) {
   facet(ctx, [[x0 + k, y0 + k], [x0 + w - k, y0 + k], [x0 + w - k * 1.4, y0 + w - k], [x0 + k * 1.4, y0 + w - k]], 'rgba(255,255,255,0.22)');
   facet(ctx, [[x0 + r, y0 + pad * 0.5], [x0 + w - r, y0 + pad * 0.5], [x0 + w - k, y0 + k], [x0 + k, y0 + k]], 'rgba(255,255,255,0.35)');
   facet(ctx, [[x0 + k * 1.4, y0 + w - k], [x0 + w - k * 1.4, y0 + w - k], [x0 + w - r, y0 + w], [x0 + r, y0 + w]], 'rgba(0,0,0,0.18)');
+  if (gemStyle.symbols) paintSymbol(ctx, type, x0 + w / 2, y0 + w / 2, w * 0.22);
 }

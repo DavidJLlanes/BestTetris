@@ -1,0 +1,5 @@
+/* Modo foco: fuera fondo animado y adornos; los paneles pasan a segundo plano. */
+.focus-mode .aurora span { display: none; }
+.focus-mode .logo, .focus-mode .badge-name { visibility: hidden; }
+.focus-mode .hold-box, .focus-mode .next-box, .focus-mode .stats { opacity: .7; }
+.focus-mode #board { box-shadow: 0 0 0 1px var(--line); }

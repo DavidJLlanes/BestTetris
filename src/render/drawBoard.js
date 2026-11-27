@@ -23,6 +23,10 @@ export function drawBoard(g, settings, now) {
   ctx.save();
   const shake = fx.shake > 0.2 ? (Math.random() - 0.5) * fx.shake : 0;
   ctx.translate(shake, fx.bounce.x);
+  if (fx.zoom.x) {
+    const z = 1 + fx.zoom.x, cx = view.width / 2, cy = view.height / 2;
+    ctx.translate(cx, cy); ctx.scale(z, z); ctx.translate(-cx, -cy);
+  }
   if (g) {
     drawTrails(ctx);
     drawStack(ctx, g);

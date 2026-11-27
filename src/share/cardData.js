@@ -15,7 +15,7 @@ export function cardData() {
   const unlocked = ACHIEVEMENTS.filter((a) => got[a.id]);
   const tierCounts = unlocked.reduce((acc, a) => ({ ...acc, [a.tier]: (acc[a.tier] || 0) + 1 }), {});
   const all = loadRecords();
-  const records = MODES.map((m) => {
+  const records = MODES.filter((m) => !m.noRecord).map((m) => {
     const best = (all[recordKey(m)] || [])[0];
     return best ? [`${m.icon}  ${m.name}`, RECORD_KINDS[m.record].format(best.value)] : null;
   }).filter(Boolean);
