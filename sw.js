@@ -5,7 +5,7 @@
  * al momento desde la caché y se actualiza en segundo plano (stale-while-revalidate).
  * Sube CACHE_VERSION al publicar cambios grandes para empezar con una caché limpia.
  */
-const CACHE_VERSION = 'besttris-v12';
+const CACHE_VERSION = 'besttris-v13';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './assets/favicon.svg', './assets/icon-192.png', './assets/icon-512.png', './src/main.js'];
 
 self.addEventListener('install', (e) => {

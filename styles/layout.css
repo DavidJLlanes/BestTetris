@@ -45,7 +45,7 @@
   grid-template-columns: var(--side) var(--board-w) var(--side);
   grid-template-rows: auto 1fr auto;
   grid-template-areas: "hold board next" "stats board next" "touch touch touch";
-  gap: 6px var(--gap-x, 6px); padding: 4px 8px 0;
+  gap: 4px var(--gap-x, 4px); padding: 4px 6px 0;
   align-items: start;
 }
 .layout-stacked .touch { grid-area: touch; align-self: end; width: 100%; }

@@ -16,3 +16,10 @@
 .layout-stacked .touch .t-drop { flex-grow: 1.35; font-size: 13px; }
 .layout-stacked .touch [data-act=hold] { margin-right: 6px; }
 .layout-side .touch button { height: 64px; }
+
+/* Reserva: texto en tablet y PC, icono en la fila estrecha del móvil */
+.touch [data-act=hold] .ico { display: none; width: 24px; height: 24px; }
+.layout-stacked .touch [data-act=hold] .lbl { display: none; }
+.layout-stacked .touch [data-act=hold] .ico { display: inline-block; vertical-align: middle; }
+.layout-stacked .touch button { overflow: hidden; }
+.layout-stacked .touch .t-drop { white-space: nowrap; }

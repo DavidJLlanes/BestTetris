@@ -10,7 +10,9 @@ const { chromium, devices } = require('playwright');
   const b = await chromium.launch(); let fail = 0;
   const CASES = [[440, 956, 732, 62, 70], [393, 852, 659, 59, 34], [375, 667, 553, 20, 0], [430, 932, 740, 59, 60], [360, 800, 640, 24, 16]];
   // Además, sin barras: anchos 360 a 430 y altos 640 a 932
-  for (const w of [360, 375, 390, 414, 430]) for (const h of [640, 740, 844, 932]) CASES.push([w, h, h, 0, 0]);
+  for (const w of [320, 360, 375, 390, 414, 430, 440]) for (const h of [568, 640, 740, 844, 932, 956]) CASES.push([w, h, h, 0, 0]);
+  // App instalada (pantalla completa): todo el alto es visible pero con isla y barra de inicio
+  CASES.push([440, 733, 733, 0, 0], [393, 852, 852, 59, 34], [440, 956, 956, 62, 34], [375, 667, 667, 20, 0], [320, 568, 568, 20, 0]);
   for (const [w, full, vis, top, bot] of CASES) {
     const ctx = await b.newContext({ viewport: { width: w, height: full }, screen: { width: w, height: full }, isMobile: true, hasTouch: true, userAgent: devices['iPhone 13'].userAgent });
     const p = await ctx.newPage();
@@ -23,7 +25,9 @@ const { chromium, devices } = require('playwright');
     await p.click('button[data-mode=marathon]'); await p.waitForTimeout(2600);
     const r = await p.evaluate(() => { const q = (s) => { const b = document.querySelector(s).getBoundingClientRect(); return [Math.round(b.left), Math.round(b.top), Math.round(b.right), Math.round(b.bottom)]; };
       return { top: q('.topbar'), board: q('#board'), hold: q('.hold-box'), next: q('.next-box'), touch: q('#touch'), sw: document.documentElement.scrollWidth }; });
-    const vis_ = (a) => a[1] >= -1 && a[3] <= vis + 1 && a[0] >= -1 && a[2] <= w + 1;
+    // lo visible en coordenadas de la página es la franja [margen superior, margen superior + alto visible]
+    const lo = top, hi = vis < full ? top + vis : full - bot;
+    const vis_ = (a) => a[1] >= lo - 1 && a[3] <= hi + 1 && a[0] >= -1 && a[2] <= w + 1;
     const ok = ['top', 'board', 'hold', 'next', 'touch'].every((k) => vis_(r[k])) && r.sw <= w;
     if (!ok) fail++;
     if (!ok) console.log('FALLO', w, full, vis, JSON.stringify(r));

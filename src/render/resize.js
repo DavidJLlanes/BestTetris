@@ -43,7 +43,7 @@ export function resize({ board, hold, next }, device) {
     sizeCanvas(hold, 50 * k, 36 * k);
     sizeCanvas(next, Math.min(140 * k, view.width * 0.42), 36 * k);
   } else if (stacked) {
-    const inner = side - (width >= 600 ? 22 : 12); // menos el relleno de la caja
+    const inner = side - (width >= 600 ? 22 : 10); // menos el relleno de la caja
     sizeCanvas(hold, inner, inner * 0.6);
     sizeCanvas(next, inner, Math.min(inner * 3.2, view.height * 0.62));
   } else {

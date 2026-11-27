@@ -6,10 +6,10 @@ export const UI = {
   stackedTopBar: 44,
   stackedTouch: 64,    // fila de botones táctiles en vertical (56 + margen)
   stackedTouchWide: 88,
-  stackedGap: 6,
-  stackedPad: 8,
-  stackedSideMin: 62,  // columnas laterales en vertical: lo justo para cifras y piezas
-  stackedSideRatio: 2.5,
+  stackedGap: 4,
+  stackedPad: 6,
+  stackedSideMin: 54,  // columnas laterales en vertical: estrechas, el tablero es el protagonista
+  stackedSideRatio: 2,
   stackedHud: 62,      // franja de marcador (variante B)
   stackedHudWide: 96,
   stackedTouchGrow: 16,
