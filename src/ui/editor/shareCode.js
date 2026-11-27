@@ -3,9 +3,9 @@ export async function copyText(text) {
   try { await navigator.clipboard.writeText(text); return 'Copiado. Pégalo donde quieras.'; } catch { return null; }
 }
 
-export async function shareLink(url, title) {
+export async function shareLink(url, title, text = `Resuelve mi puzle de BestTris: ${title}`) {
   if (navigator.share) {
-    try { await navigator.share({ title, text: `Resuelve mi puzle de BestTris: ${title}`, url }); return 'Enlace compartido.'; } catch (e) { if (e.name === 'AbortError') return ''; }
+    try { await navigator.share({ title, text, url }); return 'Enlace compartido.'; } catch (e) { if (e.name === 'AbortError') return ''; }
   }
   return (await copyText(url)) && 'Enlace copiado. Pégalo donde quieras.';
 }

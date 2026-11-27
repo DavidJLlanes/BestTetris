@@ -35,6 +35,9 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 | `src/puzzles/` | Puzles: colecciones, objetivos, siluetas del entrenador, códigos para compartir y comprobador de solución (en un worker) |
 | `src/replay/` | Grabación de partidas, repeticiones y carrera contra tu fantasma |
 | `src/core/undo/` | Deshacer: fotos del estado al aparecer cada pieza y coste creciente |
+| `src/progress/` | Experiencia, niveles, rangos, rarezas, racha, temporada mensual y temas que se desbloquean |
+| `src/social/` | Retos por enlace (semilla y marca dentro del enlace) y clasificación local por periodos |
+| `src/versus/` | Dos jugadores en el mismo equipo: dos tableros, basura entre ellos, teclado partido y dos mandos |
 | `src/pwa/` | Registro del service worker (`sw.js`) y botón de instalar |
 | `styles/` | Un CSS por zona de la interfaz |
 | `tests/` | Pruebas del núcleo, los modos, los logros y la copia de seguridad |
@@ -49,7 +52,9 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 - **Logro nuevo:** añade una entrada a un archivo de `src/achievements/catalog/` con `on` (evento) y `test`.
 - **Paso de tutorial nuevo:** añade una entrada a `src/tutorial/steps.js` con el evento que lo completa y el texto para teclado, mando y táctil.
 - **Capa musical nueva:** añade una función a `src/audio/music/layers.js`; decide si suena según la tensión del tablero.
-- **Paleta nueva:** añade una entrada a `src/config/palettes.js`.
+- **Paleta nueva:** añade una entrada a `src/config/palettes.js` y, para que se pueda elegir, a `src/progress/themes.js` con el nivel que la desbloquea.
+- **Fondo o arreglo musical nuevo:** una entrada en `src/progress/themes.js` (y en `src/audio/music/styles.js` si es música).
+- **Ataque a dos jugadores:** la tabla de basura está en `src/config/versus.js`, junto a las teclas de cada jugador.
 - **Cambio de formato del guardado:** sube `VERSION` en `src/storage/backup/format.js` y añade el paso en `migrate.js`; las copias antiguas siguen valiendo.
 
 ## Rendimiento

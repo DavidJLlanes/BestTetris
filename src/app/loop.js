@@ -12,6 +12,7 @@ import { updateHud } from '../ui/hud.js';
 import { perf } from './perf.js';
 import { timeScale } from '../effects/slowMotion.js';
 import { updateMusicTension } from './musicTension.js';
+import { versusActive, updateVersus } from '../versus/versusLoop.js';
 
 /** Bucle principal: un paso por fotograma de pantalla (60, 120 o 144 Hz, lo que dé el monitor). */
 let last = 0;
@@ -29,6 +30,13 @@ function frame(now) {
   const dt = Math.min(MAX_FRAME_DT, (now - last) / 1000 || 0);
   last = now;
   const t0 = performance.now();
+  if (versusActive()) { // dos jugadores: su propio bucle, el tablero normal no se dibuja
+    if (app.screen === 'vpause' || app.screen === 'vover') pollGamepad(dt);
+    updateVersus(dt);
+    perf.record(dt, performance.now() - t0);
+    requestAnimationFrame(frame);
+    return;
+  }
   pollGamepad(dt);
   const g = app.game;
   const gdt = dt * timeScale(); // cámara lenta: el juego y los efectos van más despacio

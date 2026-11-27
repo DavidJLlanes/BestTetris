@@ -28,7 +28,8 @@ export function saveRecord(g) {
 /** Mejor marca de un modo (objeto o id), ya formateada, o "—". */
 export function bestLabel(modeOrId) {
   const mode = typeof modeOrId === 'string' ? getMode(modeOrId) : modeOrId;
-  if (mode.noRecord) return mode.bestLabel ? mode.bestLabel() : '—';
+  if (mode.bestLabel) return mode.bestLabel();
+  if (mode.noRecord) return '—';
   const list = loadRecords()[recordKey(mode)] || [];
   return list.length ? RECORD_KINDS[mode.record].format(list[0].value) : '—';
 }

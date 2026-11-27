@@ -46,6 +46,9 @@ import { bindEditorPanel } from './ui/editor/editorPanel.js';
 import { bindProfileProgress } from './ui/progress/profileProgress.js';
 import { bindStatsPanel } from './ui/progress/statsPanel.js';
 import { bindThemesPanel } from './ui/themes/themesPanel.js';
+import { bindChallengeButton } from './ui/challenge/challengeButton.js';
+import { bindVersusPanel } from './ui/versus/versusPanel.js';
+import { openSharedChallenge } from './ui/challenge/openSharedChallenge.js';
 import { registerServiceWorker } from './pwa/registerServiceWorker.js';
 import { bindInstallPrompt } from './pwa/installPrompt.js';
 
@@ -83,6 +86,8 @@ bindEditorPanel();
 bindProfileProgress();
 bindStatsPanel();
 bindThemesPanel();
+bindChallengeButton();
+bindVersusPanel();
 refreshIdentityBadge();
 bindLevelBadge();
 
@@ -99,6 +104,7 @@ if (new URLSearchParams(location.search).has('fps')) perf.show();
 
 showOverlay('ov-menu');
 openSharedPuzzle();
+openSharedChallenge();
 startLoop();
 document.body.classList.add('ready');
 

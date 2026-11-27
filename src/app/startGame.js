@@ -9,6 +9,10 @@ import { countdown } from '../ui/countdown.js';
 import { setBest } from '../ui/hud.js';
 import { bestLabel } from '../storage/records.js';
 import { releaseAll } from '../input/state.js';
+import { seededRandom } from '../util/seededRandom.js';
+
+/** Semilla nueva para cada partida: así cualquier partida se puede convertir en un reto. */
+const newSeed = () => (Math.random() * 2 ** 32) >>> 0;
 
 /** Empieza una partida nueva. Acepta el id de un modo del registro o un modo ya construido (puzles). */
 export function startGame(modeOrId, { quick = false } = {}) {
@@ -18,7 +22,9 @@ export function startGame(modeOrId, { quick = false } = {}) {
   const modeId = mode.id;
   app.modeId = modeId;
   app.modeDef = mode;
-  app.game = createGame(mode, { emit: (name, data) => emit(name, { ...data, game: app.game }) });
+  const seed = mode.createRng ? null : newSeed();
+  app.game = createGame(mode, { emit: (name, data) => emit(name, { ...data, game: app.game }), rng: seed === null ? null : seededRandom(seed) });
+  app.game.seed = seed;
   releaseAll();
   resetEffects();
   setMusicLevel(app.game.level);

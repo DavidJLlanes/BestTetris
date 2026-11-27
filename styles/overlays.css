@@ -53,3 +53,14 @@ kbd { display: inline-block; min-width: 22px; padding: 1px 6px; border-radius: 6
 .xp-head b { color: var(--rank, var(--accent2)); font-size: 14px; }
 .xp-bar { height: 8px; border-radius: 99px; background: rgba(255,255,255,.08); overflow: hidden; }
 .xp-bar i { display: block; height: 100%; transform-origin: left; background: linear-gradient(90deg, var(--rank, var(--accent2)), #fff); transition: transform 1.1s var(--ease-out); }
+
+/* Retos por enlace */
+.challenge-text { margin: 0; text-align: center; line-height: 1.6; font-size: 16px; }
+.challenge-target { font-size: 26px; color: var(--gold); font-variant-numeric: tabular-nums; }
+.challenge-result { margin: 0; text-align: center; font-weight: 800; color: #ff7a93; }
+.challenge-result.won { color: #5cff9d; animation: pulse 1s ease-in-out infinite alternate; }
+
+/* Pestañas (récords: hoy, semana, siempre) */
+.tabs { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; padding: 4px; border-radius: 12px; background: var(--glass); border: 1px solid var(--line); }
+.tabs button { border: 0; border-radius: 9px; padding: 8px 4px; background: none; color: var(--muted); font: 700 13px var(--font); cursor: pointer; transition: background .2s, color .2s; }
+.tabs button.on { background: linear-gradient(135deg, color-mix(in srgb, var(--accent2) 30%, transparent), color-mix(in srgb, var(--accent) 30%, transparent)); color: var(--ink); }

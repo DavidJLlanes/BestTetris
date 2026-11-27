@@ -29,10 +29,13 @@
   <link rel="stylesheet" href="styles/editor.css">
   <link rel="stylesheet" href="styles/scrollbars.css">
   <link rel="stylesheet" href="styles/progress.css">
+  <link rel="stylesheet" href="styles/versus.css">
   <script type="module" src="src/main.js"></script>
 </head>
 <body>
   <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <div class="versus" id="versus" hidden></div>
 
   <div id="app">
     <header class="topbar">
@@ -73,6 +76,7 @@
               <button class="btn ghost" data-open="ov-trophies">Trofeos</button>
               <button class="btn ghost" data-open="ov-profile">Perfil</button>
               <button class="btn ghost" data-open="ov-records">Récords</button>
+              <button class="btn ghost vs-entry" data-open="ov-versus">2 jugadores</button>
               <button class="btn ghost" data-open="ov-settings">Ajustes</button>
               <button class="btn ghost" data-open="ov-help">Controles</button>
               <button class="btn ghost" id="btn-install" hidden>Instalar</button>
@@ -98,13 +102,65 @@
             <div class="result" id="over-result"></div>
             <p class="newbest" id="over-best" hidden>¡Nuevo récord!</p>
             <div class="xp-gain" id="over-xp" hidden><div class="xp-head"><span id="over-xp-level"></span><b id="over-xp-text"></b></div><div class="xp-bar"><i id="over-xp-bar"></i></div></div>
+            <p class="challenge-result" id="over-challenge" hidden></p>
             <p class="tip" id="over-note" hidden></p>
             <div class="menu">
               <button class="btn primary" id="btn-next" hidden>Siguiente puzle</button>
               <button class="btn" id="btn-again">Otra vez</button>
               <button class="btn ghost" id="btn-edit" hidden>Volver al editor</button>
               <button class="btn ghost" id="btn-replay" hidden>▶ Ver repetición</button>
+              <button class="btn ghost" id="btn-challenge" hidden>⚔ Retar a alguien</button>
+              <p class="status" id="over-share-status" role="status"></p>
               <button class="btn ghost" id="btn-menu">Menú principal</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-versus" hidden>
+          <div class="card">
+            <h2>2 jugadores</h2>
+            <p class="tip">Cada línea que haces le sube basura al rival. Gana quien aguante más. Los dos reciben las mismas piezas.</p>
+            <div class="vs-controls">
+              <div><h4 style="color:#46e6ff">Jugador 1</h4><p>A D mover · S bajar<br>W / Q girar · E reservar<br>Espacio soltar</p></div>
+              <div><h4 style="color:#ff4fd8">Jugador 2</h4><p>← → mover · ↓ bajar<br>↑ / Ctrl dcho. girar · Mayús dcha. reservar<br>Intro soltar</p></div>
+            </div>
+            <p class="status" id="vs-pads" role="status"></p>
+            <div class="menu">
+              <button class="btn primary" id="vs-start" autofocus>Empezar</button>
+              <button class="btn ghost" data-back>Volver</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-vpause" hidden>
+          <div class="card">
+            <h2>Pausa</h2>
+            <div class="menu">
+              <button class="btn primary" id="vpause-resume" autofocus>Seguir</button>
+              <button class="btn ghost" id="vpause-quit">Salir al menú</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-vover" hidden>
+          <div class="card">
+            <h2 id="vover-title">¡Gana Jugador 1!</h2>
+            <div class="result" id="vover-score"></div>
+            <div class="menu">
+              <button class="btn primary" id="vover-again" autofocus>Revancha</button>
+              <button class="btn ghost" id="vover-menu">Menú principal</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-challenge" hidden>
+          <div class="card">
+            <h2>Te han retado</h2>
+            <p class="challenge-text" id="challenge-text"></p>
+            <p class="tip">Jugarás con las mismas piezas, en el mismo orden.</p>
+            <div class="menu">
+              <button class="btn primary" id="challenge-go" autofocus>Aceptar el reto</button>
+              <button class="btn ghost" data-back>Ahora no</button>
             </div>
           </div>
         </div>
@@ -112,6 +168,9 @@
         <div class="overlay" id="ov-records" hidden>
           <div class="card">
             <h2>Récords</h2>
+            <div class="tabs" id="records-tabs" role="tablist">
+              <button data-period="day">Hoy</button><button data-period="week">Semana</button><button data-period="all" class="on">Siempre</button>
+            </div>
             <div class="records" id="records"></div>
             <button class="btn ghost" data-back>Volver</button>
           </div>

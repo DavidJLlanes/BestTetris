@@ -1,0 +1,26 @@
+/* Dos jugadores: dos columnas de juego a pantalla completa, con los menús por encima. */
+.versus { position: fixed; inset: 52px 0 0; z-index: 0; display: flex; align-items: center; justify-content: center; gap: calc(var(--vs-cell, 24px) * 1.6); padding-bottom: 12px; }
+.versus[hidden] { display: none; }
+.versus-on #game > :not(.board-wrap), .versus-on #board, .versus-on #btn-undo, .versus-on #btn-power { visibility: hidden; }
+.versus-on .overlay { position: fixed; inset: 0; z-index: 50; border-radius: 0; background: rgba(8, 5, 26, .72); }
+.is-phone .vs-entry { display: none; }
+
+.vs-player { display: grid; gap: 8px; animation: card-in .5s var(--ease-out) both; }
+.vs-player:last-of-type { animation-delay: .06s; }
+.vs-head { display: flex; align-items: baseline; justify-content: space-between; padding: 0 calc(var(--vs-cell) * 4.4); }
+.vs-head b { font-size: clamp(14px, calc(var(--vs-cell) * .6), 22px); letter-spacing: .12em; text-transform: uppercase; color: var(--pc); text-shadow: 0 0 18px color-mix(in srgb, var(--pc) 50%, transparent); }
+.vs-wins { color: var(--gold); letter-spacing: .2em; font-size: clamp(14px, calc(var(--vs-cell) * .6), 22px); }
+.vs-row { display: flex; gap: calc(var(--vs-cell) * .4); align-items: flex-start; }
+.vs-board { border-radius: 10px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--pc) 45%, transparent), 0 0 40px color-mix(in srgb, var(--pc) 18%, transparent); }
+.vs-side { display: grid; gap: 4px; justify-items: center; padding: 8px 4px; border-radius: 12px; background: var(--glass); border: 1px solid var(--line); }
+.vs-side small { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.vs-side b { font-size: clamp(16px, calc(var(--vs-cell) * .7), 26px); font-variant-numeric: tabular-nums; }
+
+.vs-count { position: fixed; left: 50%; top: 50%; z-index: 2; translate: -50% -50%; font-size: calc(var(--vs-cell) * 5); font-weight: 900; color: #fff; text-shadow: 0 0 40px rgba(169, 139, 255, .8); pointer-events: none; }
+.vs-count.tick { animation: pulse-count .6s var(--ease-out) both; }
+@keyframes pulse-count { from { opacity: 0; transform: scale(1.6); } 40% { opacity: 1; transform: scale(1); } to { opacity: .2; transform: scale(.9); } }
+
+.vs-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: left; }
+.vs-controls > div { padding: 10px; border-radius: 12px; background: var(--glass); border: 1px solid var(--line); }
+.vs-controls h4 { margin: 0 0 4px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+.vs-controls p { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); }
