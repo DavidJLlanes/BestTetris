@@ -6,7 +6,7 @@ import { startGame } from '../app/startGame.js';
 import { resume, togglePause } from '../app/pause.js';
 import { goMenu } from '../app/goMenu.js';
 import { toggleMute } from '../app/toggleMute.js';
-import { toggleFullscreen } from './fullscreen.js';
+import { bindFullscreenButton } from './install/fullscreenButton.js';
 
 /** Botones fijos de la interfaz (los de modo los crea modeMenu). */
 export function bindButtons() {
@@ -20,6 +20,6 @@ export function bindButtons() {
   $('btn-menu').addEventListener('click', goMenu);
   $('btn-pause').addEventListener('click', () => { initAudio(); togglePause(); });
   $('btn-mute').addEventListener('click', () => { initAudio(); toggleMute(); });
-  $('btn-fullscreen').addEventListener('click', toggleFullscreen);
+  bindFullscreenButton();
   $('badge').addEventListener('click', () => { if (app.screen === 'menu') { playSfx('ui'); pushOverlay('ov-profile'); } });
 }

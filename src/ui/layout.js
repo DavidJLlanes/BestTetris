@@ -1,4 +1,5 @@
 import { app } from '../app/state.js';
+import { screenLandscape } from './screenLandscape.js';
 
 const PHONE_MAX = 600; // lado corto de la pantalla, en px CSS
 
@@ -9,11 +10,10 @@ const PHONE_MAX = 600; // lado corto de la pantalla, en px CSS
 export function detectDevice() {
   const touch = matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
   const short = Math.min(screen.width, screen.height);
-  const vw = window.innerWidth, vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
   const d = app.device;
   d.touch = touch;
   d.phone = touch && short < PHONE_MAX;
-  d.landscape = vw > vh;
+  d.landscape = screenLandscape();
   const b = document.body.classList;
   b.toggle('is-touch', d.touch);
   b.toggle('is-phone', d.phone);

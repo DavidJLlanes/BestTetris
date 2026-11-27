@@ -3,6 +3,7 @@ import { detectDevice } from './layout.js';
 import { resize } from '../render/resize.js';
 import { pause } from '../app/pause.js';
 import { pinViewport } from './pinViewport.js';
+import { isTyping } from './isTyping.js';
 
 /**
  * Reajusta todo cuando cambia el tamaño o la orientación (incluida la barra
@@ -10,8 +11,12 @@ import { pinViewport } from './pinViewport.js';
  */
 export function watchViewport(canvases) {
   let pending = false;
+  // Con el teclado abierto no se recoloca nada: lo visible encoge solo mientras se escribe
+  // y el navegador debe poder mostrar el campo. Al cerrar el teclado se ajusta de nuevo.
+  const pin = () => { if (!isTyping()) pinViewport(); };
   const apply = () => {
     pending = false;
+    if (isTyping()) return;
     pinViewport();
     const d = detectDevice();
     resize(canvases, d);
@@ -22,9 +27,10 @@ export function watchViewport(canvases) {
   addEventListener('orientationchange', schedule);
   if (window.visualViewport) {
     visualViewport.addEventListener('resize', schedule);
-    visualViewport.addEventListener('scroll', pinViewport);
+    visualViewport.addEventListener('scroll', pin);
   }
-  addEventListener('scroll', pinViewport, { passive: true });
+  addEventListener('scroll', pin, { passive: true });
+  document.addEventListener('focusout', () => setTimeout(schedule, 50));
   // Red de seguridad: si algo cambia el área visible sin avisar, se recoloca en menos de un segundo
   let lastKey = '';
   setInterval(() => {

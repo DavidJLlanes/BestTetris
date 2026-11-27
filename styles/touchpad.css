@@ -1,0 +1,89 @@
+/*
+ * Mando táctil del móvil en vertical, de la misma familia que el marco del tablero y el logotipo:
+ * metal pulido oscuro en varias capas (aro cromado fino, reflejo arriba, sombra interior y
+ * exterior suave, brillo del tema). Jerarquía: cruceta unida a la izquierda, reserva discreta,
+ * giros en una cápsula a la derecha y Soltar como botón principal con el degradado de la marca.
+ * Tamaño base --tb (lo calcula layoutMetrics, nunca menos de 44 px).
+ */
+.layout-stacked .touch {
+  /* aro cromado y cuerpo de metal pulido oscuro */
+  --rim: conic-gradient(from 200deg, #f4f4ff, #6b6890 18%, #dcdcf0 32%, #4a4768 50%, #e8e8ff 68%, #5c5a7c 84%, #f4f4ff);
+  --glassFill: linear-gradient(180deg, #3a3656, #1a1730 55%, #121024);
+  --lift: 0 10px 24px -6px rgba(0, 0, 0, .6), 0 2px 6px rgba(0, 0, 0, .35);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 0 4px 8px; max-width: 640px; justify-self: center;
+}
+.layout-stacked .touch-group { display: flex; align-items: center; gap: clamp(8px, 2.6vw, 14px); }
+.layout-stacked .touch .lbl { display: none; }
+
+/* Superficie de cristal común: cápsulas, reserva y soltar */
+.layout-stacked .pad,
+.layout-stacked .touch .t-hold,
+.layout-stacked .touch .t-drop {
+  position: relative; isolation: isolate;
+  border: 1.5px solid transparent;
+  background: var(--glassFill) padding-box, var(--rim) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), inset 0 -10px 18px -8px rgba(0, 0, 0, .55), var(--lift), 0 0 22px -4px rgba(150, 120, 255, .22);
+}
+/* Reflejo superior */
+.layout-stacked .pad::before,
+.layout-stacked .touch .t-hold::before,
+.layout-stacked .touch .t-drop::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  left: 14%; right: 14%; top: 1px; height: 38%; border-radius: 999px 999px 50% 50% / 999px 999px 100% 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .2), rgba(255, 255, 255, 0));
+}
+
+/* Cápsulas: cruceta (3) y giros (2), con separadores finos */
+.layout-stacked .pad { display: flex; height: var(--tb); border-radius: 999px; padding: 0 4px; }
+.layout-stacked .pad button + button::before {
+  content: ""; position: absolute; left: 0; top: 26%; bottom: 26%; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, .16), transparent);
+}
+
+/* Botones */
+.layout-stacked .touch button {
+  position: relative; flex: none; display: grid; place-items: center; padding: 0; margin: 0;
+  border: 0; background: none; box-shadow: none; overflow: visible; border-radius: 999px;
+  color: #e9e8f6; -webkit-tap-highlight-color: transparent;
+  transition: transform .12s var(--ease-out), color .12s, filter .12s;
+}
+.layout-stacked .pad button { width: calc(var(--tb) - 2px); height: calc(var(--tb) - 2px); }
+.layout-stacked .touch .ico { display: block; width: 44%; height: 44%; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .5)); transition: transform .12s var(--ease-out); }
+
+/* Destello al pulsar */
+.layout-stacked .touch button::after {
+  content: ""; position: absolute; inset: 4px; border-radius: 999px; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle, rgba(170, 220, 255, .42), rgba(170, 220, 255, .08) 55%, transparent 72%);
+  transition: opacity .25s;
+}
+.layout-stacked .touch button.down { color: #fff; }
+.layout-stacked .touch button.down::after { opacity: 1; transition: opacity 0s; }
+.layout-stacked .touch button.down .ico { transform: translateY(1px) scale(.9); }
+
+/* Reserva: pequeña y discreta */
+.layout-stacked .touch .t-hold {
+  width: max(44px, calc(var(--tb) * .82)); height: max(44px, calc(var(--tb) * .82));
+  border-radius: 16px; color: rgba(220, 215, 255, .72);
+}
+.layout-stacked .touch .t-hold.down, .layout-stacked .touch .t-drop.down { transform: scale(.93); }
+.layout-stacked .touch .t-hold.down { box-shadow: inset 0 3px 10px rgba(0, 0, 0, .6), 0 0 18px rgba(150, 190, 255, .35); }
+
+/* Soltar: el principal, con aro del degradado de la marca */
+.layout-stacked .touch .t-drop {
+  width: calc(var(--tb) * 1.16); height: calc(var(--tb) * 1.16); border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 120%, rgba(255, 79, 216, .38), transparent 60%) padding-box,
+    radial-gradient(circle at 50% -20%, rgba(70, 230, 255, .32), transparent 60%) padding-box,
+    linear-gradient(180deg, rgba(48, 30, 110, .92), rgba(20, 10, 52, .95)) padding-box,
+    linear-gradient(140deg, #6ff0ff, #9a7bff 50%, #ff5fdc) border-box;
+  border-width: 1.5px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), inset 0 -10px 18px -8px rgba(0, 0, 0, .6), var(--lift),
+    0 0 26px -2px rgba(120, 140, 255, .45), 0 0 14px -4px rgba(255, 79, 216, .5);
+  color: #fff;
+}
+.layout-stacked .touch .t-drop .ico { width: 42%; height: 42%; filter: drop-shadow(0 0 6px rgba(140, 220, 255, .6)); }
+.layout-stacked .touch .t-drop.down { box-shadow: inset 0 3px 12px rgba(0, 0, 0, .6), 0 0 34px rgba(140, 160, 255, .7), 0 0 20px rgba(255, 79, 216, .6); }
+
+/* Pantallas muy estrechas: la reserva se hace tocando su recuadro */
+@media (max-width: 359px) { .layout-stacked .touch .t-hold { display: none; } }

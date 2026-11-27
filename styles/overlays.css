@@ -64,3 +64,9 @@ kbd { display: inline-block; min-width: 22px; padding: 1px 6px; border-radius: 6
 .tabs { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; padding: 4px; border-radius: 12px; background: var(--glass); border: 1px solid var(--line); }
 .tabs button { border: 0; border-radius: 9px; padding: 8px 4px; background: none; color: var(--muted); font: 700 13px var(--font); cursor: pointer; transition: background .2s, color .2s; }
 .tabs button.on { background: linear-gradient(135deg, color-mix(in srgb, var(--accent2) 30%, transparent), color-mix(in srgb, var(--accent) 30%, transparent)); color: var(--ink); }
+
+/* Guía para instalar como app (iPhone) */
+.install-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; text-align: left; counter-reset: paso; }
+.install-steps li { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; background: var(--glass); border: 1px solid var(--line); line-height: 1.35; }
+.install-steps .step-ico { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(140deg, rgba(70, 230, 255, .28), rgba(255, 79, 216, .28)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2); }
+.install-steps .step-ico svg { width: 22px; height: 22px; }

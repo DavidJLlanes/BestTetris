@@ -35,3 +35,9 @@
 .power-btn span { position: absolute; inset: 3px; display: grid; place-items: center; border-radius: 8px; background: var(--bg, #0b0820); }
 .power-btn.ready { animation: power-ready 1.2s ease-in-out infinite; }
 @keyframes power-ready { 50% { box-shadow: 0 0 0 2px var(--pc), 0 0 22px var(--pc); } }
+
+/* Pantalla completa: icono de entrar o de salir */
+.fs-btn { display: grid; place-items: center; padding: 0; }
+.fs-btn svg { width: 18px; height: 18px; }
+.fs-btn .fs-exit, .fs-btn.is-on .fs-enter { display: none; }
+.fs-btn.is-on .fs-exit { display: block; }

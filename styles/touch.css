@@ -12,36 +12,5 @@
 .touch .ico { display: none; }
 .layout-side .touch button { height: 64px; }
 
-/*
- * Móvil en vertical: botones redondos de cristal (diámetro --tb, nunca menos de 44 px),
- * cruceta y reserva a la izquierda, giros y soltar a la derecha.
- */
-.layout-stacked .touch { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 2px 8px; max-width: 640px; justify-self: center; }
-.layout-stacked .touch-group { display: flex; align-items: center; gap: clamp(4px, 1.6vw, 10px); }
-.layout-stacked .touch button {
-  flex: none; display: grid; place-items: center; padding: 0; overflow: hidden;
-  width: var(--tb, 52px); height: var(--tb, 52px); border-radius: 50%;
-  color: rgba(255, 255, 255, .92);
-  border: 1px solid rgba(255, 255, 255, .14);
-  background: radial-gradient(circle at 34% 26%, rgba(255, 255, 255, .2), rgba(255, 255, 255, .05) 46%, rgba(255, 255, 255, 0) 70%), rgba(22, 15, 52, .62);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .22), inset 0 -6px 12px rgba(0, 0, 0, .28), 0 6px 16px rgba(0, 0, 0, .38);
-  transition: transform .09s var(--ease-out), box-shadow .12s, background .12s;
-}
-.layout-stacked .touch .lbl { display: none; }
-.layout-stacked .touch .ico { display: block; width: 46%; height: 46%; }
-.layout-stacked .touch button.down {
-  transform: scale(.9);
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .28), rgba(255, 255, 255, .08) 70%), rgba(40, 28, 90, .7);
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, .4), 0 0 18px rgba(140, 160, 255, .35);
-}
-/* Reserva, más pequeña; soltar, mayor y con el degradado de la marca */
-.layout-stacked .touch .t-hold { width: max(44px, calc(var(--tb, 52px) * .84)); height: max(44px, calc(var(--tb, 52px) * .84)); margin-left: 2px; opacity: .9; }
-.layout-stacked .touch .t-drop {
-  width: calc(var(--tb, 52px) * 1.16); height: calc(var(--tb, 52px) * 1.16);
-  background: radial-gradient(circle at 34% 26%, rgba(255, 255, 255, .28), rgba(255, 255, 255, 0) 60%), linear-gradient(140deg, rgba(70, 230, 255, .5), rgba(255, 79, 216, .5));
-  border-color: rgba(255, 255, 255, .26);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), 0 6px 20px rgba(120, 90, 255, .35);
-}
-.layout-stacked .touch .t-drop .ico { width: 44%; height: 44%; }
-/* Pantallas muy estrechas: la reserva se hace tocando su recuadro */
-@media (max-width: 359px) { .layout-stacked .touch .t-hold { display: none; } }
+/* Móvil en vertical: mando de cristal en styles/touchpad.css */
+.layout-side .pad { display: contents; }

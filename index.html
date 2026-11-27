@@ -7,6 +7,8 @@
   <meta name="description" content="BestTris: un juego de puzle de bloques que caen, con música generada en tiempo real.">
   <meta name="theme-color" content="#0b0820">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="BestTris">
   <meta name="mobile-web-app-capable" content="yes">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
@@ -22,6 +24,7 @@
   <link rel="stylesheet" href="styles/forms.css">
   <link rel="stylesheet" href="styles/trophies.css">
   <link rel="stylesheet" href="styles/touch.css">
+  <link rel="stylesheet" href="styles/touchpad.css">
   <link rel="stylesheet" href="styles/rotate-lock.css">
   <link rel="stylesheet" href="styles/focus.css">
   <link rel="stylesheet" href="styles/hint.css">
@@ -169,6 +172,7 @@
   <link rel="modulepreload" href="src/input/gamepad/watchConnection.js">
   <link rel="modulepreload" href="src/input/gestures/createGesture.js">
   <link rel="modulepreload" href="src/input/haptics.js">
+  <link rel="modulepreload" href="src/input/iosHaptic.js">
   <link rel="modulepreload" href="src/input/keyboard.js">
   <link rel="modulepreload" href="src/input/press.js">
   <link rel="modulepreload" href="src/input/setInput.js">
@@ -322,6 +326,11 @@
   <link rel="modulepreload" href="src/ui/gameOverPanel.js">
   <link rel="modulepreload" href="src/ui/hud.js">
   <link rel="modulepreload" href="src/ui/identityBadge.js">
+  <link rel="modulepreload" href="src/ui/install/canFullscreen.js">
+  <link rel="modulepreload" href="src/ui/install/fullscreenButton.js">
+  <link rel="modulepreload" href="src/ui/install/isFullscreen.js">
+  <link rel="modulepreload" href="src/ui/install/isInstalled.js">
+  <link rel="modulepreload" href="src/ui/isTyping.js">
   <link rel="modulepreload" href="src/ui/layout.js">
   <link rel="modulepreload" href="src/ui/levelBadge.js">
   <link rel="modulepreload" href="src/ui/menuNav.js">
@@ -340,6 +349,7 @@
   <link rel="modulepreload" href="src/ui/raceHud.js">
   <link rel="modulepreload" href="src/ui/recordsPanel.js">
   <link rel="modulepreload" href="src/ui/replayButtons.js">
+  <link rel="modulepreload" href="src/ui/screenLandscape.js">
   <link rel="modulepreload" href="src/ui/settingsPanel.js">
   <link rel="modulepreload" href="src/ui/sharePanel.js">
   <link rel="modulepreload" href="src/ui/sidePanels.js">
@@ -406,7 +416,7 @@
       <div class="topbar-actions">
         <button class="icon-btn power-btn" id="btn-power" title="Usar poder (V)" aria-label="Usar poder" hidden><span id="power-icon">✦</span></button>
         <button class="icon-btn undo-btn" id="btn-undo" title="Deshacer (Retroceso)" aria-label="Deshacer la última pieza" hidden>↶<small id="undo-left"></small></button>
-        <button class="icon-btn" id="btn-fullscreen" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
+        <button class="icon-btn fs-btn" id="btn-fullscreen" title="Pantalla completa" aria-label="Pantalla completa"><svg class="fs-enter" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="fs-exit" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button class="icon-btn" id="btn-mute" title="Silenciar (M)" aria-label="Silenciar">♪</button>
         <button class="icon-btn" id="btn-pause" title="Pausa (Esc)" aria-label="Pausa">❚❚</button>
       </div>
@@ -513,6 +523,22 @@
             <div class="menu">
               <button class="btn primary" id="vover-again" autofocus>Revancha</button>
               <button class="btn ghost" id="vover-menu">Menú principal</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-install" hidden>
+          <div class="card install-card">
+            <h2>Juega a pantalla completa</h2>
+            <p class="tip">En iPhone, Safari no deja que una web ocupe toda la pantalla. Instala BestTris como app: se abre sin barras, a toda pantalla y también sin conexión.</p>
+            <ol class="install-steps">
+              <li><span class="step-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M7 11H5v10h14V11h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Toca <b>Compartir</b> en la barra de Safari (en iOS 26, primero <b>···</b>).</span></li>
+              <li><span class="step-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 8v8m-4-4h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Elige <b>Añadir a pantalla de inicio</b> y pulsa <b>Añadir</b>.</span></li>
+              <li><span class="step-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="8" width="6" height="6" rx="1.5" fill="currentColor"/></svg></span><span>Abre <b>BestTris</b> desde su icono.</span></li>
+            </ol>
+            <p class="tip">La app guarda sus datos aparte de Safari: para llevarte tu progreso, usa <b>Perfil › Exportar progreso</b> aquí e impórtalo en la app.</p>
+            <div class="menu">
+              <button class="btn primary" data-back autofocus>Entendido</button>
             </div>
           </div>
         </div>
@@ -741,15 +767,19 @@
 
       <div class="touch" id="touch" aria-label="Controles táctiles">
         <nav class="touch-group touch-left">
-          <button data-act="left" aria-label="Izquierda"><span class="lbl">◀</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <button data-act="soft" aria-label="Bajar"><span class="lbl">▼</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <button data-act="right" aria-label="Derecha"><span class="lbl">▶</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <button data-act="hold" class="t-span t-small t-hold" aria-label="Reservar"><span class="lbl">Reserva</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="6" width="16" height="12" rx="3.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path d="M12 9.5v5m-2.5-2.5h5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg></button>
+          <span class="pad pad-move">
+            <button data-act="left" aria-label="Izquierda"><span class="lbl">◀</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6.5 9 12l5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button data-act="soft" aria-label="Bajar"><span class="lbl">▼</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 9.5 12 15l5.5-5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button data-act="right" aria-label="Derecha"><span class="lbl">▶</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6.5 15 12l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </span>
+          <button data-act="hold" class="t-span t-small t-hold" aria-label="Reservar"><span class="lbl">Reserva</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M9 12h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/><path d="M12 9v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7"/></svg></button>
         </nav>
         <nav class="touch-group touch-right">
-          <button data-act="ccw" aria-label="Girar a la izquierda"><span class="lbl">↺</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12a7 7 0 1 0 2.05-4.95M5 4v4h4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"/></svg></button>
-          <button data-act="cw" aria-label="Girar a la derecha"><span class="lbl">↻</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12a7 7 0 1 1-2.05-4.95M19 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"/></svg></button>
-          <button data-act="hard" class="t-span t-drop" aria-label="Soltar"><span class="lbl">⤓ Soltar</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10m-4.5-4.5L12 14l4.5-4.5M6 19h12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <span class="pad pad-rot">
+            <button data-act="ccw" aria-label="Girar a la izquierda"><span class="lbl">↺</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 8.6A6.5 6.5 0 1 1 5.6 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.4 4.6v4.3h4.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button data-act="cw" aria-label="Girar a la derecha"><span class="lbl">↻</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.8 8.6A6.5 6.5 0 1 0 18.4 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.6 4.6v4.3h-4.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </span>
+          <button data-act="hard" class="t-span t-drop" aria-label="Soltar"><span class="lbl">⤓ Soltar</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6.5l5 5 5-5M7 11.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/><path d="M6.5 19.5h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1"/></svg></button>
         </nav>
       </div>
     </main>
