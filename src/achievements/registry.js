@@ -9,6 +9,7 @@ import modes from './catalog/modes.js';
 import puzzles from './catalog/puzzles.js';
 import lifetime from './catalog/lifetime.js';
 import secrets from './catalog/secrets.js';
+import progress from './catalog/progress.js';
 
 export const CATEGORIES = [
   { id: 'lines', name: 'Líneas', list: lines },
@@ -17,6 +18,7 @@ export const CATEGORIES = [
   { id: 'modes', name: 'Modos', list: modes },
   { id: 'puzzles', name: 'Puzles', list: puzzles },
   { id: 'lifetime', name: 'Constancia', list: lifetime },
+  { id: 'progress', name: 'Progreso', list: progress },
   { id: 'secrets', name: 'Secretos', list: secrets },
 ];
 

@@ -12,7 +12,7 @@ export const overlayDepth = () => stack.length;
 export const topOverlay = () => $(stack[stack.length - 1]);
 
 /** Registra una función que rellena una pantalla justo antes de mostrarla. */
-export function onOpen(id, fn) { openers.set(id, fn); }
+export function onOpen(id, fn) { openers.set(id, [...(openers.get(id) || []), fn]); }
 
 function focusFirst(el) {
   if (app.device.touch) return;
@@ -22,7 +22,7 @@ function focusFirst(el) {
 
 function reveal(id) {
   const el = $(id);
-  if (openers.has(id)) openers.get(id)(el);
+  (openers.get(id) || []).forEach((fn) => fn(el));
   el.hidden = false;
   el.classList.remove('leave');
   void el.offsetWidth; // reinicia la animación de entrada

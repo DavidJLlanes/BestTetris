@@ -1,6 +1,7 @@
 import { $ } from '../util/dom.js';
 import { CATEGORIES, ACHIEVEMENTS } from '../achievements/registry.js';
 import { TIERS } from '../achievements/tiers.js';
+import { RARITY } from '../progress/rarity.js';
 import { getUnlocked } from '../storage/achievements.js';
 import { onOpen } from './overlays.js';
 
@@ -10,7 +11,7 @@ function card(a, date) {
   return `<div class="trophy ${date ? 'got' : 'locked'}" style="--tier:${tier.color}">
     <span class="trophy-icon">${hidden ? '?' : a.icon}</span>
     <span class="trophy-text"><b>${hidden ? 'Logro secreto' : a.name}</b><small>${hidden ? 'Sigue jugando para descubrirlo' : a.desc}</small></span>
-    <span class="trophy-tier">${date ? date : tier.name}</span>
+    <span class="trophy-tier" style="color:${RARITY[a.tier].color}">${date ? date : RARITY[a.tier].name}</span>
   </div>`;
 }
 

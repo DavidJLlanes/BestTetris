@@ -43,6 +43,9 @@ import { watchPuzzles } from './puzzles/app/watchPuzzles.js';
 import { bindPuzzlesPanel } from './ui/puzzles/puzzlesPanel.js';
 import { bindCodePanel, openSharedPuzzle } from './ui/puzzles/codePanel.js';
 import { bindEditorPanel } from './ui/editor/editorPanel.js';
+import { bindProfileProgress } from './ui/progress/profileProgress.js';
+import { bindStatsPanel } from './ui/progress/statsPanel.js';
+import { bindThemesPanel } from './ui/themes/themesPanel.js';
 import { registerServiceWorker } from './pwa/registerServiceWorker.js';
 import { bindInstallPrompt } from './pwa/installPrompt.js';
 
@@ -77,6 +80,9 @@ bindSharePanel();
 bindPuzzlesPanel();
 bindCodePanel();
 bindEditorPanel();
+bindProfileProgress();
+bindStatsPanel();
+bindThemesPanel();
 refreshIdentityBadge();
 bindLevelBadge();
 

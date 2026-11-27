@@ -8,7 +8,7 @@ async function loadImage(src) {
 }
 
 /** Logo, avatar redondo con anillo de color y nombre del jugador. */
-export async function drawCardHeader(ctx, identity) {
+export async function drawCardHeader(ctx, identity, rankColor = '#ff4fd8') {
   const logo = ctx.createLinearGradient(260, 0, 820, 0);
   logo.addColorStop(0, '#46e6ff'); logo.addColorStop(0.5, '#a98bff'); logo.addColorStop(1, '#ff4fd8');
   ctx.fillStyle = logo;
@@ -20,7 +20,7 @@ export async function drawCardHeader(ctx, identity) {
 
   const cx = CARD_W / 2, cy = 300, r = 120;
   const ring = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
-  ring.addColorStop(0, '#46e6ff'); ring.addColorStop(1, '#ff4fd8');
+  ring.addColorStop(0, '#46e6ff'); ring.addColorStop(1, rankColor);
   ctx.fillStyle = ring;
   ctx.beginPath(); ctx.arc(cx, cy, r + 10, 0, Math.PI * 2); ctx.fill();
   ctx.save();
@@ -38,5 +38,5 @@ export async function drawCardHeader(ctx, identity) {
 
   ctx.fillStyle = '#ffffff';
   ctx.font = `800 64px ${FONT}`;
-  ctx.fillText(identity.name, cx, 500);
+  ctx.fillText(identity.name, cx, 490);
 }

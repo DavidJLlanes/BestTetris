@@ -6,6 +6,10 @@ import { ACHIEVEMENTS } from '../achievements/registry.js';
 import { MODES } from '../modes/registry.js';
 import { RECORD_KINDS } from '../modes/recordKinds.js';
 import { formatNumber } from '../util/formatNumber.js';
+import { levelFromXp } from '../progress/levels.js';
+import { rankFor } from '../progress/ranks.js';
+import { streak } from '../progress/streak.js';
+import { loadDays } from '../storage/days.js';
 
 /** Reúne lo que se muestra en la tarjeta a partir del progreso guardado. */
 export function cardData() {
@@ -21,6 +25,7 @@ export function cardData() {
   }).filter(Boolean);
   return {
     identity,
+    progress: (({ level }) => ({ level, rank: rankFor(level), streak: streak(loadDays()).current }))(levelFromXp(p.xp)),
     stats: [['Logros', `${unlocked.length}/${ACHIEVEMENTS.length}`], ['Líneas', formatNumber(p.lines)], ['Partidas', formatNumber(p.games)]],
     tierCounts,
     records,

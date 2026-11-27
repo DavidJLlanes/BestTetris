@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="styles/puzzles.css">
   <link rel="stylesheet" href="styles/editor.css">
   <link rel="stylesheet" href="styles/scrollbars.css">
+  <link rel="stylesheet" href="styles/progress.css">
   <script type="module" src="src/main.js"></script>
 </head>
 <body>
@@ -193,6 +194,13 @@
             </div>
             <input type="file" id="profile-photo-input" accept="image/*" hidden>
             <label class="field">Nombre <input type="text" id="profile-name" maxlength="24" autocomplete="nickname" enterkeyhint="done"></label>
+            <div class="progress-card" id="profile-progress"></div>
+            <div class="streak" id="profile-streak"></div>
+            <div class="calendar" id="profile-calendar" aria-label="Días jugados"></div>
+            <div class="menu-row">
+              <button class="btn ghost" data-open="ov-stats">Estadísticas</button>
+              <button class="btn ghost" data-open="ov-themes">Temas</button>
+            </div>
             <div class="result" id="profile-stats"></div>
             <button class="btn primary" data-open="ov-share">Compartir tarjeta de progreso</button>
             <div class="menu-row">
@@ -216,6 +224,25 @@
               <button class="btn ghost" id="share-download">Descargar imagen</button>
               <button class="btn ghost" data-back>Volver</button>
             </div>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-stats" hidden>
+          <div class="card">
+            <h2>Estadísticas</h2>
+            <label class="field">Modo <select id="stats-mode"></select></label>
+            <div class="chart" id="stats-chart"></div>
+            <div class="result" id="stats-summary"></div>
+            <button class="btn ghost" data-back>Volver</button>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-themes" hidden>
+          <div class="card">
+            <h2>Temas</h2>
+            <p class="tip">Sube de nivel para desbloquear más.</p>
+            <div class="themes" id="themes"></div>
+            <button class="btn ghost" data-back>Volver</button>
           </div>
         </div>
 

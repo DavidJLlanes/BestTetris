@@ -11,4 +11,7 @@ export const DEFAULT_SETTINGS = {
   colorblind: false,
   focus: false,
   slowmo: true,
+  gems: 'prisma',     // tema de gemas (se desbloquean subiendo de nivel)
+  bg: 'aurora',       // fondo
+  musicStyle: 'cascada', // arreglo de la música
 };
