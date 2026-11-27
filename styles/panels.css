@@ -46,3 +46,8 @@
 .badge-text { display: grid; text-align: left; min-width: 0; line-height: 1.15; }
 .badge-level { font-size: 10px; font-weight: 700; color: var(--rank, var(--muted)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #badge-avatar { box-shadow: 0 0 0 2px var(--rank, var(--accent2)), 0 0 0 4px color-mix(in srgb, var(--rank, #ff4fd8) 35%, transparent); }
+
+/* Columna estrecha (móvil): título corto para que no se corte */
+.layout-stacked:not(.hud-strip) .next-box h3 span { display: none; }
+.layout-stacked:not(.hud-strip) .next-box h3::after { content: attr(data-short); letter-spacing: .04em; }
+@media (min-width: 600px) { .layout-stacked:not(.hud-strip) .next-box h3 span { display: inline; } .layout-stacked:not(.hud-strip) .next-box h3::after { content: none; } }
