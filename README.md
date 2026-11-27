@@ -32,6 +32,9 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 | `src/storage/` | Guardado local, récords, perfil, logros y copia de seguridad versionada (exportar e importar) |
 | `src/share/` | Tarjeta de progreso dibujada en el navegador y compartida con el sistema |
 | `src/tutorial/` | Pasos del tutorial interactivo y pistas según el control usado |
+| `src/puzzles/` | Puzles: colecciones, objetivos, siluetas del entrenador, códigos para compartir y comprobador de solución (en un worker) |
+| `src/replay/` | Grabación de partidas, repeticiones y carrera contra tu fantasma |
+| `src/core/undo/` | Deshacer: fotos del estado al aparecer cada pieza y coste creciente |
 | `src/pwa/` | Registro del service worker (`sw.js`) y botón de instalar |
 | `styles/` | Un CSS por zona de la interfaz |
 | `tests/` | Pruebas del núcleo, los modos, los logros y la copia de seguridad |
@@ -39,6 +42,10 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 ### Cómo ampliar
 
 - **Modo nuevo:** crea `src/modes/list/<id>.js` (reglas y, si hace falta, `setup`, `onTick`, `onLock`, `isComplete`) y añádelo a `src/modes/registry.js`.
+- **Puzle nuevo:** añade una entrada a un archivo de `src/puzzles/sets/` (tablero, piezas y objetivo). Las pruebas comprueban solas que tenga solución.
+- **Poder nuevo:** añade una entrada a `src/modes/powers/powerList.js` con su `use(g)`.
+- **Estación nueva o cambio de regla:** edita `src/modes/seasons/seasonList.js`.
+- **Tolerancia de gestos táctiles:** ajusta `src/config/gestures.js`; las pruebas de `tests/core/gestures.test.js` simulan trazos imperfectos.
 - **Logro nuevo:** añade una entrada a un archivo de `src/achievements/catalog/` con `on` (evento) y `test`.
 - **Paso de tutorial nuevo:** añade una entrada a `src/tutorial/steps.js` con el evento que lo completa y el texto para teclado, mando y táctil.
 - **Capa musical nueva:** añade una función a `src/audio/music/layers.js`; decide si suena según la tensión del tablero.

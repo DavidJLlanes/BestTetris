@@ -4,7 +4,7 @@
  * la copia con la versión del servidor (stale-while-revalidate). Solo mismo origen.
  * Sube CACHE_VERSION al publicar cambios grandes para empezar con una caché limpia.
  */
-const CACHE_VERSION = 'besttris-v3';
+const CACHE_VERSION = 'besttris-v4';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './assets/favicon.svg', './assets/icon-192.png', './assets/icon-512.png', './src/main.js'];
 
 self.addEventListener('install', (e) => {

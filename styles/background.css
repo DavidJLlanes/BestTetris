@@ -8,3 +8,11 @@
 .aurora span:nth-child(2) { right: -45vmax; top: -5vmax; background: radial-gradient(closest-side, rgba(255, 47, 180, .35), transparent); animation-duration: 34s; }
 .aurora span:nth-child(3) { left: -10vmax; bottom: -55vmax; background: radial-gradient(closest-side, rgba(0, 179, 217, .35), transparent); animation-duration: 40s; }
 @keyframes drift { to { transform: translate3d(8vmax, -6vmax, 0) scale(1.12); } }
+
+/* Estaciones: la aurora toma el color de la estación con un fundido lento */
+.aurora::after { content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity 2s ease, background 2s ease; }
+body[data-season] .aurora::after { opacity: 1; }
+body[data-season=spring] .aurora::after { background: radial-gradient(90% 70% at 50% 100%, rgba(92,255,157,.16), transparent 70%); }
+body[data-season=summer] .aurora::after { background: radial-gradient(90% 70% at 50% 0%, rgba(255,211,79,.18), transparent 70%); }
+body[data-season=autumn] .aurora::after { background: radial-gradient(90% 70% at 50% 100%, rgba(255,140,60,.2), transparent 70%); }
+body[data-season=winter] .aurora::after { background: radial-gradient(100% 80% at 50% 0%, rgba(160,220,255,.2), transparent 70%); }

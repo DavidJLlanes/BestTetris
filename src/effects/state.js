@@ -10,6 +10,8 @@ export const fx = {
   trails: [],           // estelas de caída rápida
   slow: null,           // cámara lenta en curso { t, total, scale }
   zoom: { x: 0, v: 0 }, // zoom extra del tablero (0 = normal), con muelle
+  ambient: null,         // partículas de ambiente de una estación { kind, color, parts }
+  freeze: 0,            // 1 mientras dura el poder Congelar (escarcha en los bordes)
   rewind: 0,            // 1 → 0: barrido de "rebobinar" al deshacer
   overT: 0,             // segundos desde el fin de la partida (onda gris)
 };

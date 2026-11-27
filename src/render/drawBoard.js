@@ -8,6 +8,8 @@ import { drawGhost } from './layers/drawGhost.js';
 import { drawTarget } from './layers/drawTarget.js';
 import { drawRewind } from './layers/drawRewind.js';
 import { drawRace } from './layers/drawRace.js';
+import { drawAmbient } from './layers/drawAmbient.js';
+import { drawFrost } from './layers/drawFrost.js';
 import { drawActive } from './layers/drawActive.js';
 import { drawLockFlash } from './layers/drawLockFlash.js';
 import { drawTrails } from './layers/drawTrails.js';
@@ -22,6 +24,7 @@ export function drawBoard(g, settings, now) {
   drawBackdrop(ctx, settings);
   if (g) drawDanger(ctx, g, now);
   drawFlash(ctx);
+  drawAmbient(ctx, now);
 
   ctx.save();
   const shake = fx.shake > 0.2 ? (Math.random() - 0.5) * fx.shake : 0;
@@ -35,7 +38,7 @@ export function drawBoard(g, settings, now) {
     drawStack(ctx, g);
     if (g.cur && !g.over) {
       drawTarget(ctx, g, now);
-      if (settings.ghost) drawGhost(ctx, g);
+      if (settings.ghost && g.rules.ghost) drawGhost(ctx, g);
       drawActive(ctx, g);
     }
     drawLockFlash(ctx);
@@ -43,6 +46,7 @@ export function drawBoard(g, settings, now) {
   }
   drawParticles(ctx);
   ctx.restore();
+  drawFrost(ctx, now);
   if (g) drawRace(ctx, g);
   drawTexts(ctx);
 }

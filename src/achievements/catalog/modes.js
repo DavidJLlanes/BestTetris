@@ -19,4 +19,12 @@ export default [
   { id: 'purist', name: 'Sin red', desc: 'Completa Purista', tier: 'gold', icon: '◇', on: 'finish', test: won('purist') },
   { id: 'daily', name: 'Cita diaria', desc: 'Completa un desafío diario', tier: 'bronze', icon: '☀', on: 'finish', test: won('daily') },
   { id: 'zen-200', name: 'Nirvana', desc: '200 líneas en una partida Zen', tier: 'silver', icon: '☯', on: 'score', test: ({ g }) => g.mode === 'zen' && g.lines >= 200 },
+  { id: 'seasons-year', name: 'Un año entero', desc: 'Vive las cuatro estaciones (40 líneas en Estaciones)', tier: 'silver', icon: '🍂', on: 'score', test: ({ g }) => g.mode === 'seasons' && g.lines >= 40 },
+  { id: 'seasons-2', name: 'Veterano del tiempo', desc: '80 líneas en Estaciones', tier: 'gold', icon: '❄', on: 'score', test: ({ g }) => g.mode === 'seasons' && g.lines >= 80 },
+  { id: 'sway-30', name: 'Marinero', desc: '30 líneas en Vaivén', tier: 'silver', icon: '〰', on: 'score', test: ({ g }) => g.mode === 'sway' && g.lines >= 30 },
+  { id: 'sway-storm', name: 'Ojo de la tormenta', desc: 'Aguanta 3 ciclos completos en Vaivén', tier: 'gold', icon: '🌪', on: 'finish', test: ({ g }) => g.mode === 'sway' && g.custom.cycle >= 3 },
+  { id: 'chaos-bombs', name: 'Artificiero', desc: '10 bombas en una partida de Caos', tier: 'silver', icon: '✸', on: 'score', test: ({ g }) => g.mode === 'chaos' && (g.stats.bombs || 0) >= 10 },
+  { id: 'chaos-50', name: 'Domador del caos', desc: '50 líneas en Caos', tier: 'gold', icon: '✸', on: 'score', test: ({ g }) => g.mode === 'chaos' && g.lines >= 50 },
+  { id: 'powers-3', name: 'Superpoderes', desc: 'Usa 3 poderes en una partida', tier: 'bronze', icon: '✦', on: 'score', test: ({ g }) => g.mode === 'powers' && (g.stats.powers || 0) >= 3 },
+  { id: 'powers-60', name: 'Poder absoluto', desc: '60 líneas en Poderes', tier: 'gold', icon: '✦', on: 'score', test: ({ g }) => g.mode === 'powers' && g.lines >= 60 },
 ];

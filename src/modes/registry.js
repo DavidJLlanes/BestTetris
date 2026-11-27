@@ -13,8 +13,12 @@ import shadow from './list/shadow.js';
 import purist from './list/purist.js';
 import daily from './list/daily.js';
 import zen from './list/zen.js';
+import seasons from './list/seasons.js';
+import sway from './list/sway.js';
+import chaos from './list/chaos.js';
+import powers from './list/powers.js';
 
-export const MODES = [tutorial, marathon, sprint, ultra, dig, tide, master, shadow, purist, daily, zen]
+export const MODES = [tutorial, marathon, sprint, ultra, dig, tide, master, shadow, purist, daily, zen, seasons, sway, chaos, powers]
   .sort((a, b) => a.order - b.order);
 
 export const getMode = (id) => MODES.find((m) => m.id === id);

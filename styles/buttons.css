@@ -29,3 +29,9 @@
 .undo-btn.ready { opacity: 1; box-shadow: 0 0 0 1px rgba(70,230,255,.45), 0 0 16px rgba(70,230,255,.25); }
 .undo-btn small { position: absolute; right: -4px; top: -4px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 99px; background: var(--accent2); color: #0b0820; font: 800 10px/16px var(--font); }
 .undo-btn small:empty { display: none; }
+
+/* Poder: anillo de carga que se llena con las líneas (conic-gradient, sin repintar el resto) */
+.power-btn { position: relative; font-size: 17px; background: conic-gradient(var(--pc, #a98bff) calc(var(--charge, 0) * 360deg), rgba(255,255,255,.06) 0) padding-box; border: 2px solid transparent; }
+.power-btn span { position: absolute; inset: 3px; display: grid; place-items: center; border-radius: 8px; background: var(--bg, #0b0820); }
+.power-btn.ready { animation: power-ready 1.2s ease-in-out infinite; }
+@keyframes power-ready { 50% { box-shadow: 0 0 0 2px var(--pc), 0 0 22px var(--pc); } }

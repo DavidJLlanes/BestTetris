@@ -2,7 +2,7 @@ import { app } from './state.js';
 import { emit } from './bus.js';
 import { createGame, spawn } from '../core/game/index.js';
 import { getMode } from '../modes/registry.js';
-import { initAudio, playSfx, startMusic, restartMusic, setMusicLevel } from '../audio/index.js';
+import { initAudio, playSfx, startMusic, restartMusic, setMusicLevel, setMusicTranspose } from '../audio/index.js';
 import { resetEffects } from '../effects/resetEffects.js';
 import { hideOverlays } from '../ui/overlays.js';
 import { countdown } from '../ui/countdown.js';
@@ -22,6 +22,7 @@ export function startGame(modeOrId, { quick = false } = {}) {
   releaseAll();
   resetEffects();
   setMusicLevel(app.game.level);
+  setMusicTranspose(0);
   restartMusic();
   setBest(bestLabel(mode));
   document.body.dataset.mode = modeId;

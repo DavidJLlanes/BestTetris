@@ -42,6 +42,7 @@ export const SFX = {
   },
   undo: (bus, t) => { tone(bus, { freq: 1180, glideTo: 380, type: 'sine', t, dur: 0.22, vol: 0.09 }); noise(bus, { t, dur: 0.18, vol: 0.05, type: 'bandpass', freq: 1800 }); },
   denied: (bus, t) => tone(bus, { freq: 180, type: 'square', t, dur: 0.08, vol: 0.05, cutoff: 900 }),
+  bomb: (bus, t) => { tone(bus, { freq: 160, glideTo: 30, type: 'sawtooth', t, dur: 0.45, vol: 0.16, cutoff: 700 }); noise(bus, { t, dur: 0.5, vol: 0.2, type: 'lowpass', freq: 900 }); },
   miss: (bus, t) => [64, 60].forEach((m, i) => tone(bus, { freq: mtof(m), type: 'triangle', t: t + i * 0.12, dur: 0.2, vol: 0.08 })),
   garbage: (bus, t) => { tone(bus, { freq: 90, glideTo: 140, type: 'sawtooth', t, dur: 0.15, vol: 0.08, cutoff: 600 }); },
   ui: (bus, t) => tone(bus, { freq: 660, type: 'sine', t, dur: 0.05, vol: 0.06 }),

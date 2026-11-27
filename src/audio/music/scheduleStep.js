@@ -6,12 +6,12 @@ import { MELODY, CHORDS, BASS, STEPS_PER_BAR, BARS } from './score.js';
 import { TENSION_LAYERS } from './layers.js';
 
 /** Programa una semicorchea de la canción en el instante t. */
-export function scheduleStep(step, t, bpm, intensity, tension = 0) {
+export function scheduleStep(step, t, bpm, intensity, tension = 0, transpose = 0) {
   const bus = audio.music;
   const sixteenth = 60 / bpm / 4;
   const bar = Math.floor(step / STEPS_PER_BAR) % BARS;
   const inBar = step % STEPS_PER_BAR;
-  const chord = CHORDS[bar];
+  const chord = CHORDS[bar].map((n) => n + transpose);
 
   const arp = [chord[0] + 12, chord[1] + 12, chord[2] + 12, chord[1] + 24];
   tone(bus, { freq: mtof(arp[inBar % 4]), type: 'triangle', t, dur: sixteenth * 0.9, vol: 0.05 + intensity * 0.02, r: 0.05, pan: (inBar % 4 - 1.5) * 0.25 });
@@ -30,8 +30,9 @@ export function scheduleStep(step, t, bpm, intensity, tension = 0) {
       let len = 1;
       while (e + len < 8 && line[e + len] === null) len++;
       const dur = sixteenth * 2 * len * 0.95;
-      tone(bus, { freq: mtof(line[e]), type: 'sawtooth', t, dur, vol: 0.05, a: 0.01, r: 0.12, cutoff: 2400, detune: -5 });
-      tone(bus, { freq: mtof(line[e] + 12), type: 'sine', t, dur, vol: 0.025, a: 0.01, r: 0.12 });
+      const note = line[e] + transpose;
+      tone(bus, { freq: mtof(note), type: 'sawtooth', t, dur, vol: 0.05, a: 0.01, r: 0.12, cutoff: 2400, detune: -5 });
+      tone(bus, { freq: mtof(note + 12), type: 'sine', t, dur, vol: 0.025, a: 0.01, r: 0.12 });
     }
   }
 
