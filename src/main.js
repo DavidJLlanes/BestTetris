@@ -8,6 +8,8 @@ import { setMuted, unlockAudio } from './audio/index.js';
 import { attachCanvases } from './render/view.js';
 import { watchViewport } from './ui/watchViewport.js';
 import { watchVisibility } from './ui/watchVisibility.js';
+import { startMenuScene } from './menuScene/index.js';
+import { startLogo3d } from './logo3d/index.js';
 import { bindHud } from './ui/hud.js';
 import { bindUndoButton } from './ui/undoButton.js';
 import { blockZoom } from './ui/blockZoom.js';
@@ -60,6 +62,8 @@ const canvases = { board: $('board'), hold: $('hold'), next: $('next') };
 attachCanvases(canvases);
 watchViewport(canvases);
 watchVisibility();
+startMenuScene();
+startLogo3d();
 blockZoom();
 unlockAudio();
 

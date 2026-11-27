@@ -185,7 +185,17 @@
   <link rel="modulepreload" href="src/input/touchButtons.js">
   <link rel="modulepreload" href="src/input/touchGestures.js">
   <link rel="modulepreload" href="src/input/vibrateOnBeat.js">
+  <link rel="modulepreload" href="src/logo3d/animations.js">
+  <link rel="modulepreload" href="src/logo3d/buildBlocks.js">
+  <link rel="modulepreload" href="src/logo3d/drawLogo.js">
+  <link rel="modulepreload" href="src/logo3d/font.js">
+  <link rel="modulepreload" href="src/logo3d/index.js">
   <link rel="modulepreload" href="src/main.js">
+  <link rel="modulepreload" href="src/menuScene/drawScene.js">
+  <link rel="modulepreload" href="src/menuScene/index.js">
+  <link rel="modulepreload" href="src/menuScene/spawnScenePiece.js">
+  <link rel="modulepreload" href="src/menuScene/state.js">
+  <link rel="modulepreload" href="src/menuScene/stepScene.js">
   <link rel="modulepreload" href="src/modes/list/chaos.js">
   <link rel="modulepreload" href="src/modes/list/daily.js">
   <link rel="modulepreload" href="src/modes/list/dig.js">
@@ -457,8 +467,10 @@
         <div class="board-frame" aria-hidden="true"><i class="fc tl"></i><i class="fc tr"></i><i class="fc bl"></i><i class="fc br"></i><i class="sheen" id="board-sheen"></i></div>
 
         <div class="overlay" id="ov-menu">
+          <canvas class="menu-scene" id="menu-scene" aria-hidden="true"></canvas>
           <div class="card">
-            <h1 class="title">BestTris</h1>
+            <h1 class="title sr-only">BestTris</h1>
+            <canvas class="logo3d" id="logo3d" aria-hidden="true"></canvas>
             <p class="subtitle">Encaja la luz. Rompe el prisma.</p>
             <div class="mode-grid" id="mode-list"></div>
             <div class="menu-row">
