@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>PRISMA · bloques que caen</title>
+  <meta name="description" content="PRISMA: un juego de puzle de bloques que caen, con música generada en tiempo real.">
+  <meta name="theme-color" content="#0b0820">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <div id="app">
+    <header class="topbar">
+      <div class="logo">PRISMA</div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="btn-mute" title="Silenciar (M)" aria-label="Silenciar">♪</button>
+        <button class="icon-btn" id="btn-pause" title="Pausa (Esc)" aria-label="Pausa">❚❚</button>
+      </div>
+    </header>
+
+    <main class="game" id="game">
+      <aside class="panel left">
+        <section class="box">
+          <h3>Reserva</h3>
+          <canvas id="hold"></canvas>
+        </section>
+        <section class="box stats">
+          <div class="stat"><span>Puntos</span><b id="s-score">0</b></div>
+          <div class="stat"><span>Nivel</span><b id="s-level">1</b></div>
+          <div class="stat"><span>Líneas</span><b id="s-lines">0</b></div>
+          <div class="stat"><span>Tiempo</span><b id="s-time">0:00</b></div>
+          <div class="stat hide-sm"><span>Récord</span><b id="s-best">—</b></div>
+        </section>
+      </aside>
+
+      <div class="board-wrap" id="board-wrap">
+        <canvas id="board"></canvas>
+
+        <!-- Menú principal -->
+        <div class="overlay" id="ov-menu">
+          <div class="card">
+            <h1 class="title">PRISMA</h1>
+            <p class="subtitle">Encaja la luz. Rompe el prisma.</p>
+            <div class="menu">
+              <button class="btn primary" data-mode="marathon">Maratón<small>Sube de nivel cada 10 líneas</small></button>
+              <button class="btn" data-mode="sprint">Sprint 40<small>40 líneas contra el reloj</small></button>
+              <button class="btn" data-mode="zen">Zen<small>Sin prisa y sin final</small></button>
+            </div>
+            <div class="menu-row">
+              <button class="btn ghost" data-open="ov-records">Récords</button>
+              <button class="btn ghost" data-open="ov-settings">Ajustes</button>
+              <button class="btn ghost" data-open="ov-help">Controles</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pausa -->
+        <div class="overlay hidden" id="ov-pause">
+          <div class="card">
+            <h2>Pausa</h2>
+            <div class="menu">
+              <button class="btn primary" id="btn-resume">Continuar</button>
+              <button class="btn" id="btn-restart">Reiniciar</button>
+              <button class="btn ghost" data-open="ov-settings">Ajustes</button>
+              <button class="btn ghost" id="btn-quit">Menú principal</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fin de partida -->
+        <div class="overlay hidden" id="ov-over">
+          <div class="card">
+            <h2 id="over-title">Fin de la partida</h2>
+            <div class="result" id="over-result"></div>
+            <p class="newbest hidden" id="over-best">¡Nuevo récord!</p>
+            <div class="menu">
+              <button class="btn primary" id="btn-again">Otra vez</button>
+              <button class="btn ghost" id="btn-menu">Menú principal</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Récords -->
+        <div class="overlay hidden" id="ov-records">
+          <div class="card">
+            <h2>Récords</h2>
+            <div class="records" id="records"></div>
+            <button class="btn ghost" data-back>Volver</button>
+          </div>
+        </div>
+
+        <!-- Ajustes -->
+        <div class="overlay hidden" id="ov-settings">
+          <div class="card">
+            <h2>Ajustes</h2>
+            <div class="settings">
+              <label>Música <input type="range" min="0" max="100" id="set-music"></label>
+              <label>Efectos <input type="range" min="0" max="100" id="set-sfx"></label>
+              <label title="Retardo antes de que la pieza empiece a deslizarse">Retardo de desplazamiento <span class="val" id="val-das"></span><input type="range" min="50" max="300" step="5" id="set-das"></label>
+              <label title="Velocidad de deslizamiento lateral">Velocidad de desplazamiento <span class="val" id="val-arr"></span><input type="range" min="0" max="100" step="5" id="set-arr"></label>
+              <label class="check"><input type="checkbox" id="set-ghost"> Pieza fantasma</label>
+              <label class="check"><input type="checkbox" id="set-shake"> Temblor de pantalla</label>
+              <label class="check"><input type="checkbox" id="set-grid"> Cuadrícula</label>
+            </div>
+            <button class="btn ghost" data-back>Volver</button>
+          </div>
+        </div>
+
+        <!-- Ayuda -->
+        <div class="overlay hidden" id="ov-help">
+          <div class="card">
+            <h2>Controles</h2>
+            <table class="keys">
+              <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>Mover</td></tr>
+              <tr><td><kbd>↓</kbd></td><td>Bajar rápido</td></tr>
+              <tr><td><kbd>Espacio</kbd></td><td>Soltar de golpe</td></tr>
+              <tr><td><kbd>↑</kbd> <kbd>X</kbd></td><td>Girar a la derecha</td></tr>
+              <tr><td><kbd>Z</kbd> <kbd>Ctrl</kbd></td><td>Girar a la izquierda</td></tr>
+              <tr><td><kbd>A</kbd></td><td>Girar 180°</td></tr>
+              <tr><td><kbd>C</kbd> <kbd>Shift</kbd></td><td>Reservar pieza</td></tr>
+              <tr><td><kbd>Esc</kbd> <kbd>P</kbd></td><td>Pausa</td></tr>
+              <tr><td><kbd>M</kbd></td><td>Silenciar</td></tr>
+            </table>
+            <h2 class="sub">Mando</h2>
+            <table class="keys">
+              <tr><td><kbd>✚</kbd> / stick</td><td>Mover y bajar</td></tr>
+              <tr><td><kbd>✚↑</kbd> <kbd>RT</kbd></td><td>Soltar de golpe</td></tr>
+              <tr><td><kbd>A</kbd></td><td>Girar a la derecha</td></tr>
+              <tr><td><kbd>B</kbd> <kbd>X</kbd></td><td>Girar a la izquierda</td></tr>
+              <tr><td><kbd>Y</kbd></td><td>Girar 180°</td></tr>
+              <tr><td><kbd>LB</kbd> <kbd>RB</kbd></td><td>Reservar pieza</td></tr>
+              <tr><td><kbd>☰</kbd></td><td>Pausa</td></tr>
+            </table>
+            <h2 class="sub">Táctil</h2>
+            <p class="tip">Desliza sobre el tablero para mover, toca para girar (mitad izquierda ↺, derecha ↻), desliza rápido abajo para soltar y arriba para reservar. También tienes botones debajo.</p>
+            <p class="tip">Completa 4 líneas a la vez para un <b>¡Prisma!</b> y encadena limpiezas para multiplicar los puntos.</p>
+            <button class="btn ghost" data-back>Volver</button>
+          </div>
+        </div>
+
+        <div class="countdown hidden" id="countdown"></div>
+      </div>
+
+      <aside class="panel right">
+        <section class="box">
+          <h3>Siguientes</h3>
+          <canvas id="next"></canvas>
+        </section>
+      </aside>
+    </main>
+
+    <nav class="touch" id="touch" aria-label="Controles táctiles">
+      <button data-act="hold" class="t-small">Reserva</button>
+      <button data-act="ccw">↺</button>
+      <button data-act="cw">↻</button>
+      <button data-act="left">◀</button>
+      <button data-act="soft">▼</button>
+      <button data-act="right">▶</button>
+      <button data-act="hard" class="t-wide">⤓ Soltar</button>
+    </nav>
+  </div>
+
+  <script src="js/audio.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
