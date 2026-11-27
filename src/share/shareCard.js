@@ -7,7 +7,7 @@ export async function shareCard(canvas, name) {
   const file = new File([blob], `prisma-${name || 'progreso'}.png`.replace(/\s+/g, '-'), { type: 'image/png' });
   if (navigator.canShare && navigator.canShare({ files: [file] })) {
     try {
-      await navigator.share({ files: [file], title: 'Mi progreso en PRISMA', text: '¿Me superas en PRISMA?' });
+      await navigator.share({ files: [file], title: 'Mi progreso en BestTris', text: '¿Me superas en BestTris?' });
       return 'shared';
     } catch (e) {
       if (e && e.name === 'AbortError') return 'cancelled';

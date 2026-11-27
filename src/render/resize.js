@@ -19,12 +19,13 @@ export function resize({ board, hold, next }, device) {
   const width = (vv ? vv.width : innerWidth) - sa.left - sa.right;
   const height = (vv ? vv.height : innerHeight) - sa.top - sa.bottom;
   const stacked = device.stacked;
-  const { cell, side, hud = 0 } = computeLayout({ width, height, stacked, touch: device.touch });
+  const { cell, side, touchH = 0, strip = false, hud = 0 } = computeLayout({ width, height, stacked, touch: device.touch });
 
   view.cell = cell;
   view.width = COLS * cell;
   view.height = ROWS * cell;
-  view.previewRow = stacked;
+  view.previewRow = strip;
+  document.body.classList.toggle('hud-strip', strip);
   view.version++;
 
   const root = document.documentElement.style;
@@ -32,12 +33,17 @@ export function resize({ board, hold, next }, device) {
   root.setProperty('--side', `${side}px`);
   root.setProperty('--board-w', `${view.width}px`);
   root.setProperty('--hud-h', `${hud}px`);
+  root.setProperty('--touch-h', `${Math.max(44, touchH - 8)}px`);
 
   sizeCanvas(board, view.width, view.height);
-  if (stacked) {
-    const k = hud / 70; // la franja crece en tablet
-    sizeCanvas(hold, 52 * k, 40 * k);
-    sizeCanvas(next, Math.min(150 * k, view.width * 0.4), 40 * k);
+  if (strip) {
+    const k = hud / 62; // la franja crece en tablet
+    sizeCanvas(hold, 50 * k, 36 * k);
+    sizeCanvas(next, Math.min(140 * k, view.width * 0.42), 36 * k);
+  } else if (stacked) {
+    const inner = side - (width >= 600 ? 22 : 12); // menos el relleno de la caja
+    sizeCanvas(hold, inner, inner * 0.6);
+    sizeCanvas(next, inner, Math.min(inner * 3.2, view.height * 0.62));
   } else {
     const inner = Math.min(side, cell * 4.6) - 22;
     sizeCanvas(hold, inner, inner * 0.45);

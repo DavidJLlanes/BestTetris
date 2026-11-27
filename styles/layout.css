@@ -31,17 +31,28 @@
 .layout-side .touch-left { grid-area: tl; align-self: end; }
 .layout-side .touch-right { grid-area: tr; align-self: end; }
 
-/* Móvil en vertical */
-.layout-stacked .topbar { height: 48px; padding: 0 10px; }
+/*
+ * Móvil y tablet en vertical: el tablero manda. Columnas laterales estrechas
+ * (reserva y marcador a la izquierda, siguientes a la derecha) y una fila de botones abajo.
+ */
+.layout-stacked .topbar { height: 44px; padding: 0 10px; }
 .layout-stacked .game {
   width: 100%;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: var(--hud-h, 70px) auto 1fr;
-  grid-template-areas: "hold stats next" "board board board" "touch touch touch";
-  gap: 8px; padding: 6px 8px 0;
-  justify-items: center;
+  grid-template-columns: var(--side) var(--board-w) var(--side);
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "hold board next" "stats board next" "touch touch touch";
+  gap: 6px var(--gap-x, 6px); padding: 4px 8px 0;
+  align-items: start;
 }
-.layout-stacked .hold-box, .layout-stacked .next-box, .layout-stacked .stats { justify-self: stretch; }
 .layout-stacked .touch { grid-area: touch; align-self: end; width: 100%; }
 
 body:not(.is-touch) .touch { display: none; }
+
+/* Variante con franja arriba: móviles altos y estrechos, el tablero ocupa todo el ancho */
+.layout-stacked.hud-strip .game {
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: var(--hud-h) auto 1fr;
+  grid-template-areas: "hold stats next" "board board board" "touch touch touch";
+  justify-items: center;
+}
+.layout-stacked.hud-strip .hold-box, .layout-stacked.hud-strip .next-box, .layout-stacked.hud-strip .stats { justify-self: stretch; height: var(--hud-h); }

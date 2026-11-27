@@ -1,5 +1,5 @@
 /**
- * PRISMA · arranque. Conecta los módulos en orden; ninguno depende de este archivo.
+ * BestTris · arranque. Conecta los módulos en orden; ninguno depende de este archivo.
  */
 import { $ } from './util/dom.js';
 import { app } from './app/state.js';
@@ -10,6 +10,11 @@ import { watchViewport } from './ui/watchViewport.js';
 import { watchVisibility } from './ui/watchVisibility.js';
 import { bindHud } from './ui/hud.js';
 import { bindUndoButton } from './ui/undoButton.js';
+import { blockZoom } from './ui/blockZoom.js';
+import { bindRaceHud } from './ui/raceHud.js';
+import { bindReplayButtons } from './ui/replayButtons.js';
+import { watchReplay } from './replay/watchReplay.js';
+import { watchSpectate } from './replay/watchSpectate.js';
 import { bindButtons } from './ui/bindButtons.js';
 import { bindModeMenu } from './ui/modeMenu.js';
 import { bindSettingsPanel } from './ui/settingsPanel.js';
@@ -42,16 +47,21 @@ const canvases = { board: $('board'), hold: $('hold'), next: $('next') };
 attachCanvases(canvases);
 watchViewport(canvases);
 watchVisibility();
+blockZoom();
 
 trackProfile();       // primero: los logros leen el perfil ya actualizado
 watchAchievements();
+watchReplay();        // antes de watchFinish: la grabación se cierra antes de decidir si es récord
 watchFinish();
 wireReactions();
 watchTutorial();
 watchPuzzles();       // después del tutorial, que oculta la pista al empezar
+watchSpectate();
 
 bindHud();
 bindUndoButton();
+bindRaceHud();
+bindReplayButtons();
 bindButtons();
 bindModeMenu();
 bindSettingsPanel();
@@ -65,7 +75,7 @@ bindEditorPanel();
 refreshIdentityBadge();
 
 bindKeyboard();
-bindTouchButtons($('touch'));
+bindTouchButtons($('game')); // botones de abajo y, en táctil, la caja de reserva
 bindTouchGestures($('board-wrap'));
 watchConnection();
 bindInstallPrompt();

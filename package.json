@@ -1,8 +1,8 @@
 {
-  "name": "prisma",
+  "name": "besttris",
   "version": "1.0.0",
   "private": true,
-  "description": "PRISMA: juego de puzle de bloques que caen",
+  "description": "BestTris: juego de puzle de bloques que caen",
   "type": "module",
   "scripts": {
     "start": "python3 -m http.server 8000",

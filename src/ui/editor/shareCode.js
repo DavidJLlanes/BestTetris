@@ -5,7 +5,7 @@ export async function copyText(text) {
 
 export async function shareLink(url, title) {
   if (navigator.share) {
-    try { await navigator.share({ title, text: `Resuelve mi puzle de PRISMA: ${title}`, url }); return 'Enlace compartido.'; } catch (e) { if (e.name === 'AbortError') return ''; }
+    try { await navigator.share({ title, text: `Resuelve mi puzle de BestTris: ${title}`, url }); return 'Enlace compartido.'; } catch (e) { if (e.name === 'AbortError') return ''; }
   }
   return (await copyText(url)) && 'Enlace copiado. Pégalo donde quieras.';
 }

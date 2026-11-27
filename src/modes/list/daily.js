@@ -9,6 +9,7 @@ export default {
   description: 'Las mismas piezas para todos hoy',
   icon: '☀',
   record: 'time',
+  replay: true, // se graba y el mejor intento corre como fantasma
   rules: { levelUp: false, goalLines: 40 },
   createRng: () => seededRandom(dailySeed()),
   recordKey: () => `daily-${dailySeed()}`,

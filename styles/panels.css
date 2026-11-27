@@ -13,25 +13,31 @@
 .avatar { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 14px; background: #241a5e center / cover no-repeat; box-shadow: 0 0 0 2px var(--accent2), 0 0 0 4px rgba(255, 79, 216, .35); }
 .avatar.big { width: 88px; height: 88px; font-size: 36px; }
 
-/* Móvil: franja compacta */
-.layout-stacked .box { padding: 5px 6px; border-radius: 10px; }
-.layout-stacked .box h3 { font-size: 8px; letter-spacing: .08em; margin-bottom: 2px; }
-.layout-stacked .stats { grid-template-columns: repeat(3, 1fr); gap: 4px; align-content: center; }
-.layout-stacked .stat { text-align: center; }
-.layout-stacked .stat b { font-size: 15px; }
-.layout-stacked .stat span { font-size: 8px; letter-spacing: .06em; }
-.layout-stacked .stat-best,
-.layout-stacked .stat-time,
+/* Móvil: columnas estrechas, cifras pequeñas pero legibles */
+.layout-stacked .box { padding: 6px 5px; border-radius: 10px; }
+.layout-stacked .box h3 { font-size: 8px; letter-spacing: .1em; margin-bottom: 3px; text-align: center; }
+.layout-stacked .stats { gap: 7px; text-align: center; }
+.layout-stacked .stat span { font-size: 8px; letter-spacing: .08em; }
+.layout-stacked .stat b { font-size: 14px; display: block; white-space: nowrap; }
 .layout-stacked.no-level .stat-level { display: none; }
-.layout-stacked.no-level .stat-time { display: block; }
 .layout-stacked .logo { display: none; }
+.layout-stacked .hold-box { cursor: pointer; }
 
-/* Tablet en vertical: franja más amplia */
+/* Tablet en vertical: más aire */
 @media (min-width: 600px) {
+  .layout-stacked .box { padding: 10px; }
   .layout-stacked .box h3 { font-size: 11px; }
-  .layout-stacked .stat b { font-size: 24px; }
+  .layout-stacked .stat b { font-size: 22px; }
   .layout-stacked .stat span { font-size: 10px; }
-  .layout-stacked .stats { grid-template-columns: repeat(4, 1fr); }
-  .layout-stacked .stat-time { display: block; }
-  .layout-stacked.no-level .stat-level { display: none; }
 }
+
+/* Carrera contra el fantasma: la casilla de récord pasa a mostrar la diferencia. */
+.stat-best.race b { transition: color .25s; }
+.stat-best.ahead b { color: #5cff9d; }
+.stat-best.behind b { color: #ff7a93; }
+
+/* Franja de marcador (móviles altos): las cifras en fila */
+.layout-stacked.hud-strip .stats { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); align-content: center; gap: 4px; }
+.layout-stacked.hud-strip .stat b { font-size: 15px; }
+.layout-stacked.hud-strip .stat-best:not(.race) { display: none; }
+@media (min-width: 600px) { .layout-stacked.hud-strip .stat b { font-size: 22px; } .layout-stacked.hud-strip .stat-best:not(.race) { display: block; } }

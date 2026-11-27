@@ -9,13 +9,13 @@ async function loadImage(src) {
 
 /** Logo, avatar redondo con anillo de color y nombre del jugador. */
 export async function drawCardHeader(ctx, identity) {
-  const logo = ctx.createLinearGradient(380, 0, 700, 0);
+  const logo = ctx.createLinearGradient(260, 0, 820, 0);
   logo.addColorStop(0, '#46e6ff'); logo.addColorStop(0.5, '#a98bff'); logo.addColorStop(1, '#ff4fd8');
   ctx.fillStyle = logo;
   ctx.font = `900 54px ${FONT}`;
   ctx.textAlign = 'center';
-  ctx.letterSpacing = '18px';
-  ctx.fillText('PRISMA', CARD_W / 2 + 9, 110);
+  ctx.letterSpacing = '10px';
+  ctx.fillText('BestTris', CARD_W / 2 + 5, 110);
   ctx.letterSpacing = '0px';
 
   const cx = CARD_W / 2, cy = 300, r = 120;

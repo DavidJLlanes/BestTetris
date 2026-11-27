@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <title>PRISMA · bloques que caen</title>
-  <meta name="description" content="PRISMA: un juego de puzle de bloques que caen, con música generada en tiempo real.">
+  <title>BestTris · bloques que caen</title>
+  <meta name="description" content="BestTris: un juego de puzle de bloques que caen, con música generada en tiempo real.">
   <meta name="theme-color" content="#0b0820">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
   <div id="app">
     <header class="topbar">
       <button class="badge" id="badge" aria-label="Perfil"><span class="avatar" id="badge-avatar"></span><span class="badge-name" id="badge-name"></span></button>
-      <div class="logo">PRISMA</div>
+      <div class="logo">BestTris</div>
       <div class="topbar-actions">
         <button class="icon-btn undo-btn" id="btn-undo" title="Deshacer (Retroceso)" aria-label="Deshacer la última pieza" hidden>↶<small id="undo-left"></small></button>
         <button class="icon-btn" id="btn-fullscreen" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
@@ -45,15 +45,15 @@
     </header>
 
     <main class="game" id="game">
-      <section class="box hold-box">
+      <section class="box hold-box" data-act="hold" aria-label="Reserva (toca para reservar)">
         <h3>Reserva</h3>
         <canvas id="hold"></canvas>
       </section>
 
       <section class="box stats">
-        <div class="stat"><span>Puntos</span><b id="s-score">0</b></div>
+        <div class="stat stat-score"><span>Puntos</span><b id="s-score">0</b></div>
         <div class="stat stat-level"><span>Nivel</span><b id="s-level">1</b></div>
-        <div class="stat"><span>Líneas</span><b id="s-lines">0</b></div>
+        <div class="stat stat-lines"><span>Líneas</span><b id="s-lines">0</b></div>
         <div class="stat stat-time"><span>Tiempo</span><b id="s-time">0:00</b></div>
         <div class="stat stat-best"><span>Récord</span><b id="s-best">—</b></div>
       </section>
@@ -63,7 +63,7 @@
 
         <div class="overlay" id="ov-menu">
           <div class="card">
-            <h1 class="title">PRISMA</h1>
+            <h1 class="title">BestTris</h1>
             <p class="subtitle">Encaja la luz. Rompe el prisma.</p>
             <div class="mode-grid" id="mode-list"></div>
             <div class="menu-row">
@@ -99,6 +99,7 @@
               <button class="btn primary" id="btn-next" hidden>Siguiente puzle</button>
               <button class="btn" id="btn-again">Otra vez</button>
               <button class="btn ghost" id="btn-edit" hidden>Volver al editor</button>
+              <button class="btn ghost" id="btn-replay" hidden>▶ Ver repetición</button>
               <button class="btn ghost" id="btn-menu">Menú principal</button>
             </div>
           </div>
@@ -160,7 +161,7 @@
               <tr><td><kbd>☰</kbd></td><td>Pausa</td></tr>
             </table>
             <h3 class="sub">Táctil</h3>
-            <p class="tip">Desliza sobre el tablero para mover, toca para girar (mitad izquierda ↺, derecha ↻), desliza rápido hacia abajo para soltar y hacia arriba para reservar. También tienes botones. En Maratón, Zen y Puzles, el botón ↶ de arriba deshace la última pieza (cuesta puntos y la partida ya no cuenta para récords).</p>
+            <p class="tip">Arrastra sobre el tablero para mover (hacia abajo baja más rápido), toca para girar (mitad izquierda ↺, derecha ↻) y desliza rápido hacia abajo o hacia arriba para soltarla de golpe. Para reservar, toca el recuadro Reserva o su botón. En Maratón, Zen y Puzles, el botón ↶ de arriba deshace la última pieza (cuesta puntos y la partida ya no cuenta para récords).</p>
             <p class="tip">Completa 4 líneas a la vez para un <b>¡Prisma!</b> y encadena limpiezas para multiplicar los puntos.</p>
             <button class="btn ghost" data-back>Volver</button>
           </div>

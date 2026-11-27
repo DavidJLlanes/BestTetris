@@ -1,6 +1,6 @@
 {
-  "name": "PRISMA",
-  "short_name": "PRISMA",
+  "name": "BestTris",
+  "short_name": "BestTris",
   "start_url": "./",
   "display": "fullscreen",
   "orientation": "any",

@@ -12,4 +12,4 @@ export const app = {
 };
 
 export const isPlaying = () => app.screen === 'play' && !!app.game && !app.game.over;
-export const canControl = () => isPlaying() && !!app.game.cur && !app.game.clearing;
+export const canControl = () => isPlaying() && !!app.game.cur && !app.game.clearing && !app.game.hooks.spectate;

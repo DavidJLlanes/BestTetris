@@ -1,4 +1,4 @@
-# PRISMA
+# BestTris
 
 Juego de puzle de bloques que caen. HTML, CSS y JavaScript con módulos ES nativos: sin dependencias, sin paso de compilación y sin servidor propio. Todo el progreso se queda en el navegador del jugador.
 

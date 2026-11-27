@@ -1,5 +1,5 @@
 import { app } from './state.js';
-import { on } from './bus.js';
+import { on, emit } from './bus.js';
 import { stopMusic } from '../audio/index.js';
 import { saveRecord } from '../storage/records.js';
 import { renderGameOver } from '../ui/gameOverPanel.js';
@@ -13,6 +13,7 @@ export function watchFinish() {
     app.screen = 'over';
     stopMusic();
     const isBest = saveRecord(game);
+    if (isBest) emit('newBest', { game });
     renderGameOver(game, isBest);
     setTimeout(() => { if (app.game === game) showOverlay('ov-over'); }, SHOW_DELAY_MS);
   });

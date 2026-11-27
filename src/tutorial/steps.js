@@ -14,9 +14,9 @@ export const STEPS = [
   { id: 'soft', event: 'softDrop', times: 4, text: {
     keys: 'Mantén ↓ para bajar más rápido', pad: 'Mantén abajo para bajar más rápido', touch: 'Mantén ▼ o arrastra hacia abajo despacio' } },
   { id: 'hard', event: 'hardDrop', times: 1, text: {
-    keys: 'Pulsa Espacio para soltarla de golpe', pad: 'Pulsa arriba o RT para soltarla de golpe', touch: 'Desliza rápido hacia abajo o pulsa Soltar' } },
+    keys: 'Pulsa Espacio para soltarla de golpe', pad: 'Pulsa arriba o RT para soltarla de golpe', touch: 'Desliza rápido hacia abajo (o arriba) o pulsa Soltar' } },
   { id: 'hold', event: 'hold', times: 1, text: {
-    keys: 'Pulsa C para guardar la pieza en la reserva', pad: 'Pulsa LB o RB para guardar la pieza', touch: 'Desliza hacia arriba o pulsa Reserva' } },
+    keys: 'Pulsa C para guardar la pieza en la reserva', pad: 'Pulsa LB o RB para guardar la pieza', touch: 'Toca el recuadro Reserva o el botón Reserva' } },
   { id: 'clear', event: 'clear', times: 1, piece: 'I', text: {
     keys: 'Encaja la barra en el hueco para completar la fila', pad: 'Encaja la barra en el hueco para completar la fila', touch: 'Encaja la barra en el hueco para completar la fila' },
     setup(g) {

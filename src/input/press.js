@@ -24,7 +24,7 @@ export function press(act) {
     if (canControl()) tryMove(g, held.dir, 0);
     return;
   }
-  if (act === 'soft') { if (g) g.softDrop = true; return; }
+  if (act === 'soft') { if (g && !g.hooks.spectate) g.softDrop = true; return; }
   if (!canControl()) return;
   if (act === 'hard') hardDrop(g);
   else if (act === 'hold') holdPiece(g);

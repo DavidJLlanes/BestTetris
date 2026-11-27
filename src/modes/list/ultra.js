@@ -6,5 +6,6 @@ export default {
   description: 'Máxima puntuación en 2 minutos',
   icon: '⚡',
   record: 'score',
+  replay: true, // se graba y el mejor intento corre como fantasma
   rules: { levelUp: false, timeLimit: 120 },
 };

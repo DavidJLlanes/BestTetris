@@ -1,5 +1,5 @@
 /**
- * "Luz en cascada": composición original de PRISMA. Re menor, 8 compases en bucle.
+ * "Luz en cascada": composición original de BestTris. Re menor, 8 compases en bucle.
  * Melodía en corcheas (8 por compás); null prolonga la nota anterior.
  */
 const _ = null;

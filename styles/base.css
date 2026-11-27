@@ -9,7 +9,8 @@ html, body {
   font-family: var(--font);
   overflow: hidden;
   overscroll-behavior: none;
-  touch-action: manipulation;
+  touch-action: none; /* iOS ignora user-scalable=no: así no hay zoom ni desplazamientos accidentales */
+  -webkit-touch-callout: none;
   -webkit-user-select: none;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -18,7 +19,11 @@ html, body {
 body { opacity: 0; transition: opacity .5s var(--ease-out); }
 body.ready { opacity: 1; }
 [hidden] { display: none !important; }
-button { font: inherit; color: inherit; }
+button { font: inherit; color: inherit; touch-action: manipulation; }
+/* Lo que sí debe desplazarse o escribirse */
+.card { touch-action: pan-y; }
+input, select, textarea { touch-action: manipulation; -webkit-user-select: text; user-select: text; }
+.ed-grid, .board-wrap { touch-action: none; }
 .perf { position: fixed; left: 8px; bottom: 8px; z-index: 99; font: 600 11px/1.4 ui-monospace, monospace; background: rgba(0,0,0,.6); padding: 4px 8px; border-radius: 6px; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }

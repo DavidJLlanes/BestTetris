@@ -10,7 +10,7 @@ export function decodePuzzle(input) {
   let code = String(input || '').trim();
   const m = code.match(/[?&]puzzle=([^&#\s]+)/);
   if (m) code = decodeURIComponent(m[1]);
-  if (!code.startsWith(CODE_PREFIX)) return { error: 'Eso no parece un código de puzle de PRISMA.' };
+  if (!code.startsWith(CODE_PREFIX)) return { error: 'Eso no parece un código de puzle de BestTris.' };
   let d;
   try { d = JSON.parse(fromBase64url(code.slice(CODE_PREFIX.length))); } catch { return { error: 'El código está incompleto o dañado.' }; }
   if (!d || !Array.isArray(d.g)) return { error: 'El código está incompleto o dañado.' };

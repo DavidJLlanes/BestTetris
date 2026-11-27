@@ -6,5 +6,6 @@ export default {
   description: '40 líneas contra el reloj',
   icon: '⏱',
   record: 'time',
+  replay: true, // se graba y el mejor intento corre como fantasma
   rules: { levelUp: false, goalLines: 40 },
 };

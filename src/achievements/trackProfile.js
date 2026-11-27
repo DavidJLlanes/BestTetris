@@ -6,16 +6,18 @@ import { getProfile, saveProfile } from '../storage/profile.js';
  * y se guardan al terminar (escribir en disco en cada jugada podría dar tirones).
  */
 export function trackProfile() {
-  on('score', ({ lines = 0, tspin }) => {
+  on('score', ({ game, lines = 0, tspin }) => {
+    if (game.hooks.spectate) return;
     const p = getProfile();
     p.lines += lines;
     if (lines >= 4) p.quads++;
     if (tspin === 'full') p.tspins++;
   });
-  on('lock', () => { getProfile().pieces++; });
-  on('perfectClear', () => { getProfile().perfectClears++; });
+  on('lock', ({ game }) => { if (!game.hooks.spectate) getProfile().pieces++; });
+  on('perfectClear', ({ game }) => { if (!game.hooks.spectate) getProfile().perfectClears++; });
   // 'finish' llega antes a este oyente que a los logros (se registra primero)
   on('finish', ({ game: g }) => {
+    if (g.hooks.spectate) return; // ver una repetición no es jugar
     const p = getProfile();
     p.games++;
     p.playTime += g.time;

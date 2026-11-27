@@ -3,10 +3,17 @@ import { COLS, ROWS } from '../config/board.js';
 /** Medidas fijas de la interfaz, en px CSS. Deben coincidir con styles/. */
 export const UI = {
   topBar: 48,
-  stackedHud: 70,      // franja de reserva, marcador y siguientes en el móvil
-  stackedHudWide: 104, // la misma franja en una tablet en vertical
+  stackedTopBar: 44,
+  stackedTouch: 64,    // fila de botones táctiles en vertical (56 + margen)
+  stackedTouchWide: 88,
+  stackedGap: 6,
+  stackedPad: 8,
+  stackedSideMin: 62,  // columnas laterales en vertical: lo justo para cifras y piezas
+  stackedSideRatio: 2.5,
+  stackedHud: 62,      // franja de marcador (variante B)
+  stackedHudWide: 96,
+  stackedTouchGrow: 16,
   wideFrom: 600,
-  stackedTouch: 126,   // botones táctiles en el móvil
   gap: 10,
   sidePad: 16,
   sideRatio: 4.6,      // ancho de columna lateral, en celdas
@@ -21,11 +28,22 @@ export const UI = {
  */
 export function computeLayout({ width, height, stacked, touch }) {
   if (stacked) {
-    const hud = width >= UI.wideFrom ? UI.stackedHudWide : UI.stackedHud;
-    const h = height - UI.topBar - hud - UI.stackedTouch - UI.gap * 3;
-    const w = width - UI.sidePad;
-    const cell = clampCell(Math.min(h / ROWS, w / COLS));
-    return { cell, side: 0, hud };
+    const wide = width >= UI.wideFrom;
+    const touchH = touch ? (wide ? UI.stackedTouchWide : UI.stackedTouch) : 0;
+    const h = height - UI.stackedTopBar - touchH - UI.stackedGap * 2 - 4;
+    const sideFor = (c) => Math.max(UI.stackedSideMin, Math.round(c * UI.stackedSideRatio));
+    // A: columnas a los lados del tablero (gana en pantallas anchas o bajas)
+    let side = clampCell(h / ROWS);
+    while (side > UI.minCell && side * COLS + sideFor(side) * 2 + UI.stackedGap * 2 + UI.stackedPad * 2 > width) side--;
+    // B: franja de marcador arriba y tablero a todo el ancho (gana en móviles altos y estrechos)
+    const hud = wide ? UI.stackedHudWide : UI.stackedHud;
+    const strip = clampCell(Math.min((h - hud - UI.stackedGap) / ROWS, (width - UI.stackedPad * 2) / COLS));
+    const useStrip = strip > side;
+    const cell = useStrip ? strip : side;
+    // El alto que sobre agranda un poco los botones
+    const spare = h - cell * ROWS - (useStrip ? hud + UI.stackedGap : 0);
+    const extra = touch ? Math.max(0, Math.min(UI.stackedTouchGrow, spare)) : 0;
+    return { cell, side: useStrip ? 0 : sideFor(cell), touchH: touchH + extra, strip: useStrip, hud: useStrip ? hud : 0 };
   }
   const h = height - UI.topBar - UI.gap * 3;
   let cell = clampCell(h / ROWS);

@@ -7,6 +7,7 @@ import { drawStack } from './layers/drawStack.js';
 import { drawGhost } from './layers/drawGhost.js';
 import { drawTarget } from './layers/drawTarget.js';
 import { drawRewind } from './layers/drawRewind.js';
+import { drawRace } from './layers/drawRace.js';
 import { drawActive } from './layers/drawActive.js';
 import { drawLockFlash } from './layers/drawLockFlash.js';
 import { drawTrails } from './layers/drawTrails.js';
@@ -42,5 +43,6 @@ export function drawBoard(g, settings, now) {
   }
   drawParticles(ctx);
   ctx.restore();
+  if (g) drawRace(ctx, g);
   drawTexts(ctx);
 }
