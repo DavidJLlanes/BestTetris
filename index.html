@@ -73,6 +73,8 @@
   <link rel="modulepreload" href="src/app/toggleMute.js">
   <link rel="modulepreload" href="src/audio/context.js">
   <link rel="modulepreload" href="src/audio/index.js">
+  <link rel="modulepreload" href="src/audio/music/comboLayers.js">
+  <link rel="modulepreload" href="src/audio/music/harmony.js">
   <link rel="modulepreload" href="src/audio/music/layers.js">
   <link rel="modulepreload" href="src/audio/music/scheduleStep.js">
   <link rel="modulepreload" href="src/audio/music/score.js">
@@ -80,6 +82,8 @@
   <link rel="modulepreload" href="src/audio/music/styles.js">
   <link rel="modulepreload" href="src/audio/music/tempo.js">
   <link rel="modulepreload" href="src/audio/sfx/library.js">
+  <link rel="modulepreload" href="src/audio/sfx/musical.js">
+  <link rel="modulepreload" href="src/audio/sfx/playMusical.js">
   <link rel="modulepreload" href="src/audio/sfx/playSfx.js">
   <link rel="modulepreload" href="src/audio/unlockAudio.js">
   <link rel="modulepreload" href="src/audio/voices/mtof.js">
@@ -578,6 +582,7 @@
               <label>Efectos <input type="range" min="0" max="100" id="set-sfx"></label>
               <label>Retardo de desplazamiento <span class="val" id="val-das"></span><input type="range" min="50" max="300" step="5" id="set-das"></label>
               <label>Velocidad de desplazamiento <span class="val" id="val-arr"></span><input type="range" min="0" max="100" step="5" id="set-arr"></label>
+              <label class="check"><input type="checkbox" id="set-musical"> Efectos musicales (cada jugada toca con la canción)</label>
               <label class="check"><input type="checkbox" id="set-ghost"> Pieza fantasma</label>
               <label class="check"><input type="checkbox" id="set-shake"> Rebote y temblor</label>
               <label class="check"><input type="checkbox" id="set-grid"> Cuadrícula</label>

@@ -6,7 +6,7 @@ import { applyTheme } from './themes/applyTheme.js';
 import { applyDecor } from '../decor/applyDecor.js';
 
 const SLIDERS = ['music', 'sfx', 'das', 'arr'];
-const CHECKS = ['ghost', 'shake', 'grid', 'haptics', 'colorblind', 'focus', 'slowmo'];
+const CHECKS = ['ghost', 'shake', 'grid', 'haptics', 'colorblind', 'focus', 'slowmo', 'musical'];
 
 /** Ajustes: se aplican y se guardan al momento. */
 export function bindSettingsPanel() {

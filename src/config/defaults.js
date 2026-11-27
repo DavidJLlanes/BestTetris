@@ -11,6 +11,7 @@ export const DEFAULT_SETTINGS = {
   colorblind: false,
   focus: false,
   slowmo: true,
+  musical: true,      // las jugadas tocan notas de la canción
   gems: 'prisma',     // tema de gemas (se desbloquean subiendo de nivel)
   bg: 'aurora',       // fondo
   musicStyle: 'cascada', // arreglo de la música

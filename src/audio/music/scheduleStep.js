@@ -4,10 +4,11 @@ import { noise } from '../voices/noise.js';
 import { mtof } from '../voices/mtof.js';
 import { MELODY, CHORDS, BASS, STEPS_PER_BAR, BARS } from './score.js';
 import { TENSION_LAYERS } from './layers.js';
+import { COMBO_LAYERS } from './comboLayers.js';
 import { MUSIC_STYLES } from './styles.js';
 
 /** Programa una semicorchea de la canción en el instante t. */
-export function scheduleStep(step, t, bpm, intensity, tension = 0, transpose = 0, style = MUSIC_STYLES.cascada) {
+export function scheduleStep(step, t, bpm, intensity, tension = 0, transpose = 0, style = MUSIC_STYLES.cascada, combo = 0) {
   transpose += style.transpose;
   const bus = audio.music;
   const sixteenth = 60 / bpm / 4;
@@ -43,4 +44,5 @@ export function scheduleStep(step, t, bpm, intensity, tension = 0, transpose = 0
   if (inBar % 2 === 1 && intensity > 0.3) noise(bus, { t, dur: 0.04, vol: 0.05, freq: 8000, pan: 0.3 });
 
   for (const layer of TENSION_LAYERS) layer({ bus, t, inBar, chord, sixteenth, tension });
+  for (const layer of COMBO_LAYERS) layer({ bus, t, inBar, chord, sixteenth, combo });
 }
