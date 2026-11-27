@@ -7,5 +7,5 @@ export default {
   icon: '⚡',
   record: 'score',
   replay: true, // se graba y el mejor intento corre como fantasma
-  rules: { levelUp: false, timeLimit: 120 },
+  rules: { levelUp: false, timeLimit: 120, star: true },
 };

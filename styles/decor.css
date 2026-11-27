@@ -51,3 +51,10 @@ body[data-season=winter] .decor { --glow: #a0dcff; }
 .q-medium .d-orbs i:nth-child(n+4), .q-medium .d-facets i:nth-child(n+3) { display: none; }
 .focus-mode .decor > :not(.d-grain):not(.d-tension) { display: none; }
 @media (prefers-reduced-motion: reduce) { .d-orbs i, .d-facets i { animation: none; } .d-layer { transform: none; } }
+
+/* Momento estelar: el fondo se enfría y se ralentiza; al acabar el tiempo, late en oro */
+body.star-active .aurora, body.star-active .decor { filter: saturate(.55) hue-rotate(-25deg) brightness(.8); transition: filter 1s; }
+body.star-active .board-frame { box-shadow: 0 0 28px rgba(255, 211, 79, .35); }
+body.star-ending .board-frame { animation: star-pulse .5s ease-in-out infinite alternate; }
+@keyframes star-pulse { to { box-shadow: 0 0 40px rgba(255, 211, 79, .8); } }
+.aurora, .decor { transition: filter 1.2s; }

@@ -9,6 +9,7 @@ import { swayReactions } from './swayReactions.js';
 import { bombReactions } from './bombReactions.js';
 import { powerReactions } from './powerReactions.js';
 import { sparkleReactions } from './sparkleReactions.js';
+import { starReactions } from './starReactions.js';
 import { sceneReactions } from '../../scenes/sceneReactions.js';
 import { seasonReactions } from '../../modes/seasons/seasonReactions.js';
 
@@ -22,6 +23,7 @@ export function wireReactions() {
   undoReactions();
   seasonReactions();
   sceneReactions();
+  starReactions();
   swayReactions();
   bombReactions();
   powerReactions();

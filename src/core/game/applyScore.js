@@ -1,5 +1,6 @@
 import { scoreClear } from '../rules/scoreClear.js';
 import { levelForLines } from '../rules/levelForLines.js';
+import { chargeStar } from '../star/chargeStar.js';
 
 /** Aplica al estado la puntuación de un bloqueo y avisa de lo ocurrido. */
 export function applyScore(g, lines, tspin) {
@@ -15,6 +16,7 @@ export function applyScore(g, lines, tspin) {
   if (r.points || r.label) g.emit('score', { ...r, lines, tspin });
 
   if (!lines) return;
+  chargeStar(g, lines);
   g.lines += lines;
   if (!g.rules.levelUp) return;
   const level = levelForLines(g.lines, g.rules.startLevel, g.rules.linesPerLevel);

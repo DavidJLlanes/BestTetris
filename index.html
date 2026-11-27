@@ -66,6 +66,7 @@
   <link rel="modulepreload" href="src/app/reactions/powerReactions.js">
   <link rel="modulepreload" href="src/app/reactions/soundReactions.js">
   <link rel="modulepreload" href="src/app/reactions/sparkleReactions.js">
+  <link rel="modulepreload" href="src/app/reactions/starReactions.js">
   <link rel="modulepreload" href="src/app/reactions/swayReactions.js">
   <link rel="modulepreload" href="src/app/reactions/undoReactions.js">
   <link rel="modulepreload" href="src/app/requestUndo.js">
@@ -75,6 +76,7 @@
   <link rel="modulepreload" href="src/audio/context.js">
   <link rel="modulepreload" href="src/audio/index.js">
   <link rel="modulepreload" href="src/audio/music/comboLayers.js">
+  <link rel="modulepreload" href="src/audio/music/duckMusic.js">
   <link rel="modulepreload" href="src/audio/music/harmony.js">
   <link rel="modulepreload" href="src/audio/music/layers.js">
   <link rel="modulepreload" href="src/audio/music/scheduleStep.js">
@@ -102,6 +104,7 @@
   <link rel="modulepreload" href="src/config/rules.js">
   <link rel="modulepreload" href="src/config/scoring.js">
   <link rel="modulepreload" href="src/config/shapes.js">
+  <link rel="modulepreload" href="src/config/star.js">
   <link rel="modulepreload" href="src/config/timing.js">
   <link rel="modulepreload" href="src/config/versus.js">
   <link rel="modulepreload" href="src/core/board/addGarbageRow.js">
@@ -148,6 +151,12 @@
   <link rel="modulepreload" href="src/core/rules/gravityInterval.js">
   <link rel="modulepreload" href="src/core/rules/levelForLines.js">
   <link rel="modulepreload" href="src/core/rules/scoreClear.js">
+  <link rel="modulepreload" href="src/core/star/chargeStar.js">
+  <link rel="modulepreload" href="src/core/star/releaseStar.js">
+  <link rel="modulepreload" href="src/core/star/stackStarRows.js">
+  <link rel="modulepreload" href="src/core/star/starState.js">
+  <link rel="modulepreload" href="src/core/star/startStar.js">
+  <link rel="modulepreload" href="src/core/star/tickStar.js">
   <link rel="modulepreload" href="src/core/undo/recordSnapshot.js">
   <link rel="modulepreload" href="src/core/undo/takeSnapshot.js">
   <link rel="modulepreload" href="src/core/undo/undoCost.js">
@@ -268,6 +277,7 @@
   <link rel="modulepreload" href="src/render/layers/drawRewind.js">
   <link rel="modulepreload" href="src/render/layers/drawRings.js">
   <link rel="modulepreload" href="src/render/layers/drawStack.js">
+  <link rel="modulepreload" href="src/render/layers/drawStar.js">
   <link rel="modulepreload" href="src/render/layers/drawSweeps.js">
   <link rel="modulepreload" href="src/render/layers/drawTarget.js">
   <link rel="modulepreload" href="src/render/layers/drawTexts.js">
@@ -378,6 +388,7 @@
   <link rel="modulepreload" href="src/ui/settingsPanel.js">
   <link rel="modulepreload" href="src/ui/sharePanel.js">
   <link rel="modulepreload" href="src/ui/sidePanels.js">
+  <link rel="modulepreload" href="src/ui/starButton.js">
   <link rel="modulepreload" href="src/ui/themes/applyTheme.js">
   <link rel="modulepreload" href="src/ui/themes/themeSwatch.js">
   <link rel="modulepreload" href="src/ui/themes/themesPanel.js">
@@ -442,6 +453,7 @@
       <div class="logo">BestTris</div>
       <div class="topbar-actions">
         <button class="icon-btn update-btn" id="btn-update" title="Actualizar a la última versión" aria-label="Actualizar a la última versión"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M19.6 4.2v4.2h-4.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="icon-btn star-btn" id="btn-star" title="Momento estelar (V)" aria-label="Momento estelar" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.3 5.2 5.7.5-4.3 3.8 1.3 5.6L12 15.7l-5 2.9 1.3-5.6L4 9.2l5.7-.5z" fill="currentColor"/></svg></button>
         <button class="icon-btn power-btn" id="btn-power" title="Usar poder (V)" aria-label="Usar poder" hidden><span id="power-icon">✦</span></button>
         <button class="icon-btn undo-btn" id="btn-undo" title="Deshacer (Retroceso)" aria-label="Deshacer la última pieza" hidden>↶<small id="undo-left"></small></button>
         <button class="icon-btn fs-btn" id="btn-fullscreen" title="Pantalla completa" aria-label="Pantalla completa"><svg class="fs-enter" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="fs-exit" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>

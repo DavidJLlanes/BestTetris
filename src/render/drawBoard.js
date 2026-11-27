@@ -18,6 +18,7 @@ import { drawTexts } from './layers/drawTexts.js';
 import { drawAfterimages } from './layers/drawAfterimages.js';
 import { drawRings } from './layers/drawRings.js';
 import { drawSweeps } from './layers/drawSweeps.js';
+import { drawStar } from './layers/drawStar.js';
 import { musicPulse } from '../audio/index.js';
 
 /** Compone el tablero por capas, de atrás hacia delante. */
@@ -42,6 +43,7 @@ export function drawBoard(g, settings, now) {
   if (g) {
     drawTrails(ctx);
     drawStack(ctx, g);
+    drawStar(ctx, g, now);
     drawAfterimages(ctx);
     if (g.cur && !g.over) {
       drawTarget(ctx, g, now);

@@ -45,6 +45,18 @@ export const SFX = {
   bomb: (bus, t) => { tone(bus, { freq: 160, glideTo: 30, type: 'sawtooth', t, dur: 0.45, vol: 0.16, cutoff: 700 }); noise(bus, { t, dur: 0.5, vol: 0.2, type: 'lowpass', freq: 900 }); },
   miss: (bus, t) => [64, 60].forEach((m, i) => tone(bus, { freq: mtof(m), type: 'triangle', t: t + i * 0.12, dur: 0.2, vol: 0.08 })),
   garbage: (bus, t) => { tone(bus, { freq: 90, glideTo: 140, type: 'sawtooth', t, dur: 0.15, vol: 0.08, cutoff: 600 }); },
+  starStart: (bus, t) => {
+    tone(bus, { freq: 1600, glideTo: 220, type: 'sine', t, dur: 0.7, vol: 0.12, r: 0.4 });
+    [74, 81, 86].forEach((m, i) => tone(bus, { freq: mtof(m), type: 'sine', t: t + 0.05 + i * 0.06, dur: 1.4, vol: 0.05, a: 0.05, r: 1 }));
+    noise(bus, { t, dur: 0.8, vol: 0.07, type: 'highpass', freq: 4000 });
+  },
+  starStack: (bus, t, { total = 1 }) => tone(bus, { freq: mtof(74 + Math.min(total, 16) * 2), type: 'sine', t, dur: 0.6, vol: 0.08, r: 0.5 }),
+  starEnd: (bus, t, { lines = 1 }) => {
+    tone(bus, { freq: 120, glideTo: 30, type: 'sine', t, dur: 0.9, vol: 0.5, r: 0.6 });
+    noise(bus, { t, dur: 1.2, vol: 0.22, type: 'lowpass', freq: 2400 });
+    const top = 72 + Math.min(lines, 12);
+    [0, 4, 7, 12, 16, 19, 24].forEach((iv, i) => tone(bus, { freq: mtof(top - 12 + iv), type: 'triangle', t: t + 0.04 * i, dur: 1.4, vol: 0.07, r: 1 }));
+  },
   ui: (bus, t) => tone(bus, { freq: 660, type: 'sine', t, dur: 0.05, vol: 0.06 }),
   focus: (bus, t) => tone(bus, { freq: 990, type: 'sine', t, dur: 0.03, vol: 0.035 }),
 };

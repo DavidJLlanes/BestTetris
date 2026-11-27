@@ -6,6 +6,7 @@ import { tryMove } from '../movement/tryMove.js';
 import { finishClear } from './finishClear.js';
 import { lockPiece } from './lockPiece.js';
 import { finish } from './finish.js';
+import { tickStar, starFrozen } from '../star/tickStar.js';
 
 /** Avanza la partida dt segundos: animación de limpieza, gravedad y bloqueo. */
 export function tick(g, dt) {
@@ -20,9 +21,11 @@ export function tick(g, dt) {
     return;
   }
   if (!g.cur) return;
+  tickStar(g, dt);
 
   let interval = gravityInterval(g.level, g.rules.fixedInterval);
   if (g.softDrop) interval = Math.min(interval / SOFT_DROP_FACTOR, SOFT_DROP_MAX_INTERVAL);
+  if (starFrozen(g) && !g.softDrop) interval = Infinity; // el tiempo se detiene: la pieza no cae sola
   g.gravAcc += dt / interval;
   while (g.gravAcc >= 1) {
     g.gravAcc -= 1;
