@@ -22,7 +22,8 @@ export function sceneReactions() {
     if (current < 0) return;
     current = -1;
     delete document.body.dataset.scene;
-    fx.ambient = null; fx.ambientOut = null;
+    if (fx.ambient) fx.ambientOut = fx.ambient; // las partículas se desvanecen, no desaparecen de golpe
+    fx.ambient = null;
     applyTheme(app.settings);
   };
   const update = ({ game }) => {

@@ -9,7 +9,7 @@ const HINT_MS = 2600;
 
 /** Llega una estación: luz de fondo, ambiente, tonalidad de la música y aviso de su regla. */
 export function seasonReactions() {
-  const clear = () => { delete document.body.dataset.season; fx.ambient = null; };
+  const clear = () => { if (!document.body.dataset.season) return; delete document.body.dataset.season; fx.ambient = null; };
   on('gameStart', clear);
   on('menu', clear);
   on('season', ({ game, season, year, first }) => {
