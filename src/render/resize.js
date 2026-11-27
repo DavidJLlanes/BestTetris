@@ -21,7 +21,7 @@ export function resize({ board, hold, next }, device) {
   const width = vw - px('paddingLeft') - px('paddingRight');
   const height = app.clientHeight - px('paddingTop') - px('paddingBottom');
   const stacked = device.stacked;
-  const { cell, side, touchH = 0, strip = false, hud = 0 } = computeLayout({ width, height, stacked, touch: device.touch });
+  const { cell, side, btn = 52, strip = false, hud = 0 } = computeLayout({ width, height, stacked, touch: device.touch });
 
   view.cell = cell;
   view.width = COLS * cell;
@@ -35,7 +35,7 @@ export function resize({ board, hold, next }, device) {
   root.setProperty('--side', `${side}px`);
   root.setProperty('--board-w', `${view.width}px`);
   root.setProperty('--hud-h', `${hud}px`);
-  root.setProperty('--touch-h', `${Math.max(44, touchH - 8)}px`);
+  root.setProperty('--tb', `${btn}px`);
 
   sizeCanvas(board, view.width, view.height);
   if (strip) {

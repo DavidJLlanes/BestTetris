@@ -15,7 +15,7 @@
 
 /* Móvil: columnas estrechas, cifras pequeñas pero legibles */
 .layout-stacked .box { padding: 6px 4px; border-radius: 10px; min-width: 0; }
-.layout-stacked .box h3 { font-size: 8px; letter-spacing: .1em; margin-bottom: 3px; text-align: center; }
+.layout-stacked .box h3 { font-size: clamp(7px, calc(var(--side) / 6.4), 8px); letter-spacing: .05em; text-overflow: clip; margin-bottom: 3px; text-align: center; }
 .layout-stacked .stats { gap: 7px; text-align: center; }
 .layout-stacked .stat span { font-size: 8px; letter-spacing: .08em; }
 .layout-stacked .stat b { font-size: clamp(10px, calc(var(--side) / 4.6), 14px); display: block; white-space: nowrap; overflow: hidden; text-overflow: clip; }

@@ -60,3 +60,4 @@ body:not(.is-touch) .touch { display: none; }
   justify-items: center;
 }
 .layout-stacked.hud-strip .hold-box, .layout-stacked.hud-strip .next-box, .layout-stacked.hud-strip .stats { justify-self: stretch; height: var(--hud-h); }
+.layout-stacked:not(.hud-strip) .board-wrap { align-self: center; }

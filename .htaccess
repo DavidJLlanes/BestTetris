@@ -9,9 +9,9 @@ RedirectMatch 404 /(package\.json|README\.md)$
 AddType text/javascript .js
 AddType application/manifest+json .webmanifest
 
-# El service worker y la página siempre se revalidan para recibir versiones nuevas
+# Código y estilos siempre se revalidan (304 si no cambian) para recibir versiones nuevas
 <IfModule mod_headers.c>
-  <FilesMatch "^(sw\.js|index\.html)$">
+  <FilesMatch "\.(js|css|html|webmanifest)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
 </IfModule>

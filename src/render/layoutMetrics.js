@@ -4,15 +4,16 @@ import { COLS, ROWS } from '../config/board.js';
 export const UI = {
   topBar: 48,
   stackedTopBar: 44,
-  stackedTouch: 64,    // fila de botones táctiles en vertical (56 + margen)
-  stackedTouchWide: 88,
+  touchBtnMin: 44,     // diámetro de los botones redondos: nunca por debajo del mínimo táctil
+  touchBtnMax: 56,
+  touchBtnMaxWide: 68,
+  touchPad: 8,         // aire bajo la fila de botones
   stackedGap: 4,
   stackedPad: 6,
-  stackedSideMin: 54,  // columnas laterales en vertical: estrechas, el tablero es el protagonista
-  stackedSideRatio: 2,
+  stackedSideMin: 46,  // columnas laterales en vertical: estrechas, el tablero es el protagonista
+  stackedSideRatio: 1.8,
   stackedHud: 62,      // franja de marcador (variante B)
   stackedHudWide: 96,
-  stackedTouchGrow: 16,
   wideFrom: 600,
   gap: 10,
   sidePad: 16,
@@ -29,7 +30,8 @@ export const UI = {
 export function computeLayout({ width, height, stacked, touch }) {
   if (stacked) {
     const wide = width >= UI.wideFrom;
-    const touchH = touch ? (wide ? UI.stackedTouchWide : UI.stackedTouch) : 0;
+    const btn = touchButton(width, wide);
+    const touchH = touch ? Math.round(btn * 1.16) + UI.touchPad : 0; // el de soltar es algo mayor
     const h = height - UI.stackedTopBar - touchH - UI.stackedGap * 2 - 4;
     const sideFor = (c) => Math.max(UI.stackedSideMin, Math.round(c * UI.stackedSideRatio));
     // A: columnas a los lados del tablero (gana en pantallas anchas o bajas)
@@ -40,16 +42,18 @@ export function computeLayout({ width, height, stacked, touch }) {
     const strip = clampCell(Math.min((h - hud - UI.stackedGap) / ROWS, (width - UI.stackedPad * 2) / COLS));
     const useStrip = strip > side;
     const cell = useStrip ? strip : side;
-    // El alto que sobre agranda un poco los botones
-    const spare = h - cell * ROWS - (useStrip ? hud + UI.stackedGap : 0);
-    const extra = touch ? Math.max(0, Math.min(UI.stackedTouchGrow, spare)) : 0;
-    return { cell, side: useStrip ? 0 : sideFor(cell), touchH: touchH + extra, strip: useStrip, hud: useStrip ? hud : 0 };
+    return { cell, side: useStrip ? 0 : sideFor(cell), touchH, btn, strip: useStrip, hud: useStrip ? hud : 0 };
   }
   const h = height - UI.topBar - UI.gap * 3;
   let cell = clampCell(h / ROWS);
   const sideFor = (c) => Math.max(Math.round(c * UI.sideRatio), touch ? UI.sideTouchMin : 0);
   while (cell > UI.minCell && cell * COLS + sideFor(cell) * 2 + UI.gap * 2 + UI.sidePad * 2 > width) cell--;
   return { cell, side: sideFor(cell) };
+}
+
+/** Diámetro de los botones redondos: siete por fila (el de soltar algo mayor) con su aire. */
+export function touchButton(width, wide) {
+  return Math.max(UI.touchBtnMin, Math.min(wide ? UI.touchBtnMaxWide : UI.touchBtnMax, Math.floor((width - 60) / 7.4)));
 }
 
 function clampCell(c) { return Math.max(UI.minCell, Math.min(UI.maxCell, Math.floor(c))); }

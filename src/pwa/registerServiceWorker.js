@@ -14,5 +14,5 @@ export function registerServiceWorker() {
     if (!pending) { pending = true; setInterval(() => { if (app.screen === 'menu') location.reload(); }, 1000); }
   };
   navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadController) reloadWhenIdle(); });
-  addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(() => {}); });
+  addEventListener('load', () => { navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).catch(() => {}); });
 }
