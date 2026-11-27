@@ -21,6 +21,7 @@ export const UI = {
   sideTouchMin: 200,   // ancho mínimo de columna si lleva botones táctiles
   minCell: 12,
   maxCell: 44,
+  stackedMaxCell: 64,  // en vertical (tablet) el tablero puede crecer hasta llenar el alto
 };
 
 /**
@@ -35,11 +36,11 @@ export function computeLayout({ width, height, stacked, touch }) {
     const h = height - UI.stackedTopBar - touchH - UI.stackedGap * 2 - 4;
     const sideFor = (c) => Math.max(UI.stackedSideMin, Math.round(c * UI.stackedSideRatio));
     // A: columnas a los lados del tablero (gana en pantallas anchas o bajas)
-    let side = clampCell(h / ROWS);
+    let side = clampCell(h / ROWS, UI.stackedMaxCell);
     while (side > UI.minCell && side * COLS + sideFor(side) * 2 + UI.stackedGap * 2 + UI.stackedPad * 2 > width) side--;
     // B: franja de marcador arriba y tablero a todo el ancho (gana en móviles altos y estrechos)
     const hud = wide ? UI.stackedHudWide : UI.stackedHud;
-    const strip = clampCell(Math.min((h - hud - UI.stackedGap) / ROWS, (width - UI.stackedPad * 2) / COLS));
+    const strip = clampCell(Math.min((h - hud - UI.stackedGap) / ROWS, (width - UI.stackedPad * 2) / COLS), UI.stackedMaxCell);
     const useStrip = strip > side;
     const cell = useStrip ? strip : side;
     return { cell, side: useStrip ? 0 : sideFor(cell), touchH, btn, strip: useStrip, hud: useStrip ? hud : 0 };
@@ -56,4 +57,4 @@ export function touchButton(width, wide) {
   return Math.max(UI.touchBtnMin, Math.min(wide ? UI.touchBtnMaxWide : UI.touchBtnMax, Math.floor((width - 60) / 7.4)));
 }
 
-function clampCell(c) { return Math.max(UI.minCell, Math.min(UI.maxCell, Math.floor(c))); }
+function clampCell(c, max = UI.maxCell) { return Math.max(UI.minCell, Math.min(max, Math.floor(c))); }

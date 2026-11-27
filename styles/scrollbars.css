@@ -14,3 +14,6 @@
 .is-touch ::-webkit-scrollbar { display: none; }
 /* Un fundido en los bordes avisa de que hay más contenido arriba o abajo */
 .card { mask-image: linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 16px), transparent 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 16px), transparent 100%); padding: 10px 6px 14px; }
+/* En pantallas táctiles sin máscara de fundido: en Chrome de Android la máscara sobre un panel que
+   se desplaza con capas animadas dentro dejaba trozos sin pintar (tarjetas vacías, iconos ausentes). */
+.is-touch .card { mask-image: none; -webkit-mask-image: none; }

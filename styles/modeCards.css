@@ -19,7 +19,7 @@
     linear-gradient(180deg, rgba(36, 30, 78, .88), rgba(16, 12, 40, .92)) padding-box,
     linear-gradient(140deg, color-mix(in srgb, var(--c1) 70%, #fff 10%), rgba(255, 255, 255, .12) 40%, rgba(255, 255, 255, .06) 60%, color-mix(in srgb, var(--c2) 60%, transparent)) border-box;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), inset 0 -12px 20px -12px rgba(0, 0, 0, .6), 0 8px 18px -10px rgba(0, 0, 0, .7);
-  transform: perspective(700px) rotateX(var(--rx)) rotateY(var(--ry));
+  transform: none;
   transition: transform .5s var(--ease-out), box-shadow .3s, filter .3s, opacity .3s;
   -webkit-tap-highlight-color: transparent;
 }
@@ -28,7 +28,7 @@
   content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: 0; height: 46%; pointer-events: none;
   background: linear-gradient(180deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, 0));
 }
-.mode.tilt { transition: transform .12s linear, box-shadow .3s; }
+.mode.tilt { transform: perspective(700px) rotateX(var(--rx)) rotateY(var(--ry)); transition: transform .12s linear, box-shadow .3s; }
 .mode:hover, .mode.tilt { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), inset 0 -12px 20px -12px rgba(0, 0, 0, .6), 0 14px 26px -12px rgba(0, 0, 0, .8), 0 0 24px -8px var(--c1); }
 .mode.down { transform: perspective(700px) rotateX(var(--rx)) rotateY(var(--ry)) scale(.965); }
 
@@ -43,9 +43,7 @@
 .mode-glow {
   position: absolute; z-index: -1; left: -10%; top: -40%; width: 70%; aspect-ratio: 1; border-radius: 50%; pointer-events: none;
   background: radial-gradient(circle, color-mix(in srgb, var(--c1) 30%, transparent), transparent 65%);
-  animation: mode-breathe 6s calc(var(--i) * -.7s) ease-in-out infinite;
 }
-@keyframes mode-breathe { 50% { transform: translate3d(14%, 10%, 0) scale(1.15); opacity: .7; } }
 
 /* Icono: medallón de cristal con el color y la luz del modo */
 .mode-icon {
@@ -54,13 +52,13 @@
   background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--c1) 34%, transparent), color-mix(in srgb, var(--c2) 16%, rgba(10, 8, 28, .6)) 75%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), inset 0 0 0 1px color-mix(in srgb, var(--c1) 40%, transparent), 0 0 16px -4px var(--c1);
 }
-.mode-icon svg { width: 22px; height: 22px; display: block; filter: drop-shadow(0 0 4px color-mix(in srgb, var(--c1) 80%, transparent)); }
-.mode[data-anim=pulse] .mode-icon svg { animation: ic-pulse 2.6s ease-in-out infinite; }
-.mode[data-anim=spin] .mode-icon svg { animation: ic-spin 14s linear infinite; }
-.mode[data-anim=float] .mode-icon svg { animation: ic-float 3.2s ease-in-out infinite; }
-.mode[data-anim=tick] .mode-icon svg { animation: ic-tick 2s steps(1) infinite; }
-.mode[data-anim=flick] .mode-icon svg { animation: ic-flick 3.4s ease-in-out infinite; }
-.mode[data-anim=glint] .mode-icon svg { animation: ic-glint 4s ease-in-out infinite; }
+.mode-icon svg { width: 22px; height: 22px; display: block; }
+.q-high .mode[data-anim=pulse] .mode-icon svg { animation: ic-pulse 2.6s ease-in-out infinite; }
+.q-high .mode[data-anim=spin] .mode-icon svg { animation: ic-spin 14s linear infinite; }
+.q-high .mode[data-anim=float] .mode-icon svg { animation: ic-float 3.2s ease-in-out infinite; }
+.q-high .mode[data-anim=tick] .mode-icon svg { animation: ic-tick 2s steps(1) infinite; }
+.q-high .mode[data-anim=flick] .mode-icon svg { animation: ic-flick 3.4s ease-in-out infinite; }
+.q-high .mode[data-anim=glint] .mode-icon svg { animation: ic-glint 4s ease-in-out infinite; }
 @keyframes ic-pulse { 50% { transform: scale(1.12); } }
 @keyframes ic-spin { to { transform: rotate(360deg); } }
 @keyframes ic-float { 50% { transform: translateY(-2.5px); } }
@@ -87,7 +85,7 @@
 .mode.featured .mode-name { font-size: 17px; }
 .mode.featured .mode-desc { font-size: 12.5px; }
 .mode.featured .mode-glow {
-  left: -20%; top: -60%; width: 140%; aspect-ratio: auto; height: 220%; border-radius: 0;
+  left: -60%; top: -60%; width: 220%; aspect-ratio: auto; height: 220%; border-radius: 0;
   background: linear-gradient(100deg, transparent 10%, rgba(20, 64, 255, .28), rgba(255, 47, 180, .22), rgba(47, 191, 113, .2), rgba(255, 123, 0, .2), transparent 90%);
   animation: featured-flow 9s ease-in-out infinite alternate;
 }
@@ -103,7 +101,7 @@
 .mode-grid:not(:has(.wide)) .mode[data-open-puzzles] { grid-column: 1 / -1; }
 
 /* Entrada escalonada al abrir el menú */
-#ov-menu.enter .mode { animation: mode-in .5s calc(.08s + var(--i) * .02s) var(--ease-out) both; }
+#ov-menu.enter .mode { animation: mode-in .5s calc(.08s + var(--i) * .02s) var(--ease-out) backwards; }
 @keyframes mode-in { from { opacity: 0; transform: translate3d(0, 10px, 0); } }
 
 /* Pulsación: la elegida se ilumina con un aro de su color, sin destellos */
@@ -127,3 +125,16 @@
   .mode-glow, .mode-icon svg, #ov-menu.enter .mode { animation: none !important; }
   .mode { transform: none !important; }
 }
+
+/* Fondo del menú opaco en móvil y tablet: la partida no se transparenta detrás */
+.layout-stacked #ov-menu, .is-touch:not(.is-phone) #ov-menu {
+  background: radial-gradient(120% 60% at 50% 0%, rgba(90, 60, 200, .22), transparent 60%), linear-gradient(180deg, #0e0a28, #07051a);
+}
+
+/* Pantallas táctiles: tarjetas totalmente quietas (sin capas animadas dentro) para que Chrome,
+   Brave o Safari las pinten siempre enteras; el menú entra de una vez con un fundido. */
+.is-touch .mode-icon svg, .is-touch .mode.featured .mode-glow { animation: none !important; }
+.is-touch #ov-menu.enter .mode { animation: none; }
+.is-touch #ov-menu.enter .mode-grid { animation: grid-in .45s .05s var(--ease-out) backwards; }
+@keyframes grid-in { from { opacity: 0; } }
+.is-touch .mode { isolation: auto; z-index: 0; }

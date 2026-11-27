@@ -5,9 +5,9 @@ import { dampedSpring } from '../util/dampedSpring.js';
 import { damp } from '../util/damp.js';
 import { decor } from '../decor/state.js';
 
-const IDLE = [2.2, 4.2];        // segundos de calma entre movimientos
+const IDLE = [5, 9];             // segundos de calma entre movimientos (el nombre se lee bien casi siempre)
 const PUSH_RADIUS = 3.2;        // en bloques
-const L = { blocks: [], ctx: null, w: 0, h: 0, dpr: 1, k: 8, cam: 70, rx: 0, ry: 0, tx: 0, ty: 0, anim: null, wait: 1.2, last: 0, t: 0, raf: 0, running: false, prev: -1 };
+const L = { blocks: [], ctx: null, w: 0, h: 0, dpr: 1, k: 8, cam: 70, rx: 0, ry: 0, tx: 0, ty: 0, anim: null, wait: 3, last: 0, t: 0, raf: 0, running: false, prev: -1 };
 const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function size(canvas, model) {

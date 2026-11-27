@@ -58,3 +58,6 @@ body.star-active .board-frame { box-shadow: 0 0 28px rgba(255, 211, 79, .35); }
 body.star-ending .board-frame { animation: star-pulse .5s ease-in-out infinite alternate; }
 @keyframes star-pulse { to { box-shadow: 0 0 40px rgba(255, 211, 79, .8); } }
 .aurora, .decor { transition: filter 1.2s; }
+/* En táctil no se reservan capas de GPU por adelantado para el fondo: en tablets de alta densidad
+   agotaban la memoria y el navegador dejaba tarjetas sin pintar. */
+.is-touch .aurora span, .is-touch .d-layer, .is-touch .d-orbs i, .is-touch .d-facets i, .is-touch .d-glow, .is-touch .d-tension { will-change: auto; }

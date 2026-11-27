@@ -16,8 +16,10 @@ function silentWav(secs = 0.5, rate = 8000) {
   return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
 }
 
+const IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+
 export function startSilentLoop() {
-  if (navigator.audioSession) return;
+  if (navigator.audioSession || !IOS) return; // solo hace falta en iPhone/iPad antiguos
   if (!el) {
     el = document.createElement('audio');
     el.src = silentWav(); el.loop = true; el.preload = 'auto';

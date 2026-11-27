@@ -1,6 +1,8 @@
 import { safeArea } from '../util/safeArea.js';
 import { isInstalled } from './install/isInstalled.js';
 
+const IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+
 /**
  * Ajusta la aplicación exactamente a la zona que el jugador ve, en cualquier pantalla.
  * Safari de iOS 26 extiende la página bajo la isla dinámica y bajo su barra flotante:
@@ -9,7 +11,9 @@ import { isInstalled } from './install/isInstalled.js';
  *  - arriba siempre se deja el margen seguro (isla o notch);
  *  - el alto es el visible más ese margen, sin pasar del alto de la pantalla;
  *  - abajo solo se deja margen si la aplicación llega al borde inferior.
- * Instalada como app no hay barras del navegador: ocupa la pantalla entera, con los dos márgenes.
+ * Instalada como app en iPhone/iPad, iOS da un área de diseño más baja que la pantalla aunque pinta
+ * desde arriba: ahí se usa el alto de la pantalla. En Android instalada la barra de estado y la de
+ * navegación quedan fuera de la página, así que se usa el alto visible (si no, se cortaba abajo).
  */
 export function pinViewport() {
   if (scrollX || scrollY) scrollTo(0, 0);
@@ -21,7 +25,7 @@ export function pinViewport() {
   const portrait = innerHeight >= innerWidth;
   const screenH = portrait ? Math.max(screen.width, screen.height) : Math.min(screen.width, screen.height);
   const limit = Math.max(innerHeight, screenH || 0);
-  const installed = isInstalled();
+  const installed = isInstalled() && IOS;
   const h = installed ? limit : Math.min(limit, visible + sa.top);
   const reachesBottom = h >= limit - 1;
   document.documentElement.classList.toggle('installed', installed);
