@@ -6,6 +6,7 @@ import lines from './catalog/lines.js';
 import technique from './catalog/technique.js';
 import scoring from './catalog/scoring.js';
 import modes from './catalog/modes.js';
+import puzzles from './catalog/puzzles.js';
 import lifetime from './catalog/lifetime.js';
 import secrets from './catalog/secrets.js';
 
@@ -14,6 +15,7 @@ export const CATEGORIES = [
   { id: 'technique', name: 'Técnica', list: technique },
   { id: 'scoring', name: 'Puntuación', list: scoring },
   { id: 'modes', name: 'Modos', list: modes },
+  { id: 'puzzles', name: 'Puzles', list: puzzles },
   { id: 'lifetime', name: 'Constancia', list: lifetime },
   { id: 'secrets', name: 'Secretos', list: secrets },
 ];

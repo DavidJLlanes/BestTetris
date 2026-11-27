@@ -4,12 +4,12 @@ import { playSfx } from '../audio/index.js';
 
 const STEP_MS = 600;
 
-/** Cuenta atrás 3-2-1 antes de jugar. Se cancela si se cambia de pantalla. */
-export function countdown(done) {
+/** Cuenta atrás (3-2-1 por defecto) antes de jugar. Se cancela si se cambia de pantalla. */
+export function countdown(done, from = 3) {
   app.screen = 'countdown';
   const el = $('countdown');
   el.hidden = false;
-  let n = 3;
+  let n = from;
   const step = () => {
     if (app.screen !== 'countdown') { el.hidden = true; return; }
     if (n === 0) { el.hidden = true; playSfx('count', { high: true }); done(); return; }

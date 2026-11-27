@@ -11,9 +11,9 @@ export function recordKey(mode) { return mode.recordKey ? mode.recordKey() : mod
 
 /** Guarda el resultado si cuenta como marca. Devuelve true si es el nuevo récord del modo. */
 export function saveRecord(g) {
-  const mode = getMode(g.mode);
-  const key = recordKey(mode);
+  const mode = g.hooks;
   if (mode.noRecord) return false;
+  const key = recordKey(mode);
   const kind = RECORD_KINDS[mode.record];
   const value = kind.value(g);
   if ((kind.won && !g.won) || !value) return false;
@@ -25,9 +25,10 @@ export function saveRecord(g) {
   return list[0] === entry;
 }
 
-/** Mejor marca de un modo, ya formateada, o "—". */
-export function bestLabel(modeId) {
-  const mode = getMode(modeId);
+/** Mejor marca de un modo (objeto o id), ya formateada, o "—". */
+export function bestLabel(modeOrId) {
+  const mode = typeof modeOrId === 'string' ? getMode(modeOrId) : modeOrId;
+  if (mode.noRecord) return mode.bestLabel ? mode.bestLabel() : '—';
   const list = loadRecords()[recordKey(mode)] || [];
   return list.length ? RECORD_KINDS[mode.record].format(list[0].value) : '—';
 }

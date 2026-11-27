@@ -5,6 +5,7 @@ export const app = {
   screen: 'menu', // menu | countdown | play | pause | over
   game: null,
   modeId: 'marathon',
+  modeDef: null, // el modo en juego (puede no estar en el registro, como un puzle)
   settings: loadSettings(),
   device: { touch: false, phone: false, landscape: false },
   lastInput: 'keys', // keys | pad | touch: para mostrar las pistas adecuadas

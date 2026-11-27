@@ -12,7 +12,8 @@
 :focus { outline: none; }
 :focus-visible { box-shadow: 0 0 0 2px var(--accent2), 0 0 18px rgba(70,230,255,.45) !important; }
 
-.mode-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mode-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.mode { min-width: 0; overflow-wrap: anywhere; }
 .mode { position: relative; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto auto; column-gap: 8px; text-align: left; padding: 10px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.05); cursor: pointer; transition: transform .14s var(--ease-out), background .15s, border-color .15s; }
 .mode:hover { background: rgba(255,255,255,.1); border-color: rgba(200,190,255,.45); transform: translateY(-1px); }
 .mode:active { transform: scale(.97); }

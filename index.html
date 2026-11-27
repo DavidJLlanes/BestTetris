@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="styles/rotate-lock.css">
   <link rel="stylesheet" href="styles/focus.css">
   <link rel="stylesheet" href="styles/hint.css">
+  <link rel="stylesheet" href="styles/puzzles.css">
+  <link rel="stylesheet" href="styles/editor.css">
   <script type="module" src="src/main.js"></script>
 </head>
 <body>
@@ -92,7 +94,9 @@
             <div class="result" id="over-result"></div>
             <p class="newbest" id="over-best" hidden>¡Nuevo récord!</p>
             <div class="menu">
-              <button class="btn primary" id="btn-again">Otra vez</button>
+              <button class="btn primary" id="btn-next" hidden>Siguiente puzle</button>
+              <button class="btn" id="btn-again">Otra vez</button>
+              <button class="btn ghost" id="btn-edit" hidden>Volver al editor</button>
               <button class="btn ghost" id="btn-menu">Menú principal</button>
             </div>
           </div>
@@ -202,6 +206,59 @@
               <button class="btn ghost" id="share-download">Descargar imagen</button>
               <button class="btn ghost" data-back>Volver</button>
             </div>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-puzzles" hidden>
+          <div class="card">
+            <h2>Puzles</h2>
+            <div class="trophy-summary" id="puzzle-summary"></div>
+            <div class="puzzle-sets" id="puzzle-sets"></div>
+            <div class="menu-row">
+              <button class="btn" data-open="ov-editor">Crear puzle</button>
+              <button class="btn" data-open="ov-puzzle-code">Tengo un código</button>
+            </div>
+            <button class="btn ghost" data-back>Volver</button>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-puzzle-code" hidden>
+          <div class="card">
+            <h2>Jugar un código</h2>
+            <label class="field">Código o enlace <input type="text" id="code-input" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="P1.…"></label>
+            <div class="result" id="code-preview"></div>
+            <p class="status" id="code-status" role="status"></p>
+            <div class="menu">
+              <button class="btn primary" id="code-play" disabled>Jugar</button>
+              <button class="btn ghost" data-back>Volver</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="overlay" id="ov-editor" hidden>
+          <div class="card">
+            <h2>Editor de puzles</h2>
+            <label class="field">Nombre <input type="text" id="ed-name" maxlength="28" autocomplete="off" enterkeyhint="done"></label>
+            <div class="ed-paint" id="ed-paint" role="toolbar" aria-label="Pincel"></div>
+            <div class="ed-grid" id="ed-grid" aria-label="Tablero: toca o arrastra para pintar"></div>
+            <div class="ed-row"><span>Piezas</span><output class="ed-seq" id="ed-seq"></output></div>
+            <div class="ed-pieces" id="ed-pieces"></div>
+            <div class="ed-row">
+              <label>Objetivo <select id="ed-goal"><option value="lines">Limpiar líneas</option><option value="tspin">Giro-T de N líneas</option><option value="perfect">Dejar el tablero vacío</option></select></label>
+              <label id="ed-n-wrap">N <input type="number" id="ed-n" min="1" max="48" value="2" inputmode="numeric"></label>
+            </div>
+            <label class="check"><input type="checkbox" id="ed-hold"> Permitir la reserva</label>
+            <p class="status" id="ed-status" role="status"></p>
+            <div class="menu-row">
+              <button class="btn" id="ed-check">Comprobar solución</button>
+              <button class="btn primary" id="ed-play">Probar</button>
+            </div>
+            <div class="menu-row">
+              <button class="btn ghost" id="ed-copy">Copiar código</button>
+              <button class="btn ghost" id="ed-share">Compartir enlace</button>
+              <button class="btn ghost" id="ed-clear">Vaciar</button>
+            </div>
+            <button class="btn ghost" data-back>Volver</button>
           </div>
         </div>
 

@@ -23,6 +23,9 @@ export function trackProfile() {
     p.bestCombo = Math.max(p.bestCombo, g.stats.maxCombo);
     p.modesPlayed[g.mode] = (p.modesPlayed[g.mode] || 0) + 1;
     if (g.won) p.modesWon[g.mode] = (p.modesWon[g.mode] || 0) + 1;
+    const puzzle = g.hooks.puzzle;
+    if (g.won && puzzle && puzzle.set) p.puzzles[puzzle.id] = Math.min(p.puzzles[puzzle.id] ?? Infinity, g.time);
+    if (g.won && puzzle && puzzle.custom) p.customSolved++;
     saveProfile();
   });
 }

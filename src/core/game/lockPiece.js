@@ -15,8 +15,8 @@ export function lockPiece(g, hard = false) {
   g.cur = null;
   g.holdUsed = false;
   g.stats.pieces++;
-  g.emit('lock', { type: p.type, cells, hard });
-  if (g.hooks.onLock) g.hooks.onLock(g);
+  g.emit('lock', { type: p.type, cells, hard, piece: { ...p } });
+  if (g.hooks.onLock) g.hooks.onLock(g, p, cells);
   if (g.over) return;
 
   if (cells.every(([, y]) => y < HIDDEN)) { topOut(g); return; }

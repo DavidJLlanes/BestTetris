@@ -1,0 +1,17 @@
+/* Editor de puzles. Las celdas son divs (no botones) para que el mando no tenga que recorrer 120. */
+.ed-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; width: min(100%, 300px); margin: 0 auto; padding: 4px; border-radius: 10px; background: rgba(0,0,0,.35); border: 1px solid var(--line); touch-action: none; user-select: none; -webkit-user-select: none; }
+.ed-grid i { aspect-ratio: 1; border-radius: 4px; background: rgba(255,255,255,.05); cursor: crosshair; transition: background .12s, transform .12s var(--ease-out); }
+.ed-grid i[data-c]:not([data-c="."]) { background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--c) 40%, #fff), var(--c) 55%, color-mix(in srgb, var(--c) 55%, #000)); transform: scale(.94); }
+.ed-paint, .ed-pieces { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.ed-swatch, .ed-piece { min-width: 34px; height: 34px; border-radius: 10px; border: 1px solid var(--line); color: #120c33; font: 900 13px var(--font); cursor: pointer; background: var(--c, rgba(255,255,255,.1)); transition: transform .14s var(--ease-out), box-shadow .15s; }
+.ed-piece[data-del] { color: var(--ink); }
+.ed-swatch.on { box-shadow: 0 0 0 2px var(--bg, #0b0820), 0 0 0 4px #fff; transform: scale(1.08); }
+.ed-swatch:active, .ed-piece:active { transform: scale(.92); }
+.ed-row { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.ed-row select, .ed-row input { font: 600 14px var(--font); color: var(--ink); background: rgba(255,255,255,.07); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; }
+.ed-row input { width: 56px; }
+.ed-row select option { background: #1a1440; }
+.ed-seq { display: flex; gap: 4px; flex-wrap: wrap; min-height: 24px; }
+.ed-seq i { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; font: 900 11px var(--font); font-style: normal; color: #120c33; background: var(--c); animation: seq-in .3s var(--ease-spring) both; }
+.ed-seq em { font-size: 12px; }
+@keyframes seq-in { from { opacity: 0; transform: scale(.4); } }

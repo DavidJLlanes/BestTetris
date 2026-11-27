@@ -13,8 +13,9 @@ export function bindButtons() {
   document.querySelectorAll('[data-open]').forEach((b) => b.addEventListener('click', () => { initAudio(); playSfx('ui'); pushOverlay(b.dataset.open); }));
   document.querySelectorAll('[data-back]').forEach((b) => b.addEventListener('click', () => { playSfx('ui'); backOverlay(); }));
   $('btn-resume').addEventListener('click', resume);
-  $('btn-restart').addEventListener('click', () => startGame(app.modeId));
-  $('btn-again').addEventListener('click', () => startGame(app.modeId));
+  const again = () => startGame(app.modeDef || app.modeId);
+  $('btn-restart').addEventListener('click', again);
+  $('btn-again').addEventListener('click', again);
   $('btn-quit').addEventListener('click', goMenu);
   $('btn-menu').addEventListener('click', goMenu);
   $('btn-pause').addEventListener('click', () => { initAudio(); togglePause(); });

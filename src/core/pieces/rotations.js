@@ -1,4 +1,4 @@
-import { SHAPES, TYPES } from '../../config/shapes.js';
+import { SHAPES } from '../../config/shapes.js';
 import { rotateMatrix } from './rotateMatrix.js';
 
 /** Celdas ocupadas [x, y] de una matriz. */
@@ -9,7 +9,7 @@ function matrixCells(matrix) {
 }
 
 /** ROTATIONS[tipo][estado 0..3] = celdas relativas de la pieza. Se calcula una vez. */
-export const ROTATIONS = Object.fromEntries(TYPES.map((type) => {
+export const ROTATIONS = Object.fromEntries(Object.keys(SHAPES).map((type) => {
   const states = [];
   let m = SHAPES[type];
   for (let s = 0; s < 4; s++) { states.push(matrixCells(m)); m = rotateMatrix(m); }

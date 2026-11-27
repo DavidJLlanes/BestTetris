@@ -6,7 +6,7 @@ import { trackLowest } from './trackLowest.js';
 /** Gira la pieza activa (steps: 1 horario, -1 antihorario, 2 = 180°). Devuelve true si giró. */
 export function tryRotate(g, steps) {
   const p = g.cur;
-  if (!p || p.type === 'O') return false;
+  if (!p || p.type === 'O' || p.type === 'M' || p.type === 'B') return false;
   const from = p.rot, to = (p.rot + steps + 4) % 4;
   const tests = rotationKicks(p.type, from, to, steps);
   for (let i = 0; i < tests.length; i++) {

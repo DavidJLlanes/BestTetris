@@ -30,6 +30,10 @@ import { startLoop } from './app/loop.js';
 import { perf } from './app/perf.js';
 import { press, release } from './input/press.js';
 import { watchTutorial } from './tutorial/watchTutorial.js';
+import { watchPuzzles } from './puzzles/app/watchPuzzles.js';
+import { bindPuzzlesPanel } from './ui/puzzles/puzzlesPanel.js';
+import { bindCodePanel, openSharedPuzzle } from './ui/puzzles/codePanel.js';
+import { bindEditorPanel } from './ui/editor/editorPanel.js';
 import { registerServiceWorker } from './pwa/registerServiceWorker.js';
 import { bindInstallPrompt } from './pwa/installPrompt.js';
 
@@ -43,6 +47,7 @@ watchAchievements();
 watchFinish();
 wireReactions();
 watchTutorial();
+watchPuzzles();       // después del tutorial, que oculta la pista al empezar
 
 bindHud();
 bindButtons();
@@ -52,6 +57,9 @@ bindRecordsPanel();
 bindTrophiesPanel();
 bindProfilePanel();
 bindSharePanel();
+bindPuzzlesPanel();
+bindCodePanel();
+bindEditorPanel();
 refreshIdentityBadge();
 
 bindKeyboard();
@@ -66,6 +74,7 @@ if (load('muted', false)) { setMuted(true); $('btn-mute').classList.add('off'); 
 if (new URLSearchParams(location.search).has('fps')) perf.show();
 
 showOverlay('ov-menu');
+openSharedPuzzle();
 startLoop();
 document.body.classList.add('ready');
 

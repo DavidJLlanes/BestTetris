@@ -2,10 +2,14 @@ import { createPiece } from '../pieces/createPiece.js';
 import { collides } from '../pieces/collides.js';
 import { takeNext } from './takeNext.js';
 import { topOut } from './topOut.js';
+import { finish } from './finish.js';
+import { isComplete } from './isComplete.js';
 
 /** Hace aparecer una pieza (la indicada o la siguiente de la cola). */
 export function spawn(g, type = null) {
-  const p = createPiece(type || takeNext(g));
+  const t = type || takeNext(g);
+  if (!t) { finish(g, isComplete(g)); return; } // sin piezas: puzle resuelto o fallido
+  const p = createPiece(t);
   g.cur = p;
   g.lockTimer = 0; g.resets = 0; g.lowestY = p.y; g.gravAcc = 0;
   g.lastRotate = false;

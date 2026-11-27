@@ -8,4 +8,13 @@ export const SHAPES = {
   J: [[1, 0, 0], [1, 1, 1], [0, 0, 0]],
   L: [[0, 0, 1], [1, 1, 1], [0, 0, 0]],
 };
-export const TYPES = Object.keys(SHAPES);
+/** Piezas especiales (solo aparecen en los modos que las piden). */
+export const SPECIAL_SHAPES = {
+  M: [[1]],                          // mónada: un solo bloque
+  B: [[1]],                          // bomba: un bloque que estalla al fijarse
+  P: [[0, 1, 0], [1, 1, 1], [0, 1, 0]], // estrella: pieza gigante de 5 bloques
+};
+Object.assign(SHAPES, SPECIAL_SHAPES);
+
+/** Las 7 piezas normales, las que salen en la bolsa. */
+export const TYPES = ['I', 'O', 'T', 'S', 'Z', 'J', 'L'];

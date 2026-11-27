@@ -7,7 +7,7 @@ import { resume } from '../app/pause.js';
 function items() {
   const el = topOverlay();
   if (!el) return [];
-  return Array.from(el.querySelectorAll('button:not([disabled]), input:not([type=file])')).filter((x) => x.offsetParent !== null);
+  return Array.from(el.querySelectorAll('button:not([disabled]), input:not([type=file]), select')).filter((x) => x.offsetParent !== null);
 }
 
 export function menuNavigate(d) {

@@ -1,11 +1,10 @@
 import { $ } from '../util/dom.js';
-import { getMode } from '../modes/registry.js';
 import { formatTime } from '../util/formatTime.js';
 import { formatNumber } from '../util/formatNumber.js';
 
 /** Rellena la pantalla de fin de partida. */
 export function renderGameOver(g, isBest) {
-  const mode = getMode(g.mode);
+  const mode = g.hooks;
   const goal = g.rules.goalLines || g.rules.timeLimit || mode.isComplete;
   $('over-title').textContent = goal ? (g.won ? `¡${mode.name} completado!` : `${mode.name}: inténtalo otra vez`) : 'Fin de la partida';
   const rows = [

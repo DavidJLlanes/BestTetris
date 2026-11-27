@@ -11,7 +11,7 @@ export function bindKeyboard() {
   addEventListener('keydown', (e) => {
     const act = KEYMAP[e.code];
     if (!act) {
-      if (e.code === 'Enter' && app.screen === 'menu' && overlayDepth() === 1 && document.activeElement === document.body) startGame(app.modeId);
+      if (e.code === 'Enter' && app.screen === 'menu' && overlayDepth() === 1 && document.activeElement === document.body) startGame(app.modeDef || app.modeId);
       return;
     }
     const typing = document.activeElement && document.activeElement.tagName === 'INPUT';

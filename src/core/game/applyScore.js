@@ -7,7 +7,7 @@ export function applyScore(g, lines, tspin) {
   g.score += r.points;
   g.combo = r.combo;
   g.b2b = r.b2b;
-  if (tspin === 'full') g.stats.tspins++;
+  if (tspin === 'full') { g.stats.tspins++; g.stats.tspinBest = Math.max(g.stats.tspinBest || 0, lines); }
   if (lines >= 4) g.stats.quads++;
   if (r.backToBack) { g.stats.b2bChain++; g.stats.b2bMax = Math.max(g.stats.b2bMax, g.stats.b2bChain); }
   else if (lines) g.stats.b2bChain = 0;

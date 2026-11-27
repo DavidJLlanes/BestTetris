@@ -2,6 +2,7 @@ import { DEFAULT_RULES } from '../../config/rules.js';
 import { createBoard } from '../board/createBoard.js';
 import { createBag } from '../randomizer/createBag.js';
 import { seedGarbage } from './seedGarbage.js';
+import { fillQueue } from './fillQueue.js';
 
 const QUEUE_SIZE = 6;
 const noop = () => {};
@@ -21,7 +22,7 @@ export function createGame(mode, { emit = noop, rng = null } = {}) {
     random,
     board: createBoard(),
     next,
-    queue: Array.from({ length: QUEUE_SIZE }, next),
+    queue: [],
     cur: null, hold: null, holdUsed: false,
     score: 0, lines: 0, level: rules.startLevel, combo: -1, b2b: false,
     time: 0, gravAcc: 0, lockTimer: 0, resets: 0, lowestY: 0,
@@ -35,5 +36,6 @@ export function createGame(mode, { emit = noop, rng = null } = {}) {
   };
   seedGarbage(g, rules.garbageRows);
   if (mode.setup) mode.setup(g);
+  fillQueue(g, QUEUE_SIZE);
   return g;
 }

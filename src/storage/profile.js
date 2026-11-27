@@ -4,6 +4,8 @@ import { load, save } from './store.js';
 const EMPTY = {
   games: 0, lines: 0, pieces: 0, quads: 0, tspins: 0, perfectClears: 0,
   playTime: 0, maxLevel: 1, bestCombo: 0, modesPlayed: {}, modesWon: {},
+  puzzles: {}, // id del puzle resuelto → mejor tiempo
+  customSolved: 0,
 };
 
 let profile = null;

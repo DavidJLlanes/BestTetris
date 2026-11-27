@@ -1,0 +1,15 @@
+/* Colecciones de puzles y código compartido. */
+.puzzle-sets { display: grid; gap: 6px; text-align: left; }
+.puzzle-sets h4 { margin: 8px 0 2px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.puzzle-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 6px; }
+.puzzle-tile { display: grid; justify-items: center; gap: 2px; padding: 8px 4px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.05); color: var(--ink); font: inherit; cursor: pointer; transition: transform .14s var(--ease-out), background .15s, border-color .15s; }
+.puzzle-tile:hover, .puzzle-tile:focus-visible { background: rgba(255,255,255,.1); border-color: rgba(70,230,255,.5); transform: translate3d(0, -1px, 0); }
+.puzzle-tile:active { transform: scale(.96); }
+.puzzle-num { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 900; background: rgba(255,255,255,.08); }
+.puzzle-name { font-size: 12px; font-weight: 700; text-align: center; line-height: 1.2; }
+.puzzle-tile small { font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; min-height: 1.2em; }
+.puzzle-tile.solved { border-color: rgba(92,255,157,.45); }
+.puzzle-tile.solved .puzzle-num { color: #0d2a1a; background: radial-gradient(circle at 35% 30%, #fff, #5cff9d 50%, #1f9d5a); }
+.hint.top { top: 8px; padding: 6px 10px; font-size: 13px; transition: opacity .6s ease, transform .6s var(--ease-out); }
+.hint.top.faded { opacity: 0; transform: translate3d(0, -8px, 0); }
+.mode[data-open-puzzles] { grid-column: span 2; }

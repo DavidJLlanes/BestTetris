@@ -2,7 +2,10 @@
  * Paletas de gemas: [color claro, color oscuro] por tipo.
  * "daltonico" usa la paleta de Okabe-Ito, distinguible con los tipos de daltonismo más comunes.
  */
-const SHARED = { X: ['#8a86b8', '#4a4675'], G: ['#6f6a99', '#36325c'] };
+const SHARED = {
+  X: ['#8a86b8', '#4a4675'], G: ['#6f6a99', '#36325c'],
+  M: ['#ffffff', '#a9a6d6'], B: ['#ff3355', '#5a0018'], P: ['#ffe08a', '#d4567a'],
+};
 
 export const PALETTES = {
   prisma: {

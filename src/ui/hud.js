@@ -1,7 +1,6 @@
 import { $ } from '../util/dom.js';
 import { formatTime } from '../util/formatTime.js';
 import { formatNumber } from '../util/formatNumber.js';
-import { getMode } from '../modes/registry.js';
 
 /** Marcador lateral. Solo toca el DOM cuando un valor cambia, para no forzar repintados. */
 const els = {};
@@ -19,7 +18,7 @@ export function bindHud() {
 
 export function updateHud(g) {
   if (!g) return;
-  const mode = getMode(g.mode);
+  const mode = g.hooks;
   set('score', formatNumber(g.score));
   set('level', g.rules.levelUp ? String(g.level) : '—');
   set('lines', mode.progress ? mode.progress(g) : g.rules.goalLines ? `${g.lines}/${g.rules.goalLines}` : String(g.lines));
