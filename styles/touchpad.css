@@ -87,3 +87,7 @@
 
 /* Pantallas muy estrechas: la reserva se hace tocando su recuadro */
 @media (max-width: 359px) { .layout-stacked .touch .t-hold { display: none; } }
+
+/* Reserva ya usada con esta pieza: el botón se apaga hasta la siguiente */
+.layout-stacked .touch .t-hold.used { opacity: .38; filter: saturate(.4); }
+.layout-stacked .touch .t-hold { transition: opacity .2s, filter .2s, transform .12s var(--ease-out); }

@@ -30,7 +30,8 @@ export function watchViewport(canvases) {
     visualViewport.addEventListener('scroll', pin);
   }
   addEventListener('scroll', pin, { passive: true });
-  document.addEventListener('focusout', () => setTimeout(schedule, 50));
+  // Al cerrar el teclado (sale el foco de un campo de texto) se recoloca todo
+  document.addEventListener('focusout', (e) => { if (e.target.matches && e.target.matches('input:not([type=checkbox]):not([type=radio]):not([type=range]), textarea')) setTimeout(schedule, 50); });
   // Red de seguridad: si algo cambia el área visible sin avisar, se recoloca en menos de un segundo
   let lastKey = '';
   setInterval(() => {

@@ -8,6 +8,7 @@ const last = {};
 
 const BUMP = new Set(['score', 'level', 'lines']);
 let gem = null;
+let holdBtn = null;
 
 /** Cambia una cifra; las que suben dan un pequeño salto (los números se sienten vivos). */
 function set(key, value) {
@@ -22,6 +23,7 @@ function set(key, value) {
 export function bindHud() {
   for (const k of ['score', 'level', 'lines', 'time', 'best']) els[k] = $(`s-${k}`);
   gem = $('s-gem');
+  holdBtn = document.querySelector('#touch .t-hold');
 }
 
 export function updateHud(g) {
@@ -35,6 +37,9 @@ export function updateHud(g) {
   if (last.gem !== fill) { last.gem = fill; gem.style.setProperty('--p', fill); }
   const remaining = g.rules.timeLimit ? Math.max(0, g.rules.timeLimit - g.time) : g.time;
   set('time', formatTime(remaining, mode.record === 'time'));
+  // Reserva solo se puede usar una vez por pieza (o nada, en modos sin reserva): el botón se apaga
+  const holdOff = g.holdUsed || !g.rules.hold;
+  if (holdBtn && last.holdOff !== holdOff) { last.holdOff = holdOff; holdBtn.classList.toggle('used', holdOff); }
 }
 
 export function setBest(text) { set('best', text); }

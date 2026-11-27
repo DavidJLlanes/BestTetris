@@ -4,8 +4,10 @@ import { computeLayout } from './layoutMetrics.js';
 
 function sizeCanvas(canvas, w, h) {
   w = Math.max(1, Math.round(w)); h = Math.max(1, Math.round(h));
-  canvas.width = Math.round(w * view.dpr);
-  canvas.height = Math.round(h * view.dpr);
+  const cw = Math.round(w * view.dpr), ch = Math.round(h * view.dpr);
+  // Cambiar el tamaño de un canvas lo borra: si no cambia nada, no se toca (evita destellos)
+  if (canvas.width !== cw) canvas.width = cw;
+  if (canvas.height !== ch) canvas.height = ch;
   canvas.style.width = `${w}px`;
   canvas.style.height = `${h}px`;
 }
