@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="styles/decor.css">
   <link rel="stylesheet" href="styles/frame.css">
   <link rel="stylesheet" href="styles/journey.css">
+  <link rel="stylesheet" href="styles/keymap.css">
   <script type="module" src="src/main.js"></script>
   <!-- modulepreload:start (generado: npm run preload) -->
   <link rel="modulepreload" href="src/achievements/catalog/lifetime.js">
@@ -643,38 +644,54 @@
           </div>
         </div>
 
-        <div class="overlay" id="ov-help" hidden>
+        <div class="overlay screen" id="ov-help" hidden>
           <div class="card">
             <h2>Controles</h2>
-            <h3 class="sub">Teclado</h3>
-            <table class="keys">
-              <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>Mover</td></tr>
-              <tr><td><kbd>↓</kbd></td><td>Bajar rápido</td></tr>
-              <tr><td><kbd>Espacio</kbd></td><td>Soltar de golpe</td></tr>
-              <tr><td><kbd>↑</kbd> <kbd>X</kbd></td><td>Girar a la derecha</td></tr>
-              <tr><td><kbd>Z</kbd> <kbd>Ctrl</kbd></td><td>Girar a la izquierda</td></tr>
-              <tr><td><kbd>A</kbd></td><td>Girar 180°</td></tr>
-              <tr><td><kbd>C</kbd> <kbd>Shift</kbd></td><td>Reservar pieza</td></tr>
-              <tr><td><kbd>Retroceso</kbd> <kbd>U</kbd></td><td>Deshacer (en los modos que lo permiten)</td></tr>
-              <tr><td><kbd>V</kbd></td><td>Usar poder (modo Poderes)</td></tr>
-              <tr><td><kbd>Esc</kbd> <kbd>P</kbd></td><td>Pausa</td></tr>
-              <tr><td><kbd>M</kbd></td><td>Silenciar</td></tr>
-            </table>
-            <h3 class="sub">Mando</h3>
-            <table class="keys">
-              <tr><td><kbd>✚</kbd> / stick</td><td>Mover y bajar</td></tr>
-              <tr><td><kbd>✚↑</kbd> <kbd>RT</kbd></td><td>Soltar de golpe</td></tr>
-              <tr><td><kbd>A</kbd></td><td>Girar a la derecha</td></tr>
-              <tr><td><kbd>B</kbd> <kbd>X</kbd></td><td>Girar a la izquierda</td></tr>
-              <tr><td><kbd>Y</kbd></td><td>Girar 180°</td></tr>
-              <tr><td><kbd>LB</kbd> <kbd>RB</kbd></td><td>Reservar pieza</td></tr>
-              <tr><td><kbd>⧉</kbd> (Vista)</td><td>Deshacer</td></tr>
-              <tr><td><kbd>L3</kbd> <kbd>R3</kbd></td><td>Usar poder</td></tr>
-              <tr><td><kbd>☰</kbd></td><td>Pausa</td></tr>
-            </table>
-            <h3 class="sub">Táctil</h3>
-            <p class="tip">Arrastra sobre el tablero para mover (hacia abajo baja más rápido), toca para girar (mitad izquierda ↺, derecha ↻) y desliza rápido hacia abajo o hacia arriba para soltarla de golpe. Para reservar, toca el recuadro Reserva o su botón. En Maratón, Zen y Puzles, el botón ↶ de arriba deshace la última pieza (cuesta puntos y la partida ya no cuenta para récords).</p>
-            <p class="tip">Completa 4 líneas a la vez para un <b>¡Prisma!</b> y encadena limpiezas para multiplicar los puntos.</p>
+            <section class="help-sec help-touch">
+              <h3 class="sub">Táctil</h3>
+              <ul class="keymap">
+              <li><span class="km-keys"><span class="gesture">Arrastra ←→</span></span><span class="km-act">Mover</span></li>
+              <li><span class="km-keys"><span class="gesture">Arrastra ↓</span></span><span class="km-act">Bajar rápido</span></li>
+              <li><span class="km-keys"><span class="gesture">Lanza ↓ o ↑</span></span><span class="km-act">Soltar de golpe</span></li>
+              <li><span class="km-keys"><span class="gesture">Toca a la izq.</span></span><span class="km-act">Girar a la izquierda ↺</span></li>
+              <li><span class="km-keys"><span class="gesture">Toca a la dcha.</span></span><span class="km-act">Girar a la derecha ↻</span></li>
+              <li><span class="km-keys"><span class="gesture">Toca Reserva</span></span><span class="km-act">Reservar pieza</span></li>
+              <li><span class="km-keys"><kbd>↶</kbd></span><span class="km-act">Deshacer*</span></li>
+              <li><span class="km-keys"><kbd>★</kbd></span><span class="km-act">Momento estelar o poder</span></li>
+              </ul>
+              <p class="tip">Abajo tienes también los botones: mover ← ↓ →, girar ↺ ↻, reservar y soltar.</p>
+            </section>
+            <section class="help-sec">
+              <h3 class="sub">Teclado</h3>
+              <ul class="keymap">
+              <li><span class="km-keys"><kbd>←</kbd><kbd>→</kbd></span><span class="km-act">Mover</span></li>
+              <li><span class="km-keys"><kbd>↓</kbd></span><span class="km-act">Bajar rápido</span></li>
+              <li><span class="km-keys"><kbd>Espacio</kbd></span><span class="km-act">Soltar de golpe</span></li>
+              <li><span class="km-keys"><kbd>↑</kbd><kbd>X</kbd></span><span class="km-act">Girar a la derecha</span></li>
+              <li><span class="km-keys"><kbd>Z</kbd><kbd>Ctrl</kbd></span><span class="km-act">Girar a la izquierda</span></li>
+              <li><span class="km-keys"><kbd>A</kbd></span><span class="km-act">Girar 180°</span></li>
+              <li><span class="km-keys"><kbd>C</kbd><kbd>Shift</kbd></span><span class="km-act">Reservar pieza</span></li>
+              <li><span class="km-keys"><kbd>Retroceso</kbd><kbd>U</kbd></span><span class="km-act">Deshacer*</span></li>
+              <li><span class="km-keys"><kbd>V</kbd></span><span class="km-act">Momento estelar o poder</span></li>
+              <li><span class="km-keys"><kbd>Esc</kbd><kbd>P</kbd></span><span class="km-act">Pausa</span></li>
+              <li><span class="km-keys"><kbd>M</kbd></span><span class="km-act">Silenciar</span></li>
+              </ul>
+            </section>
+            <section class="help-sec">
+              <h3 class="sub">Mando</h3>
+              <ul class="keymap">
+              <li><span class="km-keys"><kbd class="gp ico"><svg viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="currentColor" opacity=".9"/></svg></kbd><kbd class="gp ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.5" fill="currentColor"/></svg></kbd></span><span class="km-act">Mover y bajar</span></li>
+              <li><span class="km-keys"><kbd class="gp ico"><svg viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="currentColor" opacity=".35"/><path d="M9 3h6v6H9z" fill="currentColor"/></svg></kbd><kbd class="gp trig">RT</kbd></span><span class="km-act">Soltar de golpe</span></li>
+              <li><span class="km-keys"><kbd class="gp fa">A</kbd></span><span class="km-act">Girar a la derecha</span></li>
+              <li><span class="km-keys"><kbd class="gp fb">B</kbd><kbd class="gp fx">X</kbd></span><span class="km-act">Girar a la izquierda</span></li>
+              <li><span class="km-keys"><kbd class="gp fy">Y</kbd></span><span class="km-act">Girar 180°</span></li>
+              <li><span class="km-keys"><kbd class="gp sh">LB</kbd><kbd class="gp sh">RB</kbd></span><span class="km-act">Reservar pieza</span></li>
+              <li><span class="km-keys"><kbd class="gp ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/></svg></kbd></span><span class="km-act">Deshacer*</span></li>
+              <li><span class="km-keys"><kbd class="gp ico st">L3</kbd><kbd class="gp ico st">R3</kbd></span><span class="km-act">Momento estelar o poder</span></li>
+              <li><span class="km-keys"><kbd class="gp ico"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></kbd></span><span class="km-act">Pausa</span></li>
+              </ul>
+            </section>
+            <p class="tip">* Deshacer solo en Maratón, Zen, Deriva, Viaje y Puzles: cuesta puntos y la partida ya no cuenta para récords. Completa 4 líneas a la vez para un <b>¡Prisma!</b> y encadena limpiezas para multiplicar los puntos.</p>
             <button class="btn ghost" data-back>Volver</button>
           </div>
         </div>

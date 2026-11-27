@@ -78,3 +78,13 @@ kbd { display: inline-block; min-width: 22px; padding: 1px 6px; border-radius: 6
 /* Logotipo 3D de cubos de gema (el h1 queda para lectores de pantalla) */
 .sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .logo3d { display: block; width: 100%; height: clamp(92px, 26vw, 160px); margin: -6px 0 -4px; touch-action: none; cursor: grab; filter: drop-shadow(0 6px 18px rgba(120, 90, 255, .35)); }
+
+/* Pantallas secundarias en móvil vertical: panel propio, opaco, con el título siempre a la vista */
+.layout-stacked .overlay:not(#ov-menu) {
+  background: radial-gradient(120% 60% at 50% 0%, rgba(90, 60, 200, .22), transparent 60%), linear-gradient(180deg, #0e0a28, #07051a);
+}
+.overlay:not(#ov-menu) .card > h2:first-child {
+  position: sticky; top: -10px; z-index: 3; margin: -10px -6px 0; padding: 14px 6px 10px;
+  background: linear-gradient(180deg, #0d0a26 70%, rgba(13, 10, 38, 0));
+}
+.layout-stacked .overlay:not(#ov-menu) { align-items: flex-start; }
