@@ -17,7 +17,8 @@ export function resize({ board, hold, next }, device) {
   // caben siempre en ella, diga lo que diga el navegador de sus barras.
   const app = document.getElementById('app'), cs = getComputedStyle(app);
   const px = (k) => parseFloat(cs[k]) || 0;
-  const width = app.clientWidth - px('paddingLeft') - px('paddingRight');
+  const vw = Math.min(app.clientWidth, window.visualViewport ? Math.round(visualViewport.width) : innerWidth);
+  const width = vw - px('paddingLeft') - px('paddingRight');
   const height = app.clientHeight - px('paddingTop') - px('paddingBottom');
   const stacked = device.stacked;
   const { cell, side, touchH = 0, strip = false, hud = 0 } = computeLayout({ width, height, stacked, touch: device.touch });
