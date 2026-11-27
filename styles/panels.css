@@ -59,3 +59,4 @@ body:not(.is-touch).layout-side .side-card { display: block; align-self: end; }
 .side-right { grid-area: tr; }
 .side-card .pc-season { margin-top: 8px; }
 .side-card .result { font-size: 13px; }
+#profile-avatar { cursor: pointer; }

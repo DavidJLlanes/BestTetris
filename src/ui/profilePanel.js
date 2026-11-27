@@ -34,13 +34,18 @@ export function bindProfilePanel() {
   onOpen('ov-profile', () => { draw(); renderStats(); status(''); });
   name.addEventListener('change', () => { saveIdentity({ ...loadIdentity(), name: name.value }); refreshIdentityBadge(); draw(); status('Nombre guardado'); });
   $('profile-photo-btn').addEventListener('click', () => photoInput.click());
+  $('profile-avatar').addEventListener('click', () => photoInput.click()); // tocar la foto también la cambia
   photoInput.addEventListener('change', async () => {
     const file = photoInput.files[0];
     photoInput.value = '';
     if (!file) return;
     try {
-      saveIdentity({ ...loadIdentity(), photo: await resizeImage(file) });
-      refreshIdentityBadge(); draw(); status('Foto guardada');
+      const photo = await resizeImage(file);
+      saveIdentity({ ...loadIdentity(), photo });
+      refreshIdentityBadge(); draw();
+      // Se comprueba que de verdad ha quedado guardada (modo privado o almacenamiento lleno)
+      if (loadIdentity().photo === photo) status('Foto guardada en este dispositivo');
+      else status('El navegador no ha dejado guardar la foto (¿modo privado?)', false);
     } catch { status('No se ha podido usar esa imagen', false); }
   });
   $('profile-photo-remove').addEventListener('click', () => { saveIdentity({ ...loadIdentity(), photo: null }); refreshIdentityBadge(); draw(); status('Foto quitada'); });
