@@ -60,3 +60,7 @@ body:has(#ov-menu:not([hidden])) .update-btn { display: grid; }
 .star-btn.full { color: #fff3c4; box-shadow: 0 0 22px rgba(255, 211, 79, .6); }
 .star-btn.active { color: #fff; border-color: rgba(255, 211, 79, .7); box-shadow: 0 0 24px rgba(255, 211, 79, .55); }
 @keyframes star-ready { 50% { transform: scale(1.06); } }
+/* Sonido apagado: el ♪ se tacha con una barra bien visible */
+#btn-mute { position: relative; }
+#btn-mute.off { text-decoration: none; }
+#btn-mute.off::after { content: ""; position: absolute; left: 22%; right: 22%; top: 50%; height: 2.5px; border-radius: 2px; background: #ff6d8a; transform: rotate(-40deg); box-shadow: 0 0 6px rgba(255, 80, 120, .7); }

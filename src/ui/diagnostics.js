@@ -1,4 +1,5 @@
 import { safeArea } from '../util/safeArea.js';
+import { audio } from '../audio/context.js';
 
 /**
  * Diagnóstico de pantalla (añade ?diag a la dirección): medidas reales que da el navegador
@@ -30,6 +31,7 @@ export function showDiagnostics() {
       `vars h ${getComputedStyle(document.documentElement).getPropertyValue('--app-h')} t ${getComputedStyle(document.documentElement).getPropertyValue('--pad-t')} b ${getComputedStyle(document.documentElement).getPropertyValue('--pad-b')}`,
       `barra ${rect('.topbar')}  tablero ${rect('#board')}`,
       `botones ${rect('#touch')}`,
+      `audio ${audio.ctx ? `${audio.ctx.state} ${audio.ctx.sampleRate}Hz` : 'sin crear'}  sesión ${navigator.audioSession ? navigator.audioSession.type : '—'}  silenciado ${audio.muted ? 'sí' : 'no'}  abierto ${audio.unlocked ? 'sí' : 'no'}  vol ${audio.musicVol}/${audio.sfxVol}`,
       document.body.className,
     ].join('\n');
   };
