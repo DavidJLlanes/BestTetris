@@ -17,8 +17,10 @@ import seasons from './list/seasons.js';
 import sway from './list/sway.js';
 import chaos from './list/chaos.js';
 import powers from './list/powers.js';
+import journey from './list/journey.js';
+import drift from './list/drift.js';
 
-export const MODES = [tutorial, marathon, sprint, ultra, dig, tide, master, shadow, purist, daily, zen, seasons, sway, chaos, powers]
+export const MODES = [tutorial, marathon, sprint, ultra, dig, tide, master, shadow, purist, daily, zen, seasons, sway, chaos, powers, journey, drift]
   .sort((a, b) => a.order - b.order);
 
 export const getMode = (id) => MODES.find((m) => m.id === id);

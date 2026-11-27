@@ -27,4 +27,7 @@ export default [
   { id: 'chaos-50', name: 'Domador del caos', desc: '50 líneas en Caos', tier: 'gold', icon: '✸', on: 'score', test: ({ g }) => g.mode === 'chaos' && g.lines >= 50 },
   { id: 'powers-3', name: 'Superpoderes', desc: 'Usa 3 poderes en una partida', tier: 'bronze', icon: '✦', on: 'score', test: ({ g }) => g.mode === 'powers' && (g.stats.powers || 0) >= 3 },
   { id: 'powers-60', name: 'Poder absoluto', desc: '60 líneas en Poderes', tier: 'gold', icon: '✦', on: 'score', test: ({ g }) => g.mode === 'powers' && g.lines >= 60 },
+  { id: 'journey', name: 'Trotamundos', desc: 'Completa un Viaje por las cinco escenas', tier: 'silver', icon: '✧', on: 'finish', test: won('journey') },
+  { id: 'journey-600', name: 'Viaje relámpago', desc: 'Completa un Viaje en menos de 10:00', tier: 'gold', icon: '✧', on: 'finish', test: timeUnder('journey', 600) },
+  { id: 'drift-five', name: 'A la deriva', desc: 'Pasa por las cinco escenas en Deriva', tier: 'silver', icon: '☾', on: 'score', test: ({ g }) => g.mode === 'drift' && g.time >= 360 },
 ];

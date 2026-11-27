@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="styles/versus.css">
   <link rel="stylesheet" href="styles/decor.css">
   <link rel="stylesheet" href="styles/frame.css">
+  <link rel="stylesheet" href="styles/journey.css">
   <script type="module" src="src/main.js"></script>
   <!-- modulepreload:start (generado: npm run preload) -->
   <link rel="modulepreload" href="src/achievements/catalog/lifetime.js">
@@ -208,6 +209,8 @@
   <link rel="modulepreload" href="src/modes/list/chaos.js">
   <link rel="modulepreload" href="src/modes/list/daily.js">
   <link rel="modulepreload" href="src/modes/list/dig.js">
+  <link rel="modulepreload" href="src/modes/list/drift.js">
+  <link rel="modulepreload" href="src/modes/list/journey.js">
   <link rel="modulepreload" href="src/modes/list/marathon.js">
   <link rel="modulepreload" href="src/modes/list/master.js">
   <link rel="modulepreload" href="src/modes/list/powers.js">
@@ -306,8 +309,10 @@
   <link rel="modulepreload" href="src/replay/watchReplay.js">
   <link rel="modulepreload" href="src/replay/watchSpectate.js">
   <link rel="modulepreload" href="src/scenes/applyScene.js">
+  <link rel="modulepreload" href="src/scenes/sceneIndex.js">
   <link rel="modulepreload" href="src/scenes/sceneList.js">
   <link rel="modulepreload" href="src/scenes/sceneReactions.js">
+  <link rel="modulepreload" href="src/scenes/sceneTrail.js">
   <link rel="modulepreload" href="src/share/buildCard.js">
   <link rel="modulepreload" href="src/share/cardData.js">
   <link rel="modulepreload" href="src/share/cardSize.js">
@@ -365,6 +370,7 @@
   <link rel="modulepreload" href="src/ui/install/isFullscreen.js">
   <link rel="modulepreload" href="src/ui/install/isInstalled.js">
   <link rel="modulepreload" href="src/ui/isTyping.js">
+  <link rel="modulepreload" href="src/ui/journeyResults.js">
   <link rel="modulepreload" href="src/ui/layout.js">
   <link rel="modulepreload" href="src/ui/levelBadge.js">
   <link rel="modulepreload" href="src/ui/menuNav.js">
@@ -516,6 +522,7 @@
           <div class="card">
             <h2 id="over-title">Fin de la partida</h2>
             <div class="result" id="over-result"></div>
+            <div class="journey" id="over-journey" hidden></div>
             <p class="newbest" id="over-best" hidden>¡Nuevo récord!</p>
             <div class="xp-gain" id="over-xp" hidden><div class="xp-head"><span id="over-xp-level"></span><b id="over-xp-text"></b></div><div class="xp-bar"><i id="over-xp-bar"></i></div></div>
             <p class="challenge-result" id="over-challenge" hidden></p>

@@ -11,3 +11,7 @@ export const SCENES = [
 ];
 /** Líneas que dura cada escena antes de dar paso a la siguiente. */
 export const LINES_PER_SCENE = 8;
+/** Modo Viaje: líneas de cada escena (5 escenas × 10 = 50 líneas, como un álbum de 5 temas). */
+export const JOURNEY_LINES = 10;
+/** Modo Deriva: segundos que dura cada escena (cambian con el tiempo, no con las líneas). */
+export const DRIFT_SECS = 90;
