@@ -4,7 +4,7 @@
 import { $ } from './util/dom.js';
 import { app } from './app/state.js';
 import { load } from './storage/store.js';
-import { setMuted } from './audio/index.js';
+import { setMuted, unlockAudio } from './audio/index.js';
 import { attachCanvases } from './render/view.js';
 import { watchViewport } from './ui/watchViewport.js';
 import { watchVisibility } from './ui/watchVisibility.js';
@@ -57,6 +57,7 @@ attachCanvases(canvases);
 watchViewport(canvases);
 watchVisibility();
 blockZoom();
+unlockAudio();
 
 trackProfile();       // primero: los logros leen el perfil ya actualizado
 watchAchievements();

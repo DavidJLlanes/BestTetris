@@ -10,7 +10,7 @@ function makeNoise(ctx) {
 
 /** Crea el contexto en el primer gesto del jugador (los navegadores lo exigen). */
 export function initAudio() {
-  if (audio.ctx) { if (audio.ctx.state === 'suspended') audio.ctx.resume(); return; }
+  if (audio.ctx) { if (audio.ctx.state !== 'running') audio.ctx.resume().catch(() => {}); return; }
   const AC = window.AudioContext || window.webkitAudioContext;
   if (!AC) return;
   const ctx = new AC({ latencyHint: 'interactive' });

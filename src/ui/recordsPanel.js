@@ -21,15 +21,14 @@ function render() {
   document.querySelectorAll('#records-tabs button').forEach((b) => b.classList.toggle('on', b.dataset.period === period));
   const html = MODES.filter((m) => !m.noRecord).map((m) => {
     const list = period === 'all' ? allTime(m, all) : periodList(m, hist);
-    if (period !== 'all' && !list.length) return '';
+    if (!list.length) return '';
     const fmt = RECORD_KINDS[m.record].format;
-    const items = list.length
-      ? `<ol>${list.map((e) => `<li><b>${fmt(e.value)}</b> <small>· ${e.name ? `${esc(e.name)} · ` : ''}${e.when}</small></li>`).join('')}</ol>`
-      : '<p class="empty">Aún no hay partidas</p>';
+    const items = `<ol>${list.map((e) => `<li><b>${fmt(e.value)}</b> <small>· ${e.name ? `${esc(e.name)} · ` : ''}${e.when}</small></li>`).join('')}</ol>`;
     const watch = period === 'all' && m.replay && hasReplay(recordKey(m)) ? `<button class="btn ghost small" data-replay="${recordKey(m)}">▶ Ver el mejor</button>` : '';
     return `<div class="record-mode"><h4>${m.icon} ${m.name} ${watch}</h4>${items}</div>`;
   }).join('');
-  $('records').innerHTML = html || `<p class="empty">Aún no hay partidas ${period === 'day' ? 'hoy' : 'esta semana'}.</p>`;
+  const when = { day: 'hoy', week: 'esta semana', all: 'todavía' }[period];
+  $('records').innerHTML = html || `<p class="empty">No hay marcas ${when}. Juega una partida y aparecerá aquí.</p>`;
 }
 
 /** Récords y clasificación local: hoy, esta semana y de siempre, por modo. */

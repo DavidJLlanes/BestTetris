@@ -23,7 +23,7 @@ export function bindSharePanel() {
   });
   $('share-download').addEventListener('click', () => {
     if (!current) return;
-    current.toBlob((b) => downloadBlob(b, 'prisma-progreso.png'), 'image/png');
+    current.toBlob((b) => downloadBlob(b, 'besttris-progreso.png'), 'image/png');
     msg.textContent = 'Tarjeta descargada';
   });
 }

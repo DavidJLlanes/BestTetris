@@ -4,7 +4,7 @@
  */
 export async function shareCard(canvas, name) {
   const blob = await new Promise((r) => canvas.toBlob(r, 'image/png'));
-  const file = new File([blob], `prisma-${name || 'progreso'}.png`.replace(/\s+/g, '-'), { type: 'image/png' });
+  const file = new File([blob], `besttris-${name || 'progreso'}.png`.replace(/\s+/g, '-'), { type: 'image/png' });
   if (navigator.canShare && navigator.canShare({ files: [file] })) {
     try {
       await navigator.share({ files: [file], title: 'Mi progreso en BestTris', text: '¿Me superas en BestTris?' });

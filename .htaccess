@@ -1,8 +1,8 @@
-# PRISMA · configuración para Apache (en nginx se ignora; ver README).
+# BestTris · configuración para Apache (en nginx se ignora; ver README).
 
 # No servir la carpeta .git ni archivos de desarrollo
 RedirectMatch 404 /\.git
-RedirectMatch 404 /(tests|node_modules)(/|$)
+RedirectMatch 404 /(tests|tools|node_modules)(/|$)
 RedirectMatch 404 /(package\.json|README\.md)$
 
 # Tipos correctos para módulos y manifiesto

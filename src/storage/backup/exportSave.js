@@ -7,7 +7,7 @@ export function exportSave(playerName = 'jugador') {
   const a = document.createElement('a');
   const safe = playerName.toLowerCase().replace(/[^a-z0-9áéíóúñü]+/gi, '-').replace(/^-|-$/g, '') || 'jugador';
   a.href = url;
-  a.download = `prisma-${safe}-${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `besttris-${safe}-${new Date().toISOString().slice(0, 10)}.json`;
   document.body.appendChild(a);
   a.click();
   a.remove();

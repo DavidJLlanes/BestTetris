@@ -81,7 +81,7 @@ Requisitos del servidor:
 
   ```nginx
   location ~ /\.(?!well-known) { deny all; }
-  location ~ ^/tetris/(tests|node_modules)/ { deny all; }
+  location ~ ^/tetris/(tests|tools|node_modules)/ { deny all; }
   location = /tetris/sw.js { add_header Cache-Control "no-cache"; }
   ```
 
