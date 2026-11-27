@@ -5,7 +5,7 @@ export function snapMotion(piece) {
   motion.piece = piece;
   motion.x = piece.x;
   motion.y = piece.y - 0.35; // aparece desde un poco más arriba
-  motion.angle = 0;
+  motion.angle = 0; motion.av = 0; motion.tilt = 0; motion.tv = 0;
   motion.scale = 0.9;
   motion.alpha = 0;
 }
