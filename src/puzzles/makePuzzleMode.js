@@ -16,7 +16,7 @@ export function makePuzzleMode(puzzle) {
     noRecord: true,
     achievementCategory: 'puzzles',
     countdown: 1,
-    rules: { levelUp: false, fixedInterval: puzzle.targets ? 3 : 1.5, hold: puzzle.hold !== false, previews: 5 },
+    rules: { levelUp: false, fixedInterval: puzzle.targets ? 3 : 1.5, hold: puzzle.hold !== false, previews: 5, undo: Infinity, undoCost: 0 },
     setup(g) {
       parseBoard(g.board, puzzle.board);
       g.custom.sequence = puzzle.pieces.split('');
@@ -38,7 +38,7 @@ export function makePuzzleMode(puzzle) {
       const ok = t && sameCells(cells, targetCells(g.board, piece.type, t));
       cells.forEach(([x, y]) => { if (y >= 0) g.board[y][x] = piece.type; });
       if (ok) { g.custom.placed++; g.emit('targetHit', { index: g.custom.placed }); }
-      else { g.over = true; g.emit('targetMiss', {}); } // se reintenta sin contar como partida
+      else { g.custom.missed = true; g.emit('targetMiss', {}); } // se deshace sola en cuanto sale la siguiente
     },
   };
 }

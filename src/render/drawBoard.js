@@ -6,6 +6,7 @@ import { drawFlash } from './layers/drawFlash.js';
 import { drawStack } from './layers/drawStack.js';
 import { drawGhost } from './layers/drawGhost.js';
 import { drawTarget } from './layers/drawTarget.js';
+import { drawRewind } from './layers/drawRewind.js';
 import { drawActive } from './layers/drawActive.js';
 import { drawLockFlash } from './layers/drawLockFlash.js';
 import { drawTrails } from './layers/drawTrails.js';
@@ -37,6 +38,7 @@ export function drawBoard(g, settings, now) {
       drawActive(ctx, g);
     }
     drawLockFlash(ctx);
+    drawRewind(ctx);
   }
   drawParticles(ctx);
   ctx.restore();

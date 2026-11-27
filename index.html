@@ -37,6 +37,7 @@
       <button class="badge" id="badge" aria-label="Perfil"><span class="avatar" id="badge-avatar"></span><span class="badge-name" id="badge-name"></span></button>
       <div class="logo">PRISMA</div>
       <div class="topbar-actions">
+        <button class="icon-btn undo-btn" id="btn-undo" title="Deshacer (Retroceso)" aria-label="Deshacer la última pieza" hidden>↶<small id="undo-left"></small></button>
         <button class="icon-btn" id="btn-fullscreen" title="Pantalla completa" aria-label="Pantalla completa">⛶</button>
         <button class="icon-btn" id="btn-mute" title="Silenciar (M)" aria-label="Silenciar">♪</button>
         <button class="icon-btn" id="btn-pause" title="Pausa (Esc)" aria-label="Pausa">❚❚</button>
@@ -93,6 +94,7 @@
             <h2 id="over-title">Fin de la partida</h2>
             <div class="result" id="over-result"></div>
             <p class="newbest" id="over-best" hidden>¡Nuevo récord!</p>
+            <p class="tip" id="over-note" hidden></p>
             <div class="menu">
               <button class="btn primary" id="btn-next" hidden>Siguiente puzle</button>
               <button class="btn" id="btn-again">Otra vez</button>
@@ -142,6 +144,7 @@
               <tr><td><kbd>Z</kbd> <kbd>Ctrl</kbd></td><td>Girar a la izquierda</td></tr>
               <tr><td><kbd>A</kbd></td><td>Girar 180°</td></tr>
               <tr><td><kbd>C</kbd> <kbd>Shift</kbd></td><td>Reservar pieza</td></tr>
+              <tr><td><kbd>Retroceso</kbd> <kbd>U</kbd></td><td>Deshacer (en los modos que lo permiten)</td></tr>
               <tr><td><kbd>Esc</kbd> <kbd>P</kbd></td><td>Pausa</td></tr>
               <tr><td><kbd>M</kbd></td><td>Silenciar</td></tr>
             </table>
@@ -153,10 +156,11 @@
               <tr><td><kbd>B</kbd> <kbd>X</kbd></td><td>Girar a la izquierda</td></tr>
               <tr><td><kbd>Y</kbd></td><td>Girar 180°</td></tr>
               <tr><td><kbd>LB</kbd> <kbd>RB</kbd></td><td>Reservar pieza</td></tr>
+              <tr><td><kbd>⧉</kbd> (Vista)</td><td>Deshacer</td></tr>
               <tr><td><kbd>☰</kbd></td><td>Pausa</td></tr>
             </table>
             <h3 class="sub">Táctil</h3>
-            <p class="tip">Desliza sobre el tablero para mover, toca para girar (mitad izquierda ↺, derecha ↻), desliza rápido hacia abajo para soltar y hacia arriba para reservar. También tienes botones.</p>
+            <p class="tip">Desliza sobre el tablero para mover, toca para girar (mitad izquierda ↺, derecha ↻), desliza rápido hacia abajo para soltar y hacia arriba para reservar. También tienes botones. En Maratón, Zen y Puzles, el botón ↶ de arriba deshace la última pieza (cuesta puntos y la partida ya no cuenta para récords).</p>
             <p class="tip">Completa 4 líneas a la vez para un <b>¡Prisma!</b> y encadena limpiezas para multiplicar los puntos.</p>
             <button class="btn ghost" data-back>Volver</button>
           </div>

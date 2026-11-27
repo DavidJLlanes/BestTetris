@@ -12,7 +12,7 @@ export function recordKey(mode) { return mode.recordKey ? mode.recordKey() : mod
 /** Guarda el resultado si cuenta como marca. Devuelve true si es el nuevo récord del modo. */
 export function saveRecord(g) {
   const mode = g.hooks;
-  if (mode.noRecord) return false;
+  if (mode.noRecord || g.stats.undos) return false; // con deshacer no es una marca limpia
   const key = recordKey(mode);
   const kind = RECORD_KINDS[mode.record];
   const value = kind.value(g);

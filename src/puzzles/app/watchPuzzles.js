@@ -9,9 +9,10 @@ import { nextPuzzle } from '../nextPuzzle.js';
 import { puzzleLabel } from './puzzleLabel.js';
 import { playPuzzle } from './playPuzzle.js';
 import { goMenu } from '../../app/goMenu.js';
+import { undoMove } from '../../core/undo/undoMove.js';
 import { pushOverlay } from '../../ui/overlays.js';
 
-const RETRY_MS = 1100;
+const RETRY_MS = 700; // antes de que salga la pantalla de fin (900 ms)
 const FADE_MS = 2600;
 const isPuzzle = (g) => g && g.mode === 'puzzle';
 
@@ -27,16 +28,15 @@ export function watchPuzzles() {
     setTimeout(() => { if (app.game === game) hint.classList.add('faded'); }, FADE_MS);
   });
   on('targetHit', ({ game }) => { playSfx('levelUp'); floatText('¡JUSTO!', '', '#5cff9d', 0.8); if (game.over) hideHint(); });
-  on('targetMiss', ({ game }) => {
-    floatText('FUERA DE LA SILUETA', 'otra vez', '#ff5c7a', 0.8);
-    playSfx('miss');
-    setTimeout(() => { if (app.game === game) playPuzzle(game.hooks.puzzle, { quick: true }); }, RETRY_MS);
-  });
+  on('targetMiss', () => { floatText('FUERA DE LA SILUETA', 'otra vez', '#ff5c7a', 0.8); playSfx('miss'); });
+  // Fallo en el entrenador: la pieza vuelve arriba sola (deshacer gratis)
+  on('spawn', ({ game }) => { if (isPuzzle(game) && game.custom.missed) { game.custom.missed = false; undoMove(game); } });
   on('finish', ({ game }) => {
     const puzzle = isPuzzle(game) && game.hooks.puzzle;
     $('btn-next').hidden = !(game.won && nextPuzzle(puzzle));
     $('btn-edit').hidden = !(puzzle && puzzle.fromEditor);
     if (!puzzle) return;
+    if (game.custom.missed) { setTimeout(() => { if (app.game === game) playPuzzle(puzzle, { quick: true }); }, RETRY_MS); return; }
     hint.classList.remove('faded');
     if (!game.won) showHint(game.hooks.puzzle.hint || 'Prueba otro orden o usa la reserva.', 'Pista');
     else hideHint();

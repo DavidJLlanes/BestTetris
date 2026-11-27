@@ -31,7 +31,8 @@ export function createGame(mode, { emit = noop, rng = null } = {}) {
     clearing: null,
     over: false, won: false,
     custom: {}, // estado libre para los modos
-    stats: { pieces: 0, quads: 0, tspins: 0, maxCombo: 0, perfectClears: 0, holds: 0, b2bMax: 0, b2bChain: 0 },
+    history: [], // fotos para deshacer (solo si rules.undo)
+    stats: { pieces: 0, quads: 0, tspins: 0, maxCombo: 0, perfectClears: 0, holds: 0, b2bMax: 0, b2bChain: 0, undos: 0, undoPoints: 0 },
     emit,
   };
   seedGarbage(g, rules.garbageRows);

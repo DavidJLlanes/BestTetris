@@ -16,4 +16,7 @@ export function renderGameOver(g, isBest) {
   rows.push(['Piezas', g.stats.pieces], ['Prismas (4 líneas)', g.stats.quads], ['Giros-T', g.stats.tspins], ['Mejor combo', Math.max(0, g.stats.maxCombo)]);
   $('over-result').innerHTML = rows.map(([k, v]) => `<span>${k}</span><b>${v}</b>`).join('');
   $('over-best').hidden = !isBest;
+  const note = $('over-note');
+  note.hidden = !g.stats.undos || mode.noRecord;
+  note.textContent = `Deshiciste ${g.stats.undos} ${g.stats.undos === 1 ? 'vez' : 'veces'} (−${formatNumber(g.stats.undoPoints)} puntos): esta partida no cuenta para récords.`;
 }

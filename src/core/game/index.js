@@ -10,3 +10,5 @@ export { shiftToWall } from '../movement/shiftToWall.js';
 export { ghostY } from '../movement/ghostY.js';
 export { onGround } from '../movement/onGround.js';
 export { pieceCells } from '../pieces/pieceCells.js';
+export { undoMove } from '../undo/undoMove.js';
+export { canUndo, undoCost, undoLeft } from '../undo/undoCost.js';

@@ -4,6 +4,7 @@ import { tryMove, tryRotate, hardDrop, holdPiece } from '../core/game/index.js';
 import { togglePause } from '../app/pause.js';
 import { toggleMute } from '../app/toggleMute.js';
 import { initAudio } from '../audio/index.js';
+import { requestUndo } from '../app/requestUndo.js';
 
 const ROTATIONS = { cw: 1, ccw: -1, r180: 2 };
 
@@ -27,6 +28,7 @@ export function press(act) {
   if (!canControl()) return;
   if (act === 'hard') hardDrop(g);
   else if (act === 'hold') holdPiece(g);
+  else if (act === 'undo') requestUndo(g);
   else if (ROTATIONS[act]) tryRotate(g, ROTATIONS[act]);
 }
 

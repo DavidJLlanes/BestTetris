@@ -6,5 +6,5 @@ export default {
   description: 'Sube de nivel cada 10 líneas',
   icon: '∞',
   record: 'score',
-  rules: {},
+  rules: { undo: 3, undoCost: 1000 }, // 3 deshaceres: 1000, 2000 y 3000 puntos
 };

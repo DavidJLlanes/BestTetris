@@ -19,6 +19,7 @@ export function updateEffects(dt) {
   stepSpring(fx.bounce, dt);
   stepSpring(fx.zoom, dt, 160, 16);
   if (fx.slow) { fx.slow.t -= dt; if (fx.slow.t <= 0) fx.slow = null; }
+  fx.rewind = Math.max(0, fx.rewind - dt * 2.2);
   fx.overT += dt;
   fx.rowOffsets = fx.rowOffsets.map((o) => damp(o, 0, 18, dt)).map((o) => (o < 0.01 ? 0 : o));
 }

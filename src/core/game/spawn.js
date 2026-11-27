@@ -4,6 +4,7 @@ import { takeNext } from './takeNext.js';
 import { topOut } from './topOut.js';
 import { finish } from './finish.js';
 import { isComplete } from './isComplete.js';
+import { recordSnapshot } from '../undo/recordSnapshot.js';
 
 /** Hace aparecer una pieza (la indicada o la siguiente de la cola). */
 export function spawn(g, type = null) {
@@ -16,5 +17,6 @@ export function spawn(g, type = null) {
   if (collides(g.board, p)) { topOut(g); return; }
   if (!collides(g.board, p, p.rot, p.x, p.y + 1)) p.y++;
   g.lowestY = p.y;
+  if (!type) recordSnapshot(g); // una pieza sacada de la reserva no es jugada nueva
   g.emit('spawn', { piece: p });
 }

@@ -6,5 +6,5 @@ export default {
   description: 'Sin prisa y sin final',
   icon: '☯',
   record: 'score',
-  rules: { levelUp: false, fixedInterval: 1.0, endsOnTopOut: false },
+  rules: { levelUp: false, fixedInterval: 1.0, endsOnTopOut: false, undo: Infinity, undoCost: 250 },
 };

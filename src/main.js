@@ -9,6 +9,7 @@ import { attachCanvases } from './render/view.js';
 import { watchViewport } from './ui/watchViewport.js';
 import { watchVisibility } from './ui/watchVisibility.js';
 import { bindHud } from './ui/hud.js';
+import { bindUndoButton } from './ui/undoButton.js';
 import { bindButtons } from './ui/bindButtons.js';
 import { bindModeMenu } from './ui/modeMenu.js';
 import { bindSettingsPanel } from './ui/settingsPanel.js';
@@ -50,6 +51,7 @@ watchTutorial();
 watchPuzzles();       // después del tutorial, que oculta la pista al empezar
 
 bindHud();
+bindUndoButton();
 bindButtons();
 bindModeMenu();
 bindSettingsPanel();

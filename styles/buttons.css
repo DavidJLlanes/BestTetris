@@ -23,3 +23,9 @@
 .mode-best { font-size: 10px; color: var(--gold); margin-top: 2px; }
 .mode-best:empty { display: none; }
 .mode[data-mode=tutorial] { grid-column: 1 / -1; }
+
+/* Deshacer: se ilumina cuando hay una jugada que deshacer. */
+.undo-btn { position: relative; font-size: 18px; opacity: .55; transition: opacity .2s, transform .12s var(--ease-out), box-shadow .2s; }
+.undo-btn.ready { opacity: 1; box-shadow: 0 0 0 1px rgba(70,230,255,.45), 0 0 16px rgba(70,230,255,.25); }
+.undo-btn small { position: absolute; right: -4px; top: -4px; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 99px; background: var(--accent2); color: #0b0820; font: 800 10px/16px var(--font); }
+.undo-btn small:empty { display: none; }
