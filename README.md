@@ -49,6 +49,28 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 
 Solo se anima `transform` y `opacity` en CSS. El tablero usa sprites pre-renderizados y capas cacheadas; el marcador solo toca el DOM cuando cambia un valor. Medido en pruebas: unos 0,2 ms de cálculo por fotograma (el límite para 60 fps es 16,7 ms).
 
-## Despliegue
+## Despliegue (git pull)
 
-Son archivos estáticos: copia `index.html`, `sw.js`, `manifest.webmanifest`, `assets/`, `styles/` y `src/` a la carpeta pública (por ejemplo `/var/www/djl.com.es/tetris/`). Todas las rutas son relativas. Tras publicar cambios, sube `CACHE_VERSION` en `sw.js` para que los jugadores reciban la versión nueva al momento; el juego necesita HTTPS para poder instalarse y funcionar sin conexión.
+No hay paso de compilación: la carpeta del repositorio es la web. En el servidor:
+
+```sh
+# Primera vez (la carpeta tetris/ no debe existir o estar vacía)
+cd /var/www/djl.com.es
+git clone https://github.com/DavidJLlanes/BestTetris.git tetris
+
+# Cada actualización
+cd /var/www/djl.com.es/tetris && git pull
+```
+
+Requisitos del servidor:
+
+- **HTTPS**: imprescindible para instalar el juego y jugar sin conexión (service worker). Si el dominio ya sirve por HTTPS no hay que hacer nada.
+- **No servir `.git`**: en Apache lo hace el `.htaccess` incluido (necesita `AllowOverride All`). En nginx, dentro del `server` del dominio:
+
+  ```nginx
+  location ~ /\.(?!well-known) { deny all; }
+  location ~ ^/tetris/(tests|node_modules)/ { deny all; }
+  location = /tetris/sw.js { add_header Cache-Control "no-cache"; }
+  ```
+
+- Al publicar cambios grandes, sube `CACHE_VERSION` en `sw.js` para que los jugadores reciban la versión nueva al momento (si no, la reciben en la siguiente visita).
