@@ -4,7 +4,6 @@
 .hint-progress { font-size: 10px; letter-spacing: .15em; color: var(--accent2); }
 @keyframes hint-in { from { opacity: 0; transform: translate3d(0, -10px, 0) scale(.95); } }
 
-.mode.suggested { border-color: rgba(70, 230, 255, .7); box-shadow: 0 0 0 1px rgba(70,230,255,.4), 0 0 24px rgba(70,230,255,.25); animation: suggest 2.4s ease-in-out infinite; }
 @keyframes suggest { 50% { box-shadow: 0 0 0 1px rgba(70,230,255,.6), 0 0 34px rgba(70,230,255,.4); } }
 
 /* Viendo una repetición: los controles no hacen nada, así que se apagan. */

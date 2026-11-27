@@ -1,0 +1,138 @@
+/*
+ * Tarjetas de modo del menú principal, de la misma familia que el logotipo 3D y los botones de
+ * metal: cristal en capas (borde fino con el degradado del modo, reflejo arriba, sombra interior),
+ * luz del color del modo al fondo, icono propio con su mini animación, inclinación 3D hacia el
+ * puntero con un brillo que lo sigue, y al pulsar se hunde y destella. Entran escalonadas.
+ * Solo se animan transform y opacity; con calidad baja se quitan las animaciones continuas.
+ */
+.mode-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row dense; gap: 9px; perspective: 900px; }
+
+.mode {
+  --rx: 0deg; --ry: 0deg; --mx: 50%; --my: 0%;
+  position: relative; isolation: isolate; min-width: 0; overflow: hidden; cursor: pointer;
+  display: grid; grid-template-columns: 38px minmax(0, 1fr); grid-template-rows: auto auto auto; column-gap: 10px; align-content: center;
+  padding: 11px 11px 11px 10px; border-radius: 16px; text-align: left; color: var(--ink);
+  border: 1px solid transparent;
+  background:
+    radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--c1) 20%, transparent), transparent 60%) padding-box,
+    radial-gradient(100% 90% at 100% 100%, color-mix(in srgb, var(--c2) 14%, transparent), transparent 65%) padding-box,
+    linear-gradient(180deg, rgba(36, 30, 78, .88), rgba(16, 12, 40, .92)) padding-box,
+    linear-gradient(140deg, color-mix(in srgb, var(--c1) 70%, #fff 10%), rgba(255, 255, 255, .12) 40%, rgba(255, 255, 255, .06) 60%, color-mix(in srgb, var(--c2) 60%, transparent)) border-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), inset 0 -12px 20px -12px rgba(0, 0, 0, .6), 0 8px 18px -10px rgba(0, 0, 0, .7);
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform .5s var(--ease-out), box-shadow .3s, filter .3s, opacity .3s;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Reflejo superior del cristal */
+.mode::before {
+  content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: 0; height: 46%; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, 0));
+}
+/* Destello al pulsar, del color del modo */
+.mode::after {
+  content: ""; position: absolute; inset: -30%; z-index: 2; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at var(--mx) var(--my), color-mix(in srgb, var(--c1) 70%, #fff), transparent 45%);
+  transform: scale(.4);
+}
+.mode.tilt { transition: transform .12s linear, box-shadow .3s; }
+.mode:hover, .mode.tilt { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2), inset 0 -12px 20px -12px rgba(0, 0, 0, .6), 0 14px 26px -12px rgba(0, 0, 0, .8), 0 0 24px -8px var(--c1); }
+.mode.down { transform: rotateX(var(--rx)) rotateY(var(--ry)) scale(.965); }
+
+/* Brillo que sigue al puntero */
+.mode-sheen {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .3s;
+  background: radial-gradient(160px circle at var(--mx) var(--my), rgba(255, 255, 255, .16), transparent 60%);
+}
+.mode.tilt .mode-sheen, .mode:hover .mode-sheen { opacity: 1; }
+
+/* Luz de fondo del modo, que respira despacio */
+.mode-glow {
+  position: absolute; z-index: -1; left: -10%; top: -40%; width: 70%; aspect-ratio: 1; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--c1) 30%, transparent), transparent 65%);
+  animation: mode-breathe 6s calc(var(--i) * -.7s) ease-in-out infinite;
+}
+@keyframes mode-breathe { 50% { transform: translate3d(14%, 10%, 0) scale(1.15); opacity: .7; } }
+
+/* Icono: medallón de cristal con el color y la luz del modo */
+.mode-icon {
+  grid-row: 1 / span 3; align-self: center; width: 38px; height: 38px; border-radius: 12px; display: grid; place-items: center;
+  color: color-mix(in srgb, var(--c1) 80%, #fff);
+  background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--c1) 34%, transparent), color-mix(in srgb, var(--c2) 16%, rgba(10, 8, 28, .6)) 75%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), inset 0 0 0 1px color-mix(in srgb, var(--c1) 40%, transparent), 0 0 16px -4px var(--c1);
+}
+.mode-icon svg { width: 22px; height: 22px; display: block; filter: drop-shadow(0 0 4px color-mix(in srgb, var(--c1) 80%, transparent)); }
+.mode[data-anim=pulse] .mode-icon svg { animation: ic-pulse 2.6s ease-in-out infinite; }
+.mode[data-anim=spin] .mode-icon svg { animation: ic-spin 14s linear infinite; }
+.mode[data-anim=float] .mode-icon svg { animation: ic-float 3.2s ease-in-out infinite; }
+.mode[data-anim=tick] .mode-icon svg { animation: ic-tick 2s steps(1) infinite; }
+.mode[data-anim=flick] .mode-icon svg { animation: ic-flick 3.4s ease-in-out infinite; }
+.mode[data-anim=glint] .mode-icon svg { animation: ic-glint 4s ease-in-out infinite; }
+@keyframes ic-pulse { 50% { transform: scale(1.12); } }
+@keyframes ic-spin { to { transform: rotate(360deg); } }
+@keyframes ic-float { 50% { transform: translateY(-2.5px); } }
+@keyframes ic-tick { 0% { transform: rotate(0); } 25% { transform: rotate(8deg); } 50% { transform: rotate(0); } 75% { transform: rotate(-8deg); } }
+@keyframes ic-flick { 0%, 86%, 100% { opacity: 1; } 89% { opacity: .35; } 92% { opacity: 1; } 95% { opacity: .5; } }
+@keyframes ic-glint { 0%, 80%, 100% { transform: scale(1); } 88% { transform: scale(1.14) rotate(-6deg); } }
+
+/* Textos */
+.mode-name { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 6px; font-weight: 800; font-size: 14.5px; line-height: 1.2; letter-spacing: .01em; }
+.mode-desc { font-size: 11.5px; color: rgba(225, 222, 255, .66); line-height: 1.28; margin-top: 1px; }
+.mode-best {
+  justify-self: start; display: inline-flex; align-items: center; gap: 4px; margin-top: 5px; padding: 1px 8px 1px 6px; border-radius: 99px;
+  font-size: 10.5px; font-weight: 800; font-variant-numeric: tabular-nums; color: #ffe3a1; white-space: nowrap;
+  background: linear-gradient(90deg, rgba(255, 200, 80, .2), rgba(255, 200, 80, .06)); box-shadow: inset 0 0 0 1px rgba(255, 210, 120, .38);
+}
+.mode-best svg { width: 11px; height: 11px; color: #ffcf5c; }
+.mode-best:empty { display: none; }
+
+/* Destacado (Viaje): ancho completo, más grande y con la luz de las escenas pasando */
+.mode.featured, .mode.wide { grid-column: 1 / -1; }
+.mode.featured { padding: 14px 14px 14px 12px; grid-template-columns: 50px minmax(0, 1fr); column-gap: 12px; }
+.mode.featured .mode-icon { width: 50px; height: 50px; border-radius: 15px; }
+.mode.featured .mode-icon svg { width: 28px; height: 28px; }
+.mode.featured .mode-name { font-size: 17px; }
+.mode.featured .mode-desc { font-size: 12.5px; }
+.mode.featured .mode-glow {
+  left: -20%; top: -60%; width: 140%; aspect-ratio: auto; height: 220%; border-radius: 0;
+  background: linear-gradient(100deg, transparent 10%, rgba(20, 64, 255, .28), rgba(255, 47, 180, .22), rgba(47, 191, 113, .2), rgba(255, 123, 0, .2), transparent 90%);
+  animation: featured-flow 9s ease-in-out infinite alternate;
+}
+@keyframes featured-flow { from { transform: translate3d(-18%, 0, 0); } to { transform: translate3d(18%, 0, 0); } }
+.mode-ribbon {
+  font-style: normal; font-size: 9.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 2px 7px; border-radius: 99px;
+  color: #0b0820; background: linear-gradient(90deg, #6ff0ff, #c9a8ff, #ff8be6); box-shadow: 0 0 12px rgba(160, 140, 255, .5);
+}
+
+/* Tutorial sugerido */
+.mode.suggested { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 0 0 1px rgba(70, 230, 255, .55), 0 0 24px rgba(70, 230, 255, .25); }
+/* Puzles: ancho completo si así se completa la última fila */
+.mode-grid:not(:has(.wide)) .mode[data-open-puzzles] { grid-column: 1 / -1; }
+
+/* Entrada escalonada al abrir el menú */
+#ov-menu.enter .mode { animation: mode-in .6s calc(.12s + var(--i) * .035s) var(--ease-out) both; }
+@keyframes mode-in { from { opacity: 0; transform: translate3d(0, 14px, 0) rotateX(14deg) scale(.96); } }
+
+/* Pulsación: el resto del menú se aparta y la elegida destella */
+.mode.launch { transform: scale(1.03); z-index: 3; box-shadow: 0 0 0 1.5px var(--c1), 0 0 34px -2px var(--c1); }
+.mode.launch::after { animation: mode-flash .5s var(--ease-out) both; }
+@keyframes mode-flash { 0% { opacity: .9; transform: scale(.3); } 100% { opacity: 0; transform: scale(1.6); } }
+.mode-grid.launching .mode:not(.launch) { opacity: .35; filter: saturate(.5); transform: scale(.97); }
+
+/* Foco visible para mando y teclado */
+.mode:focus-visible { outline: none; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--c1), 0 0 26px -2px var(--c1); }
+
+/* Pantallas estrechas */
+@media (max-width: 380px) {
+  .mode { grid-template-columns: 32px minmax(0, 1fr); column-gap: 8px; padding: 10px 9px 10px 8px; }
+  .mode-icon { width: 32px; height: 32px; border-radius: 10px; }
+  .mode-icon svg { width: 19px; height: 19px; }
+  .mode-name { font-size: 13.5px; }
+  .mode-desc { font-size: 11px; }
+}
+
+/* Calidad baja o movimiento reducido: sin animaciones continuas */
+.q-low .mode-glow, .q-low .mode-icon svg { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .mode-glow, .mode-icon svg, #ov-menu.enter .mode { animation: none !important; }
+  .mode { transform: none !important; }
+}

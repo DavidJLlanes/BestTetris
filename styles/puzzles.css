@@ -12,4 +12,3 @@
 .puzzle-tile.solved .puzzle-num { color: #0d2a1a; background: radial-gradient(circle at 35% 30%, #fff, #5cff9d 50%, #1f9d5a); }
 .hint.top { top: 8px; padding: 6px 10px; font-size: 13px; transition: opacity .6s ease, transform .6s var(--ease-out); }
 .hint.top.faded { opacity: 0; transform: translate3d(0, -8px, 0); }
-.mode[data-open-puzzles] { grid-column: span 2; }
