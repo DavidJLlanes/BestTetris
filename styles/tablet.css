@@ -1,0 +1,28 @@
+/*
+ * Tablet (táctil sin ser móvil): las pantallas no se encierran dentro del tablero, que en
+ * horizontal es una columna estrecha y dejaba el menú cortado. Ocupan todo el área bajo la
+ * barra superior, con un panel propio, y el menú pasa a tres columnas para caber entero.
+ */
+.is-touch:not(.is-phone).layout-side .overlay {
+  position: fixed; z-index: 20; top: calc(env(safe-area-inset-top) + 52px); left: 0; right: 0; bottom: 0;
+  padding: 14px max(24px, env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+  border-radius: 0; align-items: flex-start;
+  background: radial-gradient(120% 60% at 50% 0%, rgba(90, 60, 200, .22), transparent 60%), linear-gradient(180deg, rgba(14, 10, 40, .97), rgba(7, 5, 26, .98));
+}
+.is-touch:not(.is-phone) .overlay .card { max-width: 720px; margin: 0 auto; }
+.is-touch:not(.is-phone) #ov-menu .card { max-width: 780px; }
+.is-touch:not(.is-phone) .logo3d { height: clamp(110px, 16vh, 170px); }
+@media (min-width: 700px) {
+  .is-touch:not(.is-phone) .mode-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .is-touch:not(.is-phone) .mode-grid .mode[data-open-puzzles] { grid-column: span 2; }
+  .is-touch:not(.is-phone) .mode-grid:has(.wide) .mode[data-open-puzzles] { grid-column: 1 / -1; }
+}
+/* Tablet en horizontal: cuatro columnas más anchas para que el menú quepa sin desplazarse */
+@media (min-width: 1000px) {
+  .is-touch:not(.is-phone).layout-side #ov-menu .card { max-width: 1040px; }
+  .is-touch:not(.is-phone).layout-side .mode-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .is-touch:not(.is-phone).layout-side .mode-grid .mode[data-open-puzzles] { grid-column: span 2; }
+  .is-touch:not(.is-phone).layout-side .mode-grid:has(.wide) .mode[data-open-puzzles] { grid-column: auto; }
+  .is-touch:not(.is-phone).layout-side .mode.featured, .is-touch:not(.is-phone).layout-side .mode.wide { grid-column: span 2; }
+  .is-touch:not(.is-phone).layout-side .logo3d { height: clamp(90px, 14vh, 150px); }
+}
