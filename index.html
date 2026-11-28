@@ -376,6 +376,7 @@
   <link rel="modulepreload" href="src/sync/merge/rules/newest.js">
   <link rel="modulepreload" href="src/sync/merge/rules/recordKind.js">
   <link rel="modulepreload" href="src/sync/merge/rulesByKey.js">
+  <link rel="modulepreload" href="src/sync/nameFromAccount.js">
   <link rel="modulepreload" href="src/sync/readRemote.js">
   <link rel="modulepreload" href="src/sync/reloadOnMenu.js">
   <link rel="modulepreload" href="src/sync/runSync.js">
@@ -757,6 +758,27 @@
         <div class="overlay" id="ov-profile" hidden>
           <div class="card">
             <h2>Perfil</h2>
+            <section class="account" id="account" data-state="off" aria-labelledby="account-title">
+              <div class="account-head">
+                <span class="account-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48"><path class="cloud" d="M14 36h21a8 8 0 0 0 1.2-15.9A11 11 0 0 0 15.3 18 9 9 0 0 0 14 36Z"/><path class="tick" d="m18.5 27 4 4 7.5-8"/><g class="spin"><path d="M24 20a6 6 0 1 1-6 6"/></g></svg>
+                </span>
+                <div class="account-text">
+                  <b id="account-title">Tu progreso en todos tus dispositivos</b>
+                  <small id="account-sub">Inicia sesión para sincronizarlo. Sin sesión, todo sigue guardado en este navegador.</small>
+                </div>
+              </div>
+              <form class="account-form" id="account-form" autocomplete="on" novalidate>
+                <label class="field">Usuario <input type="text" id="account-user" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="32" enterkeyhint="next" required></label>
+                <label class="field">Contraseña <input type="password" id="account-pass" name="password" autocomplete="current-password" maxlength="200" enterkeyhint="go" required></label>
+                <button class="btn primary" type="submit" id="account-login">Iniciar sesión</button>
+              </form>
+              <div class="menu-row account-actions" id="account-actions" hidden>
+                <button class="btn ghost" id="account-sync">Sincronizar ahora</button>
+                <button class="btn ghost" id="account-logout">Cerrar sesión</button>
+              </div>
+              <p class="status" id="account-status" role="status"></p>
+            </section>
             <div class="profile-head">
               <span class="avatar big" id="profile-avatar"></span>
               <div class="profile-photo-actions">
@@ -781,27 +803,6 @@
             </div>
             <input type="file" id="profile-import-input" accept="application/json,.json" hidden>
             <p class="status" id="profile-status" role="status"></p>
-            <section class="account" id="account" data-state="off" aria-labelledby="account-title">
-              <div class="account-head">
-                <span class="account-icon" aria-hidden="true">
-                  <svg viewBox="0 0 48 48"><path class="cloud" d="M14 36h21a8 8 0 0 0 1.2-15.9A11 11 0 0 0 15.3 18 9 9 0 0 0 14 36Z"/><path class="tick" d="m18.5 27 4 4 7.5-8"/><g class="spin"><path d="M24 20a6 6 0 1 1-6 6"/></g></svg>
-                </span>
-                <div class="account-text">
-                  <b id="account-title">Tu progreso en todos tus dispositivos</b>
-                  <small id="account-sub">Inicia sesión para sincronizarlo. Sin sesión, todo sigue guardado en este navegador.</small>
-                </div>
-              </div>
-              <form class="account-form" id="account-form" autocomplete="on" novalidate>
-                <label class="field">Usuario <input type="text" id="account-user" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="32" enterkeyhint="next" required></label>
-                <label class="field">Contraseña <input type="password" id="account-pass" name="password" autocomplete="current-password" maxlength="200" enterkeyhint="go" required></label>
-                <button class="btn primary" type="submit" id="account-login">Iniciar sesión</button>
-              </form>
-              <div class="menu-row account-actions" id="account-actions" hidden>
-                <button class="btn ghost" id="account-sync">Sincronizar ahora</button>
-                <button class="btn ghost" id="account-logout">Cerrar sesión</button>
-              </div>
-              <p class="status" id="account-status" role="status"></p>
-            </section>
             <p class="tip">Sin sesión, todo se guarda solo en este navegador. Con sesión, se guarda también en tu servidor, protegido con tu contraseña.</p>
             <button class="btn ghost" data-back>Volver</button>
           </div>
