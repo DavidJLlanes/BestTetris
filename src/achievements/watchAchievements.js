@@ -3,8 +3,8 @@ import { getUnlocked, markUnlocked } from '../storage/achievements.js';
 import { getProfile } from '../storage/profile.js';
 import { checkAchievements } from './checkAchievements.js';
 
-const EVENTS = ['score', 'clear', 'perfectClear', 'levelUp', 'hold', 'finish', 'xp'];
-const WITHOUT_GAME = ['xp']; // sucesos del jugador, no de una partida
+const EVENTS = ['score', 'clear', 'perfectClear', 'levelUp', 'hold', 'finish', 'xp', 'journey', 'journeyBuy', 'journeyShare'];
+const WITHOUT_GAME = ['xp', 'journeyBuy', 'journeyShare']; // sucesos del jugador, no de una partida
 
 /** Escucha la partida y desbloquea logros; avisa con el evento 'achievement'. */
 export function watchAchievements() {

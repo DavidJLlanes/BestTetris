@@ -3,7 +3,7 @@ import { press, release } from './press.js';
 import { menuBack } from '../ui/menuNav.js';
 import { overlayDepth } from '../ui/overlays.js';
 import { app } from '../app/state.js';
-import { startGame } from '../app/startGame.js';
+import { playAgain } from '../app/playAgain.js';
 import { setInput } from './setInput.js';
 
 /** Teclado. Las teclas repetidas por el sistema se ignoran: el desplazamiento es nuestro. */
@@ -11,7 +11,7 @@ export function bindKeyboard() {
   addEventListener('keydown', (e) => {
     const act = KEYMAP[e.code];
     if (!act) {
-      if (e.code === 'Enter' && app.screen === 'menu' && overlayDepth() === 1 && document.activeElement === document.body) startGame(app.modeDef || app.modeId);
+      if (e.code === 'Enter' && app.screen === 'menu' && overlayDepth() === 1 && document.activeElement === document.body) playAgain();
       return;
     }
     const typing = document.activeElement && document.activeElement.tagName === 'INPUT';

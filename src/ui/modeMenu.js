@@ -1,5 +1,6 @@
 import { $ } from '../util/dom.js';
-import { MODES } from '../modes/registry.js';
+import { MODES, getMode } from '../modes/registry.js';
+import { openJourney } from '../journey/ui/openJourney.js';
 import { bestLabel } from '../storage/records.js';
 import { onOpen, pushOverlay } from './overlays.js';
 import { playSfx } from '../audio/index.js';
@@ -24,7 +25,7 @@ export function bindModeMenu() {
   bindCardTilt(list);
   list.addEventListener('click', (e) => {
     const b = e.target.closest('button[data-mode]'); // body también lleva data-mode
-    if (b) launchCard(b, () => startGame(b.dataset.mode));
+    if (b) launchCard(b, () => (getMode(b.dataset.mode).opensMap ? openJourney() : startGame(b.dataset.mode)));
     const pz = e.target.closest('[data-open-puzzles]');
     if (pz) launchCard(pz, () => { playSfx('ui'); pushOverlay('ov-puzzles'); });
   });

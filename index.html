@@ -39,9 +39,12 @@
   <link rel="stylesheet" href="styles/keymap.css">
   <link rel="stylesheet" href="styles/modeCards.css">
   <link rel="stylesheet" href="styles/account.css">
+  <link rel="stylesheet" href="styles/journey-map.css">
+  <link rel="stylesheet" href="styles/journey-cards.css">
   <link rel="stylesheet" href="styles/tablet.css">
   <script type="module" src="src/boot.js"></script>
   <!-- modulepreload:start (generado: npm run preload) -->
+  <link rel="modulepreload" href="src/achievements/catalog/journey.js">
   <link rel="modulepreload" href="src/achievements/catalog/lifetime.js">
   <link rel="modulepreload" href="src/achievements/catalog/lines.js">
   <link rel="modulepreload" href="src/achievements/catalog/modes.js">
@@ -62,6 +65,7 @@
   <link rel="modulepreload" href="src/app/onFinish.js">
   <link rel="modulepreload" href="src/app/pause.js">
   <link rel="modulepreload" href="src/app/perf.js">
+  <link rel="modulepreload" href="src/app/playAgain.js">
   <link rel="modulepreload" href="src/app/reactions/bombReactions.js">
   <link rel="modulepreload" href="src/app/reactions/effectReactions.js">
   <link rel="modulepreload" href="src/app/reactions/hapticReactions.js">
@@ -90,6 +94,7 @@
   <link rel="modulepreload" href="src/audio/music/sequencer.js">
   <link rel="modulepreload" href="src/audio/music/styles.js">
   <link rel="modulepreload" href="src/audio/music/tempo.js">
+  <link rel="modulepreload" href="src/audio/sfx/journeySfx.js">
   <link rel="modulepreload" href="src/audio/sfx/library.js">
   <link rel="modulepreload" href="src/audio/sfx/musical.js">
   <link rel="modulepreload" href="src/audio/sfx/playMusical.js">
@@ -202,6 +207,116 @@
   <link rel="modulepreload" href="src/input/touchButtons.js">
   <link rel="modulepreload" href="src/input/touchGestures.js">
   <link rel="modulepreload" href="src/input/vibrateOnBeat.js">
+  <link rel="modulepreload" href="src/journey/art/constellationSvg.js">
+  <link rel="modulepreload" href="src/journey/art/drawConstellation.js">
+  <link rel="modulepreload" href="src/journey/art/drawStarDot.js">
+  <link rel="modulepreload" href="src/journey/boosters/list.js">
+  <link rel="modulepreload" href="src/journey/boss/attacks.js">
+  <link rel="modulepreload" href="src/journey/boss/hitBoss.js">
+  <link rel="modulepreload" href="src/journey/boss/randomCells.js">
+  <link rel="modulepreload" href="src/journey/boss/tickBoss.js">
+  <link rel="modulepreload" href="src/journey/catalog.js">
+  <link rel="modulepreload" href="src/journey/challenges/list.js">
+  <link rel="modulepreload" href="src/journey/challenges/starsFor.js">
+  <link rel="modulepreload" href="src/journey/elements/comet.js">
+  <link rel="modulepreload" href="src/journey/elements/crackDust.js">
+  <link rel="modulepreload" href="src/journey/elements/filterRows.js">
+  <link rel="modulepreload" href="src/journey/elements/holePull.js">
+  <link rel="modulepreload" href="src/journey/elements/resolveClear.js">
+  <link rel="modulepreload" href="src/journey/elements/seedBoard.js">
+  <link rel="modulepreload" href="src/journey/elements/shooting.js">
+  <link rel="modulepreload" href="src/journey/elements/swallowRows.js">
+  <link rel="modulepreload" href="src/journey/elements/thawIce.js">
+  <link rel="modulepreload" href="src/journey/goals/counters.js">
+  <link rel="modulepreload" href="src/journey/goals/list.js">
+  <link rel="modulepreload" href="src/journey/initJourney.js">
+  <link rel="modulepreload" href="src/journey/launchLevel.js">
+  <link rel="modulepreload" href="src/journey/levels/abismo.js">
+  <link rel="modulepreload" href="src/journey/levels/boreal.js">
+  <link rel="modulepreload" href="src/journey/levels/corazon.js">
+  <link rel="modulepreload" href="src/journey/levels/events.js">
+  <link rel="modulepreload" href="src/journey/levels/hidden.js">
+  <link rel="modulepreload" href="src/journey/levels/index.js">
+  <link rel="modulepreload" href="src/journey/levels/invierno.js">
+  <link rel="modulepreload" href="src/journey/levels/otono.js">
+  <link rel="modulepreload" href="src/journey/levels/primavera.js">
+  <link rel="modulepreload" href="src/journey/levels/sur.js">
+  <link rel="modulepreload" href="src/journey/levels/verano.js">
+  <link rel="modulepreload" href="src/journey/map/camera.js">
+  <link rel="modulepreload" href="src/journey/map/celebrate.js">
+  <link rel="modulepreload" href="src/journey/map/dragInput.js">
+  <link rel="modulepreload" href="src/journey/map/drawNebulae.js">
+  <link rel="modulepreload" href="src/journey/map/drawNodeMarks.js">
+  <link rel="modulepreload" href="src/journey/map/drawNodes.js">
+  <link rel="modulepreload" href="src/journey/map/drawPath.js">
+  <link rel="modulepreload" href="src/journey/map/drawPlanet.js">
+  <link rel="modulepreload" href="src/journey/map/drawPortals.js">
+  <link rel="modulepreload" href="src/journey/map/drawShip.js">
+  <link rel="modulepreload" href="src/journey/map/drawSky.js">
+  <link rel="modulepreload" href="src/journey/map/drawStreaks.js">
+  <link rel="modulepreload" href="src/journey/map/hitNode.js">
+  <link rel="modulepreload" href="src/journey/map/initMap.js">
+  <link rel="modulepreload" href="src/journey/map/layout.js">
+  <link rel="modulepreload" href="src/journey/map/mapLoop.js">
+  <link rel="modulepreload" href="src/journey/map/mapState.js">
+  <link rel="modulepreload" href="src/journey/map/nebulaSprite.js">
+  <link rel="modulepreload" href="src/journey/map/nodeSprite.js">
+  <link rel="modulepreload" href="src/journey/map/nodeStatus.js">
+  <link rel="modulepreload" href="src/journey/map/particles.js">
+  <link rel="modulepreload" href="src/journey/map/project.js">
+  <link rel="modulepreload" href="src/journey/map/resizeMap.js">
+  <link rel="modulepreload" href="src/journey/map/shipPos.js">
+  <link rel="modulepreload" href="src/journey/map/skyColor.js">
+  <link rel="modulepreload" href="src/journey/map/spline.js">
+  <link rel="modulepreload" href="src/journey/map/starTiles.js">
+  <link rel="modulepreload" href="src/journey/mode/levelRules.js">
+  <link rel="modulepreload" href="src/journey/mode/makeLevelMode.js">
+  <link rel="modulepreload" href="src/journey/mode/ruleTags.js">
+  <link rel="modulepreload" href="src/journey/mode/setupLevel.js">
+  <link rel="modulepreload" href="src/journey/mode/tickLevel.js">
+  <link rel="modulepreload" href="src/journey/progress/bestLabelFor.js">
+  <link rel="modulepreload" href="src/journey/progress/eventOfWeek.js">
+  <link rel="modulepreload" href="src/journey/progress/fuel.js">
+  <link rel="modulepreload" href="src/journey/progress/journeyStore.js">
+  <link rel="modulepreload" href="src/journey/progress/recordResult.js">
+  <link rel="modulepreload" href="src/journey/progress/rewardFor.js">
+  <link rel="modulepreload" href="src/journey/progress/stars.js">
+  <link rel="modulepreload" href="src/journey/progress/unlocks.js">
+  <link rel="modulepreload" href="src/journey/progress/wallet.js">
+  <link rel="modulepreload" href="src/journey/render/drawBossBar.js">
+  <link rel="modulepreload" href="src/journey/render/drawCosmic.js">
+  <link rel="modulepreload" href="src/journey/render/drawHoles.js">
+  <link rel="modulepreload" href="src/journey/render/drawShooting.js">
+  <link rel="modulepreload" href="src/journey/share/buildMapCard.js">
+  <link rel="modulepreload" href="src/journey/sky/abismo.js">
+  <link rel="modulepreload" href="src/journey/sky/boreal.js">
+  <link rel="modulepreload" href="src/journey/sky/corazon.js">
+  <link rel="modulepreload" href="src/journey/sky/events.js">
+  <link rel="modulepreload" href="src/journey/sky/hidden.js">
+  <link rel="modulepreload" href="src/journey/sky/invierno.js">
+  <link rel="modulepreload" href="src/journey/sky/otono.js">
+  <link rel="modulepreload" href="src/journey/sky/primavera.js">
+  <link rel="modulepreload" href="src/journey/sky/sur.js">
+  <link rel="modulepreload" href="src/journey/sky/verano.js">
+  <link rel="modulepreload" href="src/journey/tramos.js">
+  <link rel="modulepreload" href="src/journey/ui/atlasPanel.js">
+  <link rel="modulepreload" href="src/journey/ui/bagPicker.js">
+  <link rel="modulepreload" href="src/journey/ui/drawArt.js">
+  <link rel="modulepreload" href="src/journey/ui/elementReactions.js">
+  <link rel="modulepreload" href="src/journey/ui/levelCard.js">
+  <link rel="modulepreload" href="src/journey/ui/levelHint.js">
+  <link rel="modulepreload" href="src/journey/ui/mapHud.js">
+  <link rel="modulepreload" href="src/journey/ui/noFuel.js">
+  <link rel="modulepreload" href="src/journey/ui/nodeButtons.js">
+  <link rel="modulepreload" href="src/journey/ui/openJourney.js">
+  <link rel="modulepreload" href="src/journey/ui/resultPanel.js">
+  <link rel="modulepreload" href="src/journey/ui/shareMap.js">
+  <link rel="modulepreload" href="src/journey/ui/shopItems.js">
+  <link rel="modulepreload" href="src/journey/ui/shopPanel.js">
+  <link rel="modulepreload" href="src/journey/ui/tapNode.js">
+  <link rel="modulepreload" href="src/journey/ui/toast.js">
+  <link rel="modulepreload" href="src/journey/ui/unlockNotes.js">
+  <link rel="modulepreload" href="src/journey/watchJourney.js">
   <link rel="modulepreload" href="src/logo3d/animations.js">
   <link rel="modulepreload" href="src/logo3d/buildBlocks.js">
   <link rel="modulepreload" href="src/logo3d/drawLogo.js">
@@ -300,6 +415,13 @@
   <link rel="modulepreload" href="src/render/resize.js">
   <link rel="modulepreload" href="src/render/roundRect.js">
   <link rel="modulepreload" href="src/render/sprites/backdropSprite.js">
+  <link rel="modulepreload" href="src/render/sprites/cosmic/base.js">
+  <link rel="modulepreload" href="src/render/sprites/cosmic/index.js">
+  <link rel="modulepreload" href="src/render/sprites/cosmic/paintAstro.js">
+  <link rel="modulepreload" href="src/render/sprites/cosmic/paintComet.js">
+  <link rel="modulepreload" href="src/render/sprites/cosmic/paintDust.js">
+  <link rel="modulepreload" href="src/render/sprites/cosmic/paintHole.js">
+  <link rel="modulepreload" href="src/render/sprites/cosmic/paintIce.js">
   <link rel="modulepreload" href="src/render/sprites/gemSprite.js">
   <link rel="modulepreload" href="src/render/sprites/gemStyle.js">
   <link rel="modulepreload" href="src/render/sprites/glowSprite.js">
@@ -368,6 +490,7 @@
   <link rel="modulepreload" href="src/sync/merge/rules/keepLocal.js">
   <link rel="modulepreload" href="src/sync/merge/rules/mergeDays.js">
   <link rel="modulepreload" href="src/sync/merge/rules/mergeHistory.js">
+  <link rel="modulepreload" href="src/sync/merge/rules/mergeJourney.js">
   <link rel="modulepreload" href="src/sync/merge/rules/mergeProfile.js">
   <link rel="modulepreload" href="src/sync/merge/rules/mergeRecords.js">
   <link rel="modulepreload" href="src/sync/merge/rules/mergeReplays.js">
@@ -923,6 +1046,80 @@
         </nav>
       </div>
     </main>
+
+    <!-- Viaje: mapa del espacio y sus pantallas (src/journey) -->
+    <div class="overlay jx" id="ov-journey" hidden>
+      <canvas class="jm-canvas" id="jm-canvas" aria-label="Mapa del Viaje: arrastra para recorrerlo y toca una constelación"></canvas>
+      <div class="jm-top">
+        <button class="jm-btn jm-back" data-back aria-label="Volver al menú"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="jm-title"><small id="jm-tramo">Cielo boreal</small><b id="jm-stars">★ 0</b></div>
+        <div class="jm-res"><span class="jm-dust" id="jm-dust" title="Polvo estelar">✦ 0</span><span class="jm-fuel" id="jm-fuel" title="Combustible"></span></div>
+      </div>
+      <div class="jm-shade top" aria-hidden="true"></div><div class="jm-shade bottom" aria-hidden="true"></div>
+      <div class="jm-side">
+        <button class="jm-btn jm-event" id="jm-event" hidden aria-label="Lluvia de estrellas de la semana"><span aria-hidden="true">☔</span><small id="jm-event-name"></small></button>
+        <button class="jm-btn" data-open="ov-jatlas" aria-label="Atlas del cielo" title="Atlas del cielo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5 9 4l6 2 5-1.5v14L15 20l-6-2-5 1.5z M9 4v14 M15 6v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
+        <button class="jm-btn" id="jm-share" aria-label="Compartir mi viaje" title="Compartir mi viaje"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 13v6h14v-6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="jm-btn" id="jm-calm" aria-label="Modo calma (sin combustible)" title="Modo calma: sin combustible" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5z" fill="currentColor"/></svg></button>
+      </div>
+      <div class="jm-toast" id="jm-toast" role="status" aria-live="polite"></div>
+      <div class="jm-nodes" id="jm-nodes"></div>
+    </div>
+
+    <div class="overlay jx jsheet" id="ov-jlevel" hidden>
+      <div class="card jcard">
+        <canvas class="jc-art" id="jc-art" aria-hidden="true"></canvas>
+        <p class="jc-kicker" id="jc-kicker"></p>
+        <h2 class="jc-name" id="jc-name"></h2>
+        <p class="jc-story" id="jc-story"></p>
+        <div class="jc-goal"><span>Objetivo</span><b id="jc-goal"></b></div>
+        <ul class="jc-stars" id="jc-stars"></ul>
+        <div class="jc-tags" id="jc-tags"></div>
+        <p class="jc-best" id="jc-best"></p>
+        <div class="jc-bag" id="jc-bag"></div>
+        <p class="jc-lock" id="jc-lock" hidden></p>
+        <div class="menu">
+          <button class="btn primary jc-play" id="jc-play">Despegar</button>
+          <button class="btn ghost" data-back>Volver</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay jx jsheet" id="ov-jresult" hidden>
+      <div class="card jcard">
+        <canvas class="jc-art" id="jr-art" aria-hidden="true"></canvas>
+        <h2 class="jc-name" id="jr-title"></h2>
+        <div class="jr-stars" id="jr-stars"></div>
+        <ul class="jc-stars jr-list" id="jr-list"></ul>
+        <div class="result" id="jr-result"></div>
+        <p class="jr-reward" id="jr-reward" hidden></p>
+        <p class="tip" id="jr-note"></p>
+        <div class="menu">
+          <button class="btn primary" id="jr-continue">Continuar el viaje</button>
+          <button class="btn ghost" id="jr-again">Otra vez</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay jx jpanel" id="ov-jshop" hidden>
+      <div class="card">
+        <h2 id="js-name">Planeta</h2>
+        <p class="tip">Cambia tu polvo estelar por poderes. Antes de despegar eliges cuáles llevar (hasta 2).</p>
+        <p class="js-balance" id="js-balance"></p>
+        <ul class="js-items" id="js-items"></ul>
+        <div class="menu"><button class="btn ghost" data-back>Volver al mapa</button></div>
+      </div>
+    </div>
+
+    <div class="overlay jx jpanel" id="ov-jatlas" hidden>
+      <div class="card">
+        <h2>Atlas del cielo</h2>
+        <div class="ja-summary" id="ja-summary"></div>
+        <div class="tabs" id="ja-tabs"><button data-tab="main">Camino</button><button data-tab="hidden">Ocultas</button><button data-tab="events">Lluvias</button></div>
+        <div class="ja-grid" id="ja-grid"></div>
+        <div class="menu"><button class="btn ghost" data-back>Volver al mapa</button></div>
+      </div>
+    </div>
   </div>
 
   <div class="toasts" id="toasts" aria-live="polite"></div>

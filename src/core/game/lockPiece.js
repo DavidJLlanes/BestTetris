@@ -9,6 +9,9 @@ import { starState } from '../star/starState.js';
 import { stackStarRows } from '../star/stackStarRows.js';
 import { releaseStar } from '../star/releaseStar.js';
 
+/** Filas completas que se pueden limpiar: un modo puede retener algunas (hielo del Viaje). */
+const clearable = (g, rows) => (g.hooks.filterRows ? g.hooks.filterRows(g, rows) : rows);
+
 /** Fija la pieza activa en el tablero, puntúa y lanza la limpieza o la siguiente pieza. */
 export function lockPiece(g, hard = false) {
   const p = g.cur;
@@ -27,7 +30,7 @@ export function lockPiece(g, hard = false) {
   const star = g.rules.star && starState(g);
   if (star && star.active) { lockDuringStar(g, star, tspin); return; }
 
-  const rows = findFullRows(g.board);
+  const rows = clearable(g, findFullRows(g.board));
   applyScore(g, rows.length, tspin);
   if (rows.length) {
     g.clearing = { rows, t: 0 };
@@ -43,7 +46,7 @@ export function lockPiece(g, hard = false) {
  */
 function lockDuringStar(g, star, tspin) {
   const h = g.board.length;
-  const rows = findFullRows(g.board).filter((y) => y < h - star.stacked);
+  const rows = clearable(g, findFullRows(g.board)).filter((y) => y < h - star.stacked);
   if (rows.length) {
     g.board = stackStarRows(g.board, rows, star.stacked);
     star.stacked += rows.length;

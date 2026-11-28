@@ -14,5 +14,7 @@ export const DEFAULT_RULES = {
   undo: 0, // jugadas que se pueden deshacer por partida (0 = no, Infinity = sin límite)
   undoCost: 0, // puntos del primer deshacer; el segundo cuesta el doble, etc.
   stackAlpha: 1,        // opacidad de los bloques fijos (modo sombra)
+  rotate: true,         // false = las piezas no giran (retos del Viaje)
+  holdLimit: null,      // reservas por partida (null = sin límite)
   star: false,          // momento estelar: medidor que se llena con líneas y congela el tiempo
 };

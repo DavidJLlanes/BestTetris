@@ -7,6 +7,7 @@ import { app } from '../app/state.js';
  */
 const stack = [];
 const openers = new Map();
+const layered = new Set(); // pantallas abiertas como capa: la de debajo sigue viéndose
 
 export const overlayDepth = () => stack.length;
 export const topOverlay = () => $(stack[stack.length - 1]);
@@ -16,7 +17,7 @@ export function onOpen(id, fn) { openers.set(id, [...(openers.get(id) || []), fn
 
 function focusFirst(el) {
   if (app.device.touch) return;
-  const b = el.querySelector('[autofocus], button, input');
+  const b = el.querySelector('[autofocus]') || el.querySelector('button, input'); // autofocus manda aunque vaya después
   if (b) b.focus({ preventScroll: true });
 }
 
@@ -41,19 +42,24 @@ function conceal(id) {
 }
 
 export function showOverlay(id) {
+  layered.clear();
   while (stack.length) conceal(stack.pop());
   stack.push(id);
   reveal(id);
 }
-export function pushOverlay(id) {
-  if (stack.length) conceal(stack[stack.length - 1]);
+/** Abre una pantalla encima. Con { layer: true } la de debajo no se oculta (se ve detrás, como el mapa del Viaje). */
+export function pushOverlay(id, { layer = false } = {}) {
+  if (stack.length && !layer) conceal(stack[stack.length - 1]);
+  if (layer) layered.add(id); else layered.delete(id);
   stack.push(id);
   reveal(id);
 }
 export function backOverlay() {
   if (stack.length <= 1) return false;
-  conceal(stack.pop());
-  reveal(stack[stack.length - 1]);
+  const top = stack.pop();
+  conceal(top);
+  if (layered.delete(top)) focusFirst($(stack[stack.length - 1])); // la de debajo nunca se fue
+  else reveal(stack[stack.length - 1]);
   return true;
 }
-export function hideOverlays() { while (stack.length) conceal(stack.pop()); }
+export function hideOverlays() { layered.clear(); while (stack.length) conceal(stack.pop()); }

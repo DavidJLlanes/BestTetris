@@ -1,6 +1,7 @@
 import { tone } from '../voices/tone.js';
 import { noise } from '../voices/noise.js';
 import { mtof } from '../voices/mtof.js';
+import { JOURNEY_SFX } from './journeySfx.js';
 
 /**
  * Efectos de sonido. Cada uno recibe (bus, t, opciones) donde opciones puede llevar
@@ -59,4 +60,5 @@ export const SFX = {
   },
   ui: (bus, t) => tone(bus, { freq: 660, type: 'sine', t, dur: 0.05, vol: 0.06 }),
   focus: (bus, t) => tone(bus, { freq: 990, type: 'sine', t, dur: 0.03, vol: 0.035 }),
+  ...JOURNEY_SFX,
 };

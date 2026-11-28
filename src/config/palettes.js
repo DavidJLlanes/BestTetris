@@ -5,6 +5,9 @@
 const SHARED = {
   X: ['#8a86b8', '#4a4675'], G: ['#6f6a99', '#36325c'],
   M: ['#ffffff', '#a9a6d6'], B: ['#ff3355', '#5a0018'], P: ['#ffe08a', '#d4567a'],
+  // Elementos del Viaje: astro, polvo (entero y agrietado), hielo, hielo fundido, agujero negro y cometa
+  A: ['#fff6c8', '#ffb43d'], D: ['#a7a3b8', '#4d4960'], d: ['#8d889f', '#3a3649'], C: ['#e6fbff', '#6fc3e8'],
+  W: ['#9fe8ff', '#2f7fb8'], H: ['#2a0f4a', '#05010c'], K: ['#fff1d6', '#ff7a3d'],
 };
 
 export const PALETTES = {

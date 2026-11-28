@@ -1,14 +1,19 @@
+import { getJourney } from '../../journey/progress/journeyStore.js';
+import { totalStars } from '../../journey/progress/stars.js';
+
 /**
- * Viaje: un álbum jugable. Cinco escenas seguidas, diez líneas cada una; con cada escena cambian
- * la luz, el ambiente y la música, y la velocidad sube. Al final, el recorrido entero.
+ * Viaje: un mapa del espacio con 48 constelaciones reales (más 8 ocultas y una lluvia de
+ * estrellas cada semana). La tarjeta del menú abre el mapa (src/journey); cada constelación es
+ * una partida propia creada con makeLevelMode.
  */
 export default {
   id: 'journey',
   order: 1.5,
   name: 'Viaje',
-  description: 'Cinco escenas, una tras otra',
+  description: '48 constelaciones por el espacio',
   icon: '✧',
   record: 'score',
-  sceneDrive: 'journey',
+  opensMap: true,
+  bestLabel: () => { const s = totalStars(getJourney()); return s ? `★ ${s}` : '—'; },
   rules: { goalLines: 50, undo: 3, undoCost: 1000, star: true },
 };

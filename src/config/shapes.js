@@ -13,6 +13,7 @@ export const SPECIAL_SHAPES = {
   M: [[1]],                          // mónada: un solo bloque
   B: [[1]],                          // bomba: un bloque que estalla al fijarse
   P: [[0, 1, 0], [1, 1, 1], [0, 1, 0]], // estrella: pieza gigante de 5 bloques
+  K: [[1]],                          // cometa: rompe todo lo que tiene debajo al caer (Viaje)
 };
 Object.assign(SHAPES, SPECIAL_SHAPES);
 

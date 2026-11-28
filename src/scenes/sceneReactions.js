@@ -27,7 +27,7 @@ export function sceneReactions() {
     applyTheme(app.settings);
   };
   const update = ({ game }) => {
-    if (current < 0 || !game || game.over) return;
+    if (current < 0 || !game || game.over || game.hooks.scene) return;
     const next = sceneIndex(game, start);
     if (next === current) return;
     current = next;
@@ -41,6 +41,7 @@ export function sceneReactions() {
     off();
     resetTrail();
     const drive = game.hooks.sceneDrive;
+    if (game.hooks.scene) { current = 0; applyScene(game.hooks.scene); enterScene(game.hooks.scene, game); return; } // escena fija (Viaje)
     if (game.hooks.spectate || (!drive && (!app.settings.scenes || SKIP.has(app.modeId)))) return;
     start = drive === 'journey' ? 0 : Math.floor(Math.random() * SCENES.length);
     current = sceneIndex(game, start);

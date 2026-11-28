@@ -8,6 +8,7 @@ import { mergeSettings } from './rules/mergeSettings.js';
 import { newest } from './rules/newest.js';
 import { keepLocal } from './rules/keepLocal.js';
 import { either } from './rules/either.js';
+import { mergeJourney } from './rules/mergeJourney.js';
 
 /** Cómo se fusiona cada clave del guardado. Una clave nueva en SAVE_KEYS necesita su regla aquí (lo vigila una prueba). */
 export const RULES = {
@@ -22,4 +23,5 @@ export const RULES = {
   days: mergeDays,
   history: mergeHistory,
   editorDraft: newest,
+  journey: mergeJourney,
 };

@@ -1,0 +1,65 @@
+/*
+ * Viaje · mapa del espacio. El mapa es un lienzo a pantalla completa (src/journey/map); encima,
+ * solo cristal ligero (sin backdrop-filter ni will-change: la tablet Android se queda sin memoria).
+ * Los selectores llevan #app para ganar a las reglas generales de .overlay en móvil y tablet.
+ */
+#app #ov-journey.jx { position: absolute; inset: 0; z-index: 30; padding: 0; border-radius: 0; display: block; background: #04021a; overflow: hidden; }
+#app #ov-journey.enter { animation: jm-in .7s var(--ease-out) both; }
+@keyframes jm-in { from { opacity: 0; transform: scale(1.06); } }
+.jm-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+.jm-canvas:active { cursor: grabbing; }
+
+.jm-top { position: absolute; z-index: 2; top: calc(var(--pad-t, 0px) + 10px); left: 10px; right: 10px; display: flex; align-items: center; gap: 8px; pointer-events: none; }
+.jm-top > * { pointer-events: auto; }
+.jm-btn { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(200,190,255,.28); background: rgba(14,10,40,.72); color: var(--ink); cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.12); transition: transform .15s var(--ease-out), background .2s, border-color .2s; }
+.jm-btn svg { width: 22px; height: 22px; }
+.jm-btn:active { transform: scale(.92); }
+.jm-btn.on { background: linear-gradient(135deg, rgba(120,110,255,.55), rgba(70,230,255,.35)); border-color: rgba(190,220,255,.7); }
+.jm-title { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; line-height: 1.15; text-shadow: 0 2px 10px rgba(0,0,0,.6); }
+.jm-title small { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(225,225,255,.82); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.jm-title small.swap { animation: jm-swap .6s var(--ease-out); }
+@keyframes jm-swap { from { opacity: 0; transform: translate3d(0, 6px, 0); } }
+.jm-title b { font-size: 19px; color: var(--gold); letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+.jm-res { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; padding: 6px 12px; border-radius: 16px; border: 1px solid rgba(200,190,255,.22); background: rgba(14,10,40,.72); font-variant-numeric: tabular-nums; }
+.jm-dust { font-weight: 800; font-size: 14px; color: #ffe9a8; }
+.jm-fuel { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+.jm-fuel .pips { display: flex; gap: 3px; }
+.jm-fuel .pips i { width: 7px; height: 12px; border-radius: 3px; background: rgba(255,255,255,.12); }
+.jm-fuel .pips i.on { background: linear-gradient(180deg, #8dffc6, #22c486); box-shadow: 0 0 6px rgba(80,255,170,.6); }
+.jm-fuel .calm { color: #c9d4ff; font-weight: 700; font-size: 12px; }
+
+.jm-side { position: absolute; z-index: 2; right: 12px; bottom: calc(var(--pad-b, 0px) + 16px); display: flex; flex-direction: column; gap: 10px; }
+
+.jm-shade { position: absolute; z-index: 1; left: 0; right: 0; pointer-events: none; }
+.jm-shade.top { top: 0; height: calc(var(--pad-t, 0px) + 96px); background: linear-gradient(180deg, rgba(4,2,26,.88), rgba(4,2,26,.55) 55%, rgba(4,2,26,0)); }
+.jm-shade.bottom { bottom: 0; height: calc(var(--pad-b, 0px) + 70px); background: linear-gradient(0deg, rgba(4,2,26,.7), rgba(4,2,26,0)); }
+
+.jm-btn.jm-event { position: relative; font-size: 20px; border-color: rgba(255,220,140,.75); color: #fff;
+  background: linear-gradient(120deg, rgba(255,160,60,.6), rgba(255,79,216,.55), rgba(120,90,255,.6)); background-size: 200% 100%; animation: jm-shimmer 5s linear infinite; box-shadow: 0 0 0 0 rgba(255,190,120,.5), 0 6px 20px rgba(255,120,120,.35); }
+.jm-btn.jm-event[hidden] { display: none; }
+.jm-event small { position: absolute; right: calc(100% + 8px); top: 50%; transform: translateY(-50%); white-space: nowrap; font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: rgba(14,10,40,.85); border: 1px solid rgba(255,220,140,.45); color: #ffe7c2; pointer-events: none; }
+@keyframes jm-shimmer { to { background-position: -200% 0; } }
+
+.jm-toast { position: absolute; z-index: 3; left: 50%; bottom: calc(var(--pad-b, 0px) + 86px); max-width: min(90%, 420px); padding: 10px 16px; border-radius: 14px; text-align: center; font-size: 13px; font-weight: 600;
+  background: rgba(14,10,40,.92); border: 1px solid rgba(255,220,150,.45); color: #fff3d6; opacity: 0; transform: translate3d(-50%, 10px, 0); pointer-events: none; transition: opacity .35s, transform .45s var(--ease-out); }
+.jm-toast.show { opacity: 1; transform: translate3d(-50%, 0, 0); }
+
+/* Botones invisibles de las paradas: el mando y el teclado los recorren (ver ui/nodeButtons.js) */
+.jm-nodes { position: absolute; left: 0; top: 0; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.jm-nodes button { position: absolute; left: 0; top: 0; width: 1px; height: 1px; padding: 0; border: 0; }
+
+/* Móvil: los botones van en una barra centrada abajo para no tapar las paradas de los lados */
+@media (max-width: 599px) {
+  .jm-side { right: auto; left: 50%; bottom: calc(var(--pad-b, 0px) + 12px); transform: translateX(-50%); flex-direction: row; gap: 8px; padding: 6px; border-radius: 999px; border: 1px solid rgba(200,190,255,.2); background: rgba(10,7,32,.78); box-shadow: 0 10px 30px rgba(0,0,0,.45); }
+  .jm-side .jm-btn { width: 42px; height: 42px; box-shadow: none; }
+  .jm-event small { display: none; }
+  .jm-toast { bottom: calc(var(--pad-b, 0px) + 110px); }
+}
+
+/* Tablet y PC: más aire alrededor */
+@media (min-width: 700px) {
+  .jm-top { left: 18px; right: 18px; top: calc(var(--pad-t, 0px) + 16px); }
+  .jm-side { right: 18px; bottom: calc(var(--pad-b, 0px) + 22px); }
+  .jm-title b { font-size: 22px; }
+  .jm-title small { font-size: 12px; }
+}

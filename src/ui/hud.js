@@ -38,7 +38,7 @@ export function updateHud(g) {
   const remaining = g.rules.timeLimit ? Math.max(0, g.rules.timeLimit - g.time) : g.time;
   set('time', formatTime(remaining, mode.record === 'time'));
   // Reserva solo se puede usar una vez por pieza (o nada, en modos sin reserva): el botón se apaga
-  const holdOff = g.holdUsed || !g.rules.hold;
+  const holdOff = g.holdUsed || !g.rules.hold || (g.rules.holdLimit != null && g.stats.holds >= g.rules.holdLimit);
   if (holdBtn && last.holdOff !== holdOff) { last.holdOff = holdOff; holdBtn.classList.toggle('used', holdOff); }
 }
 

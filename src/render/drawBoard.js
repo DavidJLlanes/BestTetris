@@ -43,6 +43,7 @@ export function drawBoard(g, settings, now) {
   if (g) {
     drawTrails(ctx);
     drawStack(ctx, g);
+    if (g.hooks.drawLayer) g.hooks.drawLayer(ctx, g, now); // capas propias del modo (elementos del Viaje)
     drawStar(ctx, g, now);
     drawAfterimages(ctx);
     if (g.cur && !g.over) {

@@ -39,6 +39,7 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 | `src/social/` | Retos por enlace (semilla y marca dentro del enlace) y clasificación local por periodos |
 | `src/versus/` | Dos jugadores en el mismo equipo: dos tableros, basura entre ellos, teclado partido y dos mandos |
 | `src/decor/` | Decoración del fondo y del tablero: polvo de luz, latido con la música, profundidad y calidad automática |
+| `src/journey/` | Viaje: catálogo de constelaciones (`sky/`, `levels/`, `catalog.js`), objetivos y retos de estrellas, elementos del tablero (`elements/`), jefes (`boss/`), progreso (estrellas, combustible, polvo estelar, eventos), mapa 3D en canvas (`map/`), dibujo de constelaciones (`art/`) y pantallas (`ui/`) |
 | `src/sync/` | Cuentas: inicio de sesión, subida y bajada del progreso y fusión sin pérdidas (`merge/rules/`, una regla por tipo de dato) |
 | `api/` | API de cuentas en PHP: `login.php`, `logout.php`, `me.php`, `progreso.php` |
 | `server/` | Código PHP de la API (una función por archivo en `lib/`) y comandos de cuentas en `cli/`. Nunca se sirve por la web |
@@ -59,6 +60,8 @@ Cada archivo hace una sola cosa y ninguno pasa de unas 70 líneas. Las dependenc
 - **Paleta nueva:** añade una entrada a `src/config/palettes.js` y, para que se pueda elegir, a `src/progress/themes.js` con el nivel que la desbloquea.
 - **Fondo o arreglo musical nuevo:** una entrada en `src/progress/themes.js` (y en `src/audio/music/styles.js` si es música).
 - **Adorno nuevo del fondo:** una entrada en `src/config/decor.js` (sale solo en Ajustes > Decoración), su capa en `index.html` y su CSS en `styles/decor.css` con la clase `.no-<id>` para apagarlo.
+- **Constelación nueva del Viaje:** añade su cielo (estrellas, líneas e historia) a un archivo de `src/journey/sky/` y su nivel (objetivo, tablero, reglas, jefe) al de `src/journey/levels/`; aparece sola en el mapa, el Atlas y la tarjeta. Los tramos y las estrellas que piden están en `src/journey/tramos.js`.
+- **Elemento nuevo del tablero:** su dibujo en `src/render/sprites/cosmic/`, su efecto en `src/journey/elements/` (enganchado en `resolveClear.js`) y, si hace falta, un objetivo en `src/journey/goals/list.js`.
 - **Módulo nuevo:** tras añadir archivos, `npm run preload` actualiza la lista de precarga (una prueba avisa si se olvida).
 - **Ataque a dos jugadores:** la tabla de basura está en `src/config/versus.js`, junto a las teclas de cada jugador.
 - **Cambio de formato del guardado:** sube `VERSION` en `src/storage/backup/format.js` y añade el paso en `migrate.js`; las copias antiguas siguen valiendo.

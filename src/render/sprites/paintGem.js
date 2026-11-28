@@ -2,6 +2,7 @@ import { COLORS } from '../../config/colors.js';
 import { roundRect } from '../roundRect.js';
 import { gemStyle } from './gemStyle.js';
 import { paintSymbol } from './paintSymbol.js';
+import { COSMIC } from './cosmic/index.js';
 
 function facet(ctx, points, color) {
   ctx.fillStyle = color;
@@ -13,6 +14,7 @@ function facet(ctx, points, color) {
 
 /** Pinta una gema facetada de lado s en (x, y). Solo se usa al crear sprites. */
 export function paintGem(ctx, x, y, s, type) {
+  if (COSMIC[type]) { COSMIC[type](ctx, x, y, s); return; } // elementos del Viaje: dibujo propio
   const [c1, c2] = COLORS[type];
   const pad = Math.max(1, s * 0.06), r = s * 0.18;
   const x0 = x + pad, y0 = y + pad, w = s - pad * 2, k = w * 0.26;

@@ -1,0 +1,20 @@
+/** Constelaciones ocultas: una por tramo, al final de un desvío que se abre con 3 estrellas. */
+export default [
+  { id: 'jirafa', name: 'Jirafa', tramo: 0, story: 'Tan grande como tenue: una jirafa estirando el cuello hacia el polo norte.',
+    stars: [[20, 90, 2], [30, 65, 1], [36, 40, 2], [50, 25, 1], [70, 12, 2], [60, 56, 1]], lines: [[0, 1], [1, 2], [2, 3], [3, 4], [2, 5]] },
+  { id: 'cabellera', name: 'Cabellera de Berenice', tramo: 1, story: 'La reina Berenice ofreció su melena a los dioses para que su marido volviera de la guerra.',
+    stars: [[15, 20, 2], [75, 20, 2], [78, 85, 2], [35, 50, 1], [42, 60, 1], [50, 45, 1]], lines: [[0, 1], [1, 2]] },
+  { id: 'zorra', name: 'Zorra', tramo: 2, story: 'Una zorrita con una oca en la boca, escondida entre el cisne y la flecha.',
+    stars: [[15, 60, 1], [45, 45, 2], [75, 50, 1], [90, 35, 1]], lines: [[0, 1], [1, 2], [2, 3]] },
+  { id: 'perseo', name: 'Perseo', tramo: 3, story: 'El héroe que cortó la cabeza de Medusa. Algol, su ojo, parpadea cada tres días.',
+    stars: [[50, 10, 2], [48, 30, 2], [50, 45, 3], [35, 60, 2], [25, 85, 2], [65, 60, 2], [75, 75, 2], [70, 95, 1]],
+    lines: [[0, 1], [1, 2], [2, 3], [3, 4], [2, 5], [5, 6], [6, 7]] },
+  { id: 'liebre', name: 'Liebre', tramo: 4, story: 'La liebre que Orión persigue sin descanso, escondida a sus pies.',
+    stars: [[30, 45, 2], [70, 40, 2], [75, 65, 2], [35, 70, 2], [82, 15, 1], [92, 22, 1], [15, 86, 1]], lines: [[0, 1], [1, 2], [2, 3], [3, 0], [1, 4], [4, 5], [3, 6]] },
+  { id: 'camaleon', name: 'Camaleón', tramo: 5, story: 'Un camaleón junto al polo sur, que cambia de color con la luz de la Vía Láctea.',
+    stars: [[10, 50, 2], [35, 40, 2], [65, 45, 2], [90, 55, 2], [60, 65, 1]], lines: [[0, 1], [1, 2], [2, 3], [2, 4], [4, 1]] },
+  { id: 'grulla', name: 'Grulla', tramo: 6, story: 'Una grulla de cuello largo en pleno vuelo hacia el sur.',
+    stars: [[50, 5, 2], [46, 35, 2], [42, 60, 3], [32, 90, 2], [75, 45, 2], [15, 42, 1]], lines: [[0, 1], [1, 2], [2, 3], [1, 4], [1, 5]] },
+  { id: 'fenix', name: 'Fénix', tramo: 7, story: 'El ave que renace de sus cenizas: el final perfecto para quien llega hasta aquí.',
+    stars: [[50, 15, 2], [30, 40, 2], [70, 40, 2], [50, 60, 3], [20, 82, 2], [80, 82, 2]], lines: [[0, 3], [1, 3], [2, 3], [1, 4], [2, 5], [0, 1], [0, 2]] },
+];

@@ -14,7 +14,8 @@ export function watchFinish() {
     stopMusic();
     const isBest = saveRecord(game);
     if (isBest) emit('newBest', { game });
-    renderGameOver(game, isBest);
-    setTimeout(() => { if (app.game === game) showOverlay('ov-over'); }, SHOW_DELAY_MS);
+    const panel = game.hooks.overPanel || 'ov-over'; // el Viaje tiene su propia pantalla de resultado
+    if (!game.hooks.overPanel) renderGameOver(game, isBest);
+    setTimeout(() => { if (app.game === game) showOverlay(panel); }, SHOW_DELAY_MS);
   });
 }

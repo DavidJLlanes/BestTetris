@@ -55,6 +55,7 @@ import { bindChallengeButton } from './ui/challenge/challengeButton.js';
 import { bindVersusPanel } from './ui/versus/versusPanel.js';
 import { bindDecorSettings } from './ui/decorSettings.js';
 import { initDecor } from './decor/index.js';
+import { initJourney } from './journey/initJourney.js';
 import { showDiagnostics } from './ui/diagnostics.js';
 import { bindSidePanels } from './ui/sidePanels.js';
 import { openSharedChallenge } from './ui/challenge/openSharedChallenge.js';
@@ -104,6 +105,7 @@ bindChallengeButton();
 bindVersusPanel();
 bindDecorSettings();
 initDecor();
+initJourney();       // Viaje: mapa del espacio, fichas, tienda, Atlas y sus partidas
 showDiagnostics();
 bindSidePanels();
 refreshIdentityBadge();

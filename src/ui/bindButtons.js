@@ -2,7 +2,7 @@ import { $ } from '../util/dom.js';
 import { app } from '../app/state.js';
 import { initAudio, playSfx } from '../audio/index.js';
 import { pushOverlay, backOverlay } from './overlays.js';
-import { startGame } from '../app/startGame.js';
+import { playAgain } from '../app/playAgain.js';
 import { resume, togglePause } from '../app/pause.js';
 import { goMenu } from '../app/goMenu.js';
 import { toggleMute } from '../app/toggleMute.js';
@@ -14,7 +14,7 @@ export function bindButtons() {
   document.querySelectorAll('[data-open]').forEach((b) => b.addEventListener('click', () => { initAudio(); playSfx('ui'); pushOverlay(b.dataset.open); }));
   document.querySelectorAll('[data-back]').forEach((b) => b.addEventListener('click', () => { playSfx('ui'); backOverlay(); }));
   $('btn-resume').addEventListener('click', resume);
-  const again = () => startGame(app.modeDef || app.modeId);
+  const again = playAgain;
   $('btn-restart').addEventListener('click', again);
   $('btn-again').addEventListener('click', again);
   $('btn-quit').addEventListener('click', goMenu);

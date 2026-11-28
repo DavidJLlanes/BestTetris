@@ -1,6 +1,7 @@
 import { removeRows } from '../../core/board/removeRows.js';
 import { createPiece } from '../../core/pieces/createPiece.js';
 import { collides } from '../../core/pieces/collides.js';
+import { JOURNEY_POWERS } from '../../journey/boosters/list.js';
 
 export const FREEZE_SECS = 6;
 const ZONE_ROWS = 2;
@@ -42,5 +43,6 @@ export const POWERS = {
       return true;
     },
   },
+  ...JOURNEY_POWERS,
 };
 export const POWER_ORDER = ['freeze', 'zone', 'swap'];
