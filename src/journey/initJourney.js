@@ -17,6 +17,7 @@ import { bindAtlasPanel } from './ui/atlasPanel.js';
 import { bindShareMap } from './ui/shareMap.js';
 import { mapToast } from './ui/toast.js';
 import { openJourney } from './ui/openJourney.js';
+import { replayFlight } from './map/ship/replayFlight.js';
 import { launchLevel } from './launchLevel.js';
 import { watchJourney } from './watchJourney.js';
 import { getJourney, saveJourney } from './progress/journeyStore.js';
@@ -61,5 +62,6 @@ export function initJourney() {
     renderMapHud();
     mapToast(p.calm ? 'Modo calma: juega sin combustible, a tu ritmo' : 'Modo piloto: cada despegue usa combustible');
   });
+  $('jm-replay').addEventListener('click', () => { playSfx('ui'); if (!replayFlight()) mapToast('La nave aún no ha volado'); });
   $('jm-event').addEventListener('click', () => { playSfx('ui'); openLevelCard(eventOfWeek().level); });
 }

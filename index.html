@@ -268,6 +268,7 @@
   <link rel="modulepreload" href="src/journey/map/ship/followShip.js">
   <link rel="modulepreload" href="src/journey/map/ship/paintRocket.js">
   <link rel="modulepreload" href="src/journey/map/ship/pathAt.js">
+  <link rel="modulepreload" href="src/journey/map/ship/replayFlight.js">
   <link rel="modulepreload" href="src/journey/map/ship/routeAt.js">
   <link rel="modulepreload" href="src/journey/map/ship/startTravel.js">
   <link rel="modulepreload" href="src/journey/map/ship/targetAngle.js">
@@ -1071,6 +1072,7 @@
       <div class="jm-shade top" aria-hidden="true"></div><div class="jm-shade bottom" aria-hidden="true"></div>
       <div class="jm-side">
         <button class="jm-btn jm-event" id="jm-event" hidden aria-label="Lluvia de estrellas de la semana"><span aria-hidden="true">☔</span><small id="jm-event-name"></small></button>
+        <button class="jm-btn" id="jm-replay" aria-label="Repetir el último vuelo" title="Repetir el último vuelo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 2 4.5 5 4.5 8.5L14 15h-4l-2.5-3.5C7.5 8 9 5 12 3z M10 15l-1.5 3.5L10 18m4-3 1.5 3.5L14 18M12 9.2a1.3 1.3 0 1 0 0 .1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/><path d="M4 20.5a8 8 0 0 0 4-1.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
         <button class="jm-btn" data-open="ov-jatlas" aria-label="Atlas del cielo" title="Atlas del cielo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5 9 4l6 2 5-1.5v14L15 20l-6-2-5 1.5z M9 4v14 M15 6v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></button>
         <button class="jm-btn" id="jm-share" aria-label="Compartir mi viaje" title="Compartir mi viaje"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M7.5 8.5 12 4l4.5 4.5M5 13v6h14v-6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button class="jm-btn" id="jm-calm" aria-label="Modo calma (sin combustible)" title="Modo calma: sin combustible" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14.5A7.5 7.5 0 0 1 9.5 5a7.5 7.5 0 1 0 9.5 9.5z" fill="currentColor"/></svg></button>

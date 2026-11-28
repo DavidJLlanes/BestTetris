@@ -11,6 +11,7 @@ export function mergeJourney(a, b) {
   out.fuel = a.fuel ?? b.fuel ?? null;
   out.calm = a.calm ?? b.calm ?? false;
   out.at = a.at ?? b.at ?? null;
+  out.lastFlight = a.lastFlight ?? null;
   out.pending = a.pending ?? null; // el viaje por celebrar es de este dispositivo
   return out;
 }
