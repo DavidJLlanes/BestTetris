@@ -1,5 +1,7 @@
 import { safeArea } from '../util/safeArea.js';
 import { audio } from '../audio/context.js';
+import { padLine } from '../input/gamepad/padStatus.js';
+import { app } from '../app/state.js';
 
 /**
  * Diagnóstico de pantalla (añade ?diag a la dirección): medidas reales que da el navegador
@@ -32,6 +34,8 @@ export function showDiagnostics() {
       `barra ${rect('.topbar')}  tablero ${rect('#board')}`,
       `botones ${rect('#touch')}`,
       `audio ${audio.ctx ? `${audio.ctx.state} ${audio.ctx.sampleRate}Hz` : 'sin crear'}  sesión ${navigator.audioSession ? navigator.audioSession.type : '—'}  silenciado ${audio.muted ? 'sí' : 'no'}  abierto ${audio.unlocked ? 'sí' : 'no'}  vol ${audio.musicVol}/${audio.sfxVol}`,
+      padLine(),
+      `pantalla ${app.screen}  foco ${document.activeElement ? document.activeElement.tagName + ' ' + (document.activeElement.id || document.activeElement.dataset.mode || '') : '—'}`,
       document.body.className,
     ].join('\n');
   };

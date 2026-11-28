@@ -28,6 +28,7 @@ function drawSide(g) {
 }
 
 function frame(now) {
+  requestAnimationFrame(frame); // primero: si algo falla en este fotograma, el siguiente llega igual
   const dt = Math.min(MAX_FRAME_DT, (now - last) / 1000 || 0);
   last = now;
   const t0 = performance.now();
@@ -36,7 +37,6 @@ function frame(now) {
     updateVersus(dt);
     updateDecor(dt, null);
     perf.record(dt, performance.now() - t0);
-    requestAnimationFrame(frame);
     return;
   }
   pollGamepad(dt);
@@ -51,7 +51,6 @@ function frame(now) {
   drawSide(g);
   updateHud(g);
   perf.record(dt, performance.now() - t0);
-  requestAnimationFrame(frame);
 }
 
 export function startLoop() { requestAnimationFrame((t) => { last = t; frame(t); }); }
