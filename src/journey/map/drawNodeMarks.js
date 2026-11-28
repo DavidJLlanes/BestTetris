@@ -45,7 +45,7 @@ export function drawNodeMarks(ctx, n, st, P, R) {
     ctx.fillStyle = locked ? 'rgba(220,225,255,0.7)' : '#fff';
     ctx.fillText(label, P.x, y + 0.5);
   }
-  if (sel && n.level) {
+  if (sel && n.level && map.zoom < 0.5) { // al acercarse a la ficha el nombre ya sale en ella
     ctx.font = `800 ${Math.max(12, fs * 0.95)}px ${FONT}`;
     const name = n.kind === 'hidden' && st.state === 'locked' ? 'Constelación oculta' : n.level.sky.name;
     const ny = badgeY + fs * 0.55 + Math.max(4.5, R * 0.2) * 3.6 + fs * 0.55;

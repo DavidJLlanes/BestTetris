@@ -13,6 +13,7 @@ import { startLogo3d } from './logo3d/index.js';
 import { bindHud } from './ui/hud.js';
 import { bindUndoButton } from './ui/undoButton.js';
 import { blockZoom } from './ui/blockZoom.js';
+import { keepFieldVisible } from './ui/fields/keepFieldVisible.js';
 import { bindRaceHud } from './ui/raceHud.js';
 import { bindPowerButton } from './ui/powerButton.js';
 import { bindStarButton } from './ui/starButton.js';
@@ -69,6 +70,7 @@ watchVisibility();
 startMenuScene();
 startLogo3d();
 blockZoom();
+keepFieldVisible();
 unlockAudio();
 
 trackProfile();       // primero: los logros leen el perfil ya actualizado

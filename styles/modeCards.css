@@ -127,7 +127,7 @@
 }
 
 /* Fondo del menú opaco en móvil y tablet: la partida no se transparenta detrás */
-.layout-stacked #ov-menu, .is-touch:not(.is-phone) #ov-menu {
+.layout-stacked #ov-menu, body:not(.is-phone) #ov-menu {
   background: radial-gradient(120% 60% at 50% 0%, rgba(90, 60, 200, .22), transparent 60%), linear-gradient(180deg, #0e0a28, #07051a);
 }
 
