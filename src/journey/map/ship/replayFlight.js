@@ -18,9 +18,11 @@ export function replayFlight() {
     if (i <= 0) return false;
     f = { from: MAIN[i - 1].id, to: MAIN[i].id };
   }
-  parkShip(f.from);
+  if (map.ship.from && map.ship.t < 1) return true; // ya está volando
+  map.ship.alphaTo = 0; // se desvanece donde está…
   map.cam.drag = false;
-  aimAt(map.byId[f.from]);
-  setTimeout(() => { startTravel(f.from, f.to); playSfx('jShip'); }, 450); // primero la cámara llega al despegue
+  aimAt(map.byId[f.from]); // …mientras la cámara va con su muelle al punto de despegue
+  setTimeout(() => { parkShip(f.from, 0); }, 260); // reaparece allí con un fundido
+  setTimeout(() => { startTravel(f.from, f.to); playSfx('jShip'); }, 1100); // y despega cuando la cámara ya ha llegado
   return true;
 }

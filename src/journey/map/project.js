@@ -2,7 +2,8 @@ import { map } from './mapState.js';
 
 const TILT = 0.5; // inclinación del plano del mapa (radianes): lo lejano se ve más pequeño
 const FOCAL = 1100;
-const SIN = Math.sin(TILT), COS = Math.cos(TILT);
+const SIN = Math.sin(TILT);
+export const COS = Math.cos(TILT);
 
 /**
  * Del mundo a la pantalla con perspectiva: el camino es un plano inclinado que se aleja hacia

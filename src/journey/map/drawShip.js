@@ -4,6 +4,7 @@ import { shipPos } from './shipPos.js';
 import { TRAMOS } from '../tramos.js';
 import { tramoAt } from './skyColor.js';
 import { paintRocket } from './ship/paintRocket.js';
+import { hoverRadius } from './ship/hoverRadius.js';
 
 const P = {};
 
@@ -14,12 +15,14 @@ const P = {};
 export function drawShip(ctx) {
   const pos = shipPos();
   if (!pos) return;
-  const s0 = map.ship, node = map.byId[s0.id];
+  const s0 = map.ship;
   project(pos.x, pos.y, P);
-  const hover = ((node ? node.r : 34) * P.s + 26 * P.s + Math.sin(map.time * 2.2) * 4 * P.s) * (1 - pos.flying);
+  const hover = (hoverRadius(pos.progress) * P.s + 26 * P.s + Math.sin(map.time * 2.2) * 4 * P.s) * (1 - pos.flying);
   const x = P.x, y = P.y - hover, s = P.s, ang = s0.ang || 0;
+  map.shipScreen = { x, y }; // dónde se ha dibujado (para pruebas y efectos)
   const tint = TRAMOS[Math.floor(tramoAt(pos.y))].tint;
   ctx.save();
+  ctx.globalAlpha = s0.alpha ?? 1;
   ctx.globalCompositeOperation = 'lighter';
   const ly = P.y - hover * 0.4;
   const light = ctx.createRadialGradient(x, ly, 0, x, ly, 150 * s);
@@ -31,6 +34,7 @@ export function drawShip(ctx) {
   if (pos.flying > 0.2) emitTrail(x, y, s, ang, pos.flying);
   ctx.restore();
   ctx.save();
+  ctx.globalAlpha = s0.alpha ?? 1;
   ctx.translate(x, y);
   ctx.rotate(ang);
   const roll = Math.max(-0.45, Math.min(0.45, (s0.angV || 0) * 0.09)); // se ladea al girar

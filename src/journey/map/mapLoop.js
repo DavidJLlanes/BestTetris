@@ -8,6 +8,7 @@ import { drawShip } from './drawShip.js';
 import { updateShip } from './ship/updateShip.js';
 import { targetAngle } from './ship/targetAngle.js';
 import { followShip } from './ship/followShip.js';
+import { followCamera } from './followCamera.js';
 import { drawParticles } from './particles.js';
 import { updateCelebration, drawCelebration } from './celebrate.js';
 import { nodeStatus } from './nodeStatus.js';
@@ -18,11 +19,13 @@ const spurOpen = (n) => nodeStatus(n).state !== 'locked';
 
 function step(dt) {
   map.time += dt;
+  const before = map.cam.y;
   updateCamera(dt);
+  followCamera(before);
   map.zoom += (map.zoomTo - map.zoom) * (1 - Math.exp(-ZOOM_EASE * dt));
   if (map.zoomTo === 1 && map.zoom > 0.9 && map.zoomDone) { const f = map.zoomDone; map.zoomDone = null; f(); }
   updateShip(dt, targetAngle());
-  followShip();
+  followShip(dt);
   for (const id of Object.keys(map.pops)) { map.pops[id] += dt * 2.2; if (map.pops[id] >= 1) delete map.pops[id]; }
   updateCelebration(dt);
 }
