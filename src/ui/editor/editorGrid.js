@@ -23,7 +23,7 @@ export function renderGrid(grid) {
 
 /** Tablero del editor: toca o arrastra para pintar. Si empiezas sobre el mismo color, borra. */
 export function bindGrid(grid, onChange) {
-  grid.innerHTML = '<i></i>'.repeat(COLS * ED_ROWS);
+  grid.innerHTML = '<i tabindex="-1"></i>'.repeat(COLS * ED_ROWS); // tabindex: el mando puede enfocar cada casilla
   renderGrid(grid);
   let paint = null;
   const at = (e) => {
@@ -41,6 +41,15 @@ export function bindGrid(grid, onChange) {
   });
   grid.addEventListener('pointermove', (e) => { const p = paint && at(e); if (p) setCell(grid, p.x, p.y, paint); });
   const end = () => { if (paint) { paint = null; saveDraft(); onChange(); } };
+  // Con mando o teclado (A o Intro sobre una casilla): pinta o borra esa casilla
+  grid.addEventListener('click', (e) => {
+    if (e.detail !== 0 || e.target.parentNode !== grid) return; // los toques ya pintan con pointerdown
+    const i = [...grid.children].indexOf(e.target);
+    const x = i % COLS, y = Math.floor(i / COLS);
+    setCell(grid, x, y, editor.rows[y][x] === editor.brush ? '.' : editor.brush);
+    saveDraft(); onChange();
+  });
+  grid.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target.parentNode === grid) { e.preventDefault(); e.target.click(); } });
   grid.addEventListener('pointerup', end);
   grid.addEventListener('pointercancel', end);
 }

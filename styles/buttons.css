@@ -11,6 +11,16 @@
 .btn.ghost { font-size: 13px; padding: 9px 10px; font-weight: 600; }
 :focus { outline: none; }
 :focus-visible { box-shadow: 0 0 0 2px var(--accent2), 0 0 18px rgba(70,230,255,.45) !important; }
+/* Mando o flechas: aro de luz claro en lo elegido, en cualquier pantalla (se apaga al tocar o usar el ratón) */
+.pad-nav :focus:not(.jm-nodes button):not(canvas) {
+  outline: 2.5px solid var(--accent2); outline-offset: 2px;
+  box-shadow: 0 0 0 1.5px #fff, 0 0 28px 2px rgba(70,230,255,.5) !important;
+  animation: pad-ring 1.4s ease-in-out infinite alternate;
+}
+.pad-nav .ed-grid > i:focus { position: relative; z-index: 1; }
+.pad-nav label:has(> input:focus) { background: rgba(70, 230, 255, .1); border-radius: 10px; box-shadow: 0 0 0 1px rgba(70, 230, 255, .35); }
+.pad-nav input[type=range]:focus, .pad-nav input[type=checkbox]:focus { border-radius: 6px; }
+@keyframes pad-ring { to { outline-color: var(--accent); outline-offset: 3.5px; } }
 
 
 /* Deshacer: se ilumina cuando hay una jugada que deshacer. */

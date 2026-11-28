@@ -1,4 +1,5 @@
 import { $ } from '../util/dom.js';
+import { navItems } from './nav/navItems.js';
 import { app } from '../app/state.js';
 
 /**
@@ -15,9 +16,14 @@ export const topOverlay = () => $(stack[stack.length - 1]);
 /** Registra una función que rellena una pantalla justo antes de mostrarla. */
 export function onOpen(id, fn) { openers.set(id, [...(openers.get(id) || []), fn]); }
 
+const lastFocus = new Map(); // al volver a una pantalla, el foco vuelve a donde estaba (mando y teclado)
+
 function focusFirst(el) {
-  if (app.device.touch) return;
-  const b = el.querySelector('[autofocus]') || el.querySelector('button, input'); // autofocus manda aunque vaya después
+  if (app.device.touch && !document.documentElement.classList.contains('pad-nav')) return;
+  const prev = lastFocus.get(el.id);
+  if (prev && prev.isConnected && el.contains(prev) && prev.offsetParent !== null) { prev.focus({ preventScroll: true }); return; }
+  const list = navItems(el); // solo lo que se ve (un botón oculto no puede recibir el foco)
+  const b = list.find((x) => x.hasAttribute('autofocus')) || el.querySelector('#jm-nodes [autofocus]') || list[0]; // autofocus manda aunque vaya después
   if (b) b.focus({ preventScroll: true });
 }
 
@@ -29,6 +35,13 @@ function reveal(id) {
   void el.offsetWidth; // reinicia la animación de entrada
   el.classList.add('enter');
   focusFirst(el);
+  // algunas pantallas rellenan sus botones justo después de abrirse: si el foco se quedó fuera, se repite
+  requestAnimationFrame(() => { if (!el.hidden && !el.contains(document.activeElement)) focusFirst(el); });
+}
+
+function remember() {
+  const top = stack[stack.length - 1];
+  if (top && $(top).contains(document.activeElement)) lastFocus.set(top, document.activeElement);
 }
 
 function conceal(id) {
@@ -49,6 +62,8 @@ export function showOverlay(id) {
 }
 /** Abre una pantalla encima. Con { layer: true } la de debajo no se oculta (se ve detrás, como el mapa del Viaje). */
 export function pushOverlay(id, { layer = false } = {}) {
+  remember();
+  lastFocus.delete(id);
   if (stack.length && !layer) conceal(stack[stack.length - 1]);
   if (layer) layered.add(id); else layered.delete(id);
   stack.push(id);

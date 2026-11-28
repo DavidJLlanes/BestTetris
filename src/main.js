@@ -33,6 +33,8 @@ import { bindSharePanel } from './ui/sharePanel.js';
 import { refreshIdentityBadge } from './ui/identityBadge.js';
 import { showOverlay } from './ui/overlays.js';
 import { bindKeyboard } from './input/keyboard.js';
+import { bindKeyboardMenu } from './input/keyboardMenu.js';
+import { watchPointerForFocus } from './ui/nav/padFocus.js';
 import { bindTouchButtons } from './input/touchButtons.js';
 import { bindTouchGestures } from './input/touchGestures.js';
 import { watchConnection } from './input/gamepad/watchConnection.js';
@@ -114,6 +116,8 @@ refreshIdentityBadge();
 bindLevelBadge();
 
 bindKeyboard();
+bindKeyboardMenu();
+watchPointerForFocus();
 bindTouchButtons($('game')); // botones de abajo y, en táctil, la caja de reserva
 bindTouchGestures($('board-wrap'));
 watchConnection();

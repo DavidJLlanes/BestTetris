@@ -7,7 +7,9 @@ import { resizeMap } from './map/resizeMap.js';
 import { aimAt } from './map/camera.js';
 import { tramoAt } from './map/skyColor.js';
 import { tapNode } from './ui/tapNode.js';
-import { buildNodeButtons, bindNodeKeys, refreshNodeButtons } from './ui/nodeButtons.js';
+import { buildNodeButtons, refreshNodeButtons } from './ui/nodeButtons.js';
+import { registerNav } from '../ui/nav/navHandlers.js';
+import { padMapNav } from './ui/padMapNav.js';
 import { renderMapHud, renderFuel, renderTramo } from './ui/mapHud.js';
 import { bindBag, pickedBag } from './ui/bagPicker.js';
 import { cardLevel, openLevelCard } from './ui/levelCard.js';
@@ -33,7 +35,7 @@ export function initJourney() {
   const visible = () => !$('ov-journey').hidden;
   initMap($('jm-canvas'), { onTap: tapNode, isVisible: visible });
   buildNodeButtons(tapNode);
-  bindNodeKeys();
+  registerNav('ov-journey', padMapNav); // mando y flechas por las paradas y los botones del mapa
   map.onFrame = (dt) => {
     renderTramo(Math.floor(tramoAt(map.cam.y)));
     fuelTick += dt;

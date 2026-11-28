@@ -27,7 +27,9 @@ export function bindBag(getProgress) {
     const id = b.dataset.bag;
     picked = picked.includes(id) ? picked.filter((x) => x !== id) : [...picked, id].slice(-BAG_MAX);
     playSfx('focus');
+    const had = document.activeElement === b; // con mando el foco sigue en el mismo poder
     renderBag(getProgress());
+    if (had) $('jc-bag').querySelector(`[data-bag="${id}"]`)?.focus({ preventScroll: true });
   });
 }
 

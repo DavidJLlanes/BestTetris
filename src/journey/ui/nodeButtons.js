@@ -35,15 +35,3 @@ export function refreshNodeButtons(focusId) {
     b.toggleAttribute('autofocus', n.id === focusId);
   });
 }
-
-/** Flechas arriba y abajo (o W y S) pasan a la parada vecina. */
-export function bindNodeKeys() {
-  addEventListener('keydown', (e) => {
-    if ($('ov-journey').hidden || !document.activeElement || !document.activeElement.closest('#jm-nodes')) return;
-    const d = { ArrowUp: -1, KeyW: -1, ArrowDown: 1, KeyS: 1 }[e.code];
-    if (!d) return;
-    e.preventDefault();
-    const sib = d < 0 ? document.activeElement.previousElementSibling : document.activeElement.nextElementSibling;
-    if (sib) sib.focus({ preventScroll: true });
-  });
-}

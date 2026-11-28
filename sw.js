@@ -5,7 +5,7 @@
  * Antes los módulos salían de la caché y tras un git pull se mezclaban versiones.
  * Sube CACHE_VERSION al publicar cambios grandes para empezar con una caché limpia.
  */
-const CACHE_VERSION = 'besttris-v45';
+const CACHE_VERSION = 'besttris-v46';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './assets/favicon.svg', './assets/icon-192.png', './assets/icon-512.png', './src/boot.js', './src/main.js'];
 
 self.addEventListener('install', (e) => {
