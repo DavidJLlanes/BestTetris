@@ -1,10 +1,11 @@
 import { PAD_MAP } from '../config/controls.js';
 import { button, stickDirs } from '../input/gamepad/readPad.js';
+import { livePads } from '../input/gamepad/livePads.js';
 import { playerPress, playerRelease } from './playerPress.js';
 import { vs } from './state.js';
 
 /** Mandos conectados, en orden: el primero es el Jugador 1 y el segundo el Jugador 2. */
-export const connectedPads = () => (navigator.getGamepads ? Array.from(navigator.getGamepads()).filter((p) => p && p.connected) : []);
+export const connectedPads = livePads;
 
 function readActions(gp) {
   const now = {};

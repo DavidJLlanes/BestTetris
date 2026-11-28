@@ -1,13 +1,20 @@
 import { STICK } from '../../config/controls.js';
 import { pad } from './state.js';
 
-/** Mando activo (el último usado o el primero conectado), o null. */
+/** ¿Hace algo este mando ahora mismo? (algún botón pulsado o un stick movido) */
+export const padActive = (gp) => gp.buttons.some((b) => b.pressed || b.value > 0.5) || gp.axes.some((a) => Math.abs(a) > STICK.deadzone);
+
+/**
+ * Mando activo, o null. Un receptor inalámbrico expone varias ranuras «conectadas» aunque
+ * solo una tenga mando: se usa la que se esté tocando y, si ninguna, la última que se usó.
+ */
 export function readPad() {
   if (!navigator.getGamepads) return null;
-  const pads = navigator.getGamepads();
-  let gp = pad.index !== null ? pads[pad.index] : null;
-  if (!gp) gp = Array.from(pads).find((p) => p && p.connected) || null;
-  if (gp) pad.index = gp.index;
+  const pads = Array.from(navigator.getGamepads()).filter((p) => p && p.connected);
+  if (!pads.length) return null;
+  const busy = pads.find(padActive);
+  const gp = busy || pads.find((p) => p.index === pad.index) || pads[0];
+  pad.index = gp.index;
   return gp;
 }
 
