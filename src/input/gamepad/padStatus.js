@@ -1,14 +1,18 @@
 import { pad } from './state.js';
 
 /** Lo último que se supo del mando, para ?diag: sirve para ver qué llega de un mando real. */
-export const padStatus = { error: '', frames: 0, lastInput: '' };
+export const padStatus = { error: '', frames: 0, lastInput: '', connects: 0, disconnects: 0 };
+addEventListener('gamepadconnected', () => padStatus.connects++);
+addEventListener('gamepaddisconnected', () => padStatus.disconnects++);
 
 /** Texto de una línea con el estado del mando. */
 export function padLine() {
-  const all = navigator.getGamepads ? Array.from(navigator.getGamepads()).filter(Boolean) : null;
-  if (!all) return 'mando: este navegador no tiene Gamepad API';
-  if (!all.length) return 'mando: ninguno (pulsa un botón del mando)';
-  return all.map(slot).join('\n') + (padStatus.error ? `\nerror mando: ${padStatus.error}` : '');
+  if (!navigator.getGamepads) return 'mando: este navegador no tiene Gamepad API';
+  const raw = Array.from(navigator.getGamepads());
+  const all = raw.filter(Boolean);
+  const head = `mandos: ${all.length}/${raw.length} ranuras  conectar ${padStatus.connects}  desconectar ${padStatus.disconnects}  ventana ${document.hasFocus() ? 'activa' : 'SIN FOCO'}`;
+  if (!all.length) return `${head}\nmando: ninguno (pulsa un botón del mando)`;
+  return head + '\n' + all.map(slot).join('\n') + (padStatus.error ? `\nerror mando: ${padStatus.error}` : '');
 }
 
 function slot(gp) {
