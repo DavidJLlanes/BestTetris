@@ -16,4 +16,4 @@ if ($username === null || strlen($password) > 1024 || !bt_check_password($userna
 }
 bt_clear_failures($userKey);
 bt_start_session($username);
-bt_send_json(200, ['usuario' => $username]);
+bt_send_json(200, ['usuario' => bt_display_name($username)]);

@@ -33,6 +33,7 @@ export async function syncNow({ pull = true, timeout, keepalive = false } = {}) 
   if (!pull && !meta.dirty) return { state: 'ok', changed: false };
   saveMeta({ dirty: false }); // lo que se guarde mientras tanto lo vuelve a marcar
   let remote = pull ? await fetchRemote(timeout).catch(fail) : null, changed = false;
+  if (remote && remote.user && remote.user !== meta.user) saveMeta({ user: remote.user, lastUser: remote.user }); // cuenta renombrada
   for (let i = 0; i < 4; i++) {
     const c = combine(remote);
     changed = changed || c.changed;

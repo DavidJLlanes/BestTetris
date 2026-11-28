@@ -20,7 +20,7 @@ const showMerged = (text) => { status(text); setTimeout(reloadOnMenu, 900); };
 export function bindAccountPanel() {
   const form = $('account-form'), user = $('account-user'), pass = $('account-pass'), btn = $('account-login');
   onOpen('ov-profile', () => { renderAccount(); status(''); });
-  onSync((type) => renderAccount(type === 'busy', type === 'error'));
+  onSync((type, e) => renderAccount(type === 'busy', type === 'error' && (e || true)));
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

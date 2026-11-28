@@ -12,7 +12,7 @@ export async function loginAccount(usuario, clave) {
   const r = await requestLogin(usuario, clave);
   if (!r.ok) return r;
   const meta = loadMeta();
-  const stashed = Boolean(meta.lastUser && meta.lastUser !== r.user);
+  const stashed = Boolean(meta.lastUser && meta.lastUser.toLowerCase() !== r.user.toLowerCase());
   if (stashed) stashLocal(meta.lastUser);
   saveMeta({ user: r.user, lastUser: r.user, rev: 0, dirty: true, expired: false });
   try {

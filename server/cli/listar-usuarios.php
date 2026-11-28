@@ -7,5 +7,5 @@ if (!$users) { echo "No hay usuarios todavía.\n"; exit; }
 foreach ($users as $name => $u) {
   $d = bt_read_json(bt_save_path($name));
   $when = isset($d['updated']) ? date('Y-m-d H:i', (int) $d['updated']) : 'nunca';
-  printf("%-24s creado %s · progreso guardado: %s (versión %d)\n", $name, date('Y-m-d', (int) ($u['created'] ?? 0)), $when, (int) ($d['rev'] ?? 0));
+  printf("%-24s creado %s · progreso guardado: %s (versión %d)\n", $u['display'] ?? $name, date('Y-m-d', (int) ($u['created'] ?? 0)), $when, (int) ($d['rev'] ?? 0));
 }

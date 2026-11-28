@@ -107,8 +107,9 @@ Requisitos: PHP 7.4 o superior (Apache con PHP, o nginx con PHP-FPM). En el serv
 ```sh
 sudo install -d -o www-data -g www-data -m 700 /var/lib/besttris    # carpeta privada de datos
 sudo -u www-data php server/cli/crear-usuario.php NOMBRE              # crear usuario o cambiar su contraseña
+sudo -u www-data php server/cli/renombrar-usuario.php ACTUAL NUEVO     # cambiar el nombre sin tocar contraseña ni progreso
 sudo -u www-data php server/cli/listar-usuarios.php                   # ver usuarios
 sudo -u www-data php server/cli/borrar-usuario.php NOMBRE             # borrar usuario y su progreso en el servidor
 ```
 
-En nginx, añade también `location ~ ^/tetris/server/ { deny all; }`. Prueba de navegador: `php -S localhost:8123` con `BESTTRIS_DATA` de pruebas, usuario `prueba` / `prueba1234` y `node tests/e2e/account-sync.e2e.cjs`.
+En nginx, bloquea `/tetris/server/` y deja subir progresos grandes: `location ~ ^/tetris/api/[a-z]+\.php$ { client_max_body_size 8m; include snippets/fastcgi-php.conf; fastcgi_pass unix:/run/php/php-fpm.sock; }`. Para entrar no importan las mayúsculas del usuario. Prueba de navegador: `php -S localhost:8123` con `BESTTRIS_DATA` de pruebas, usuario `prueba` / `prueba1234` y `node tests/e2e/account-sync.e2e.cjs`.
