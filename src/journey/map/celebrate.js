@@ -18,9 +18,9 @@ const GOLD = ['#ffd34f', '#fff3c4', '#ffffff', '#ff9bea'];
  * sus estrellas una a una y la nave viaja hasta la siguiente parada, que se abre con un rebote.
  * r: resumen de recordResult · next: id de la parada que se abre (o null) · lit: luz del camino nueva.
  */
-export function startCelebration(r, next, lit) {
+export function startCelebration(r, next, lit, unlock = true) {
   const draw = r.firstWin && r.level.kind !== 'event';
-  map.celebrate = { id: r.level.id, t: draw ? 0 : 1.9, draw, hideLit: draw, stars: r.stars, prev: r.prev, next, lit, fired: new Set(), litFrom: map.lit };
+  map.celebrate = { id: r.level.id, t: draw ? 0 : 1.9, draw, hideLit: draw, stars: r.stars, prev: r.prev, next, lit, fired: new Set(), litFrom: map.lit, unlock };
   map.sel = r.level.id;
   aimAt(map.byId[r.level.id]);
 }
@@ -60,13 +60,15 @@ export function updateCelebration(dt) {
   if (c.t >= travel) map.lit = c.litFrom + (c.lit - c.litFrom) * (c.next ? shipPos().progress : Math.min(1, (c.t - travel) / 1.1));
   const arrived = !c.next || (map.ship.id === c.next && map.ship.t >= 0.8);
   if (c.next && c.t >= travel && arrived && once(c, 'open')) {
-    map.pops[c.next] = 0.001;
     map.sel = c.next;
     aimAt(map.byId[c.next]);
-    const n = map.byId[c.next];
-    project(n.x, n.y, P);
-    burst(P.x, P.y, 30, [TRAMOS[n.tramo].nebula[0], '#fff'], 200, 2.4);
-    playSfx('jUnlock');
+    if (c.unlock) { // parada recién abierta: rebote, destello y sonido
+      map.pops[c.next] = 0.001;
+      const n = map.byId[c.next];
+      project(n.x, n.y, P);
+      burst(P.x, P.y, 30, [TRAMOS[n.tramo].nebula[0], '#fff'], 200, 2.4);
+      playSfx('jUnlock');
+    }
   }
   if ((c.next && c.fired.has('open') && map.ship.t >= 1 && c.t > travel + 1.4) || (!c.next && c.t > 3.4)) { map.lit = c.lit; map.celebrate = null; }
 }

@@ -1,6 +1,7 @@
 import { on, emit } from '../app/bus.js';
 import { getJourney } from './progress/journeyStore.js';
 import { recordResult } from './progress/recordResult.js';
+import { savePendingTrip } from './progress/pendingTrip.js';
 import { unlockSnapshot, unlockNotes } from './ui/unlockNotes.js';
 import { renderResult } from './ui/resultPanel.js';
 import { levelHint } from './ui/levelHint.js';
@@ -20,6 +21,7 @@ export function watchJourney() {
     const before = unlockSnapshot(getJourney());
     const r = recordResult(level, game);
     r.notes = unlockNotes(before, unlockSnapshot(getJourney()));
+    savePendingTrip(r);
     renderResult(r, game);
     emit('journey', { game, result: r, progress: getJourney(), stars: totalStars(getJourney()) });
   });
