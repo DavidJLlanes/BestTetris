@@ -1,6 +1,7 @@
 import { $ } from '../../util/dom.js';
 import { map } from '../map/mapState.js';
 import { aimAt } from '../map/camera.js';
+import { parkShip } from '../map/ship/startTravel.js';
 import { runMap } from '../map/mapLoop.js';
 import { resizeMap } from '../map/resizeMap.js';
 import { startCelebration, litIndex } from '../map/celebrate.js';
@@ -23,7 +24,7 @@ export function openJourney({ result = null } = {}) {
   map.parts.length = 0;
   map.zoom = map.zoomTo = 0; map.zoomDone = null; map.focusX = 0;
   map.sel = here;
-  map.ship = { id: here, from: null, t: 1 };
+  parkShip(here);
   const node = map.byId[here];
   map.cam.v = 0;
   if (result && result.won) {

@@ -7,6 +7,8 @@ import { vibrate } from '../../input/haptics.js';
 import { drawConstellation } from '../art/drawConstellation.js';
 import { TRAMOS } from '../tramos.js';
 import { MAIN } from '../catalog.js';
+import { startTravel } from './ship/startTravel.js';
+import { shipPos } from './shipPos.js';
 
 const P = {};
 const GOLD = ['#ffd34f', '#fff3c4', '#ffffff', '#ff9bea'];
@@ -52,11 +54,12 @@ export function updateCelebration(dt) {
   }
   const travel = 3.4;
   if (c.next && c.t >= travel && once(c, 'travel')) {
-    map.ship = { id: c.next, from: c.id, t: 0 };
+    startTravel(c.id, c.next);
     playSfx('jShip');
   }
-  if (c.t >= travel) map.lit = c.litFrom + (c.lit - c.litFrom) * Math.min(1, (c.t - travel) / 1.1);
-  if (c.next && c.t >= travel + 1.15 && once(c, 'open')) {
+  if (c.t >= travel) map.lit = c.litFrom + (c.lit - c.litFrom) * (c.next ? shipPos().progress : Math.min(1, (c.t - travel) / 1.1));
+  const arrived = !c.next || (map.ship.id === c.next && map.ship.t >= 0.8);
+  if (c.next && c.t >= travel && arrived && once(c, 'open')) {
     map.pops[c.next] = 0.001;
     map.sel = c.next;
     aimAt(map.byId[c.next]);
@@ -65,7 +68,7 @@ export function updateCelebration(dt) {
     burst(P.x, P.y, 30, [TRAMOS[n.tramo].nebula[0], '#fff'], 200, 2.4);
     playSfx('jUnlock');
   }
-  if (c.t > travel + 1.9 || (!c.next && c.t > 3.4)) { map.lit = c.lit; map.celebrate = null; }
+  if ((c.next && c.fired.has('open') && map.ship.t >= 1 && c.t > travel + 1.4) || (!c.next && c.t > 3.4)) { map.lit = c.lit; map.celebrate = null; }
 }
 
 /** Mientras se celebra: la constelación grande dibujándose sobre su parada. */

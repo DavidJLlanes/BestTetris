@@ -5,6 +5,9 @@ import { drawPath, drawSpurs } from './drawPath.js';
 import { drawPortals } from './drawPortals.js';
 import { drawNodes } from './drawNodes.js';
 import { drawShip } from './drawShip.js';
+import { updateShip } from './ship/updateShip.js';
+import { targetAngle } from './ship/targetAngle.js';
+import { followShip } from './ship/followShip.js';
 import { drawParticles } from './particles.js';
 import { updateCelebration, drawCelebration } from './celebrate.js';
 import { nodeStatus } from './nodeStatus.js';
@@ -18,7 +21,8 @@ function step(dt) {
   updateCamera(dt);
   map.zoom += (map.zoomTo - map.zoom) * (1 - Math.exp(-ZOOM_EASE * dt));
   if (map.zoomTo === 1 && map.zoom > 0.9 && map.zoomDone) { const f = map.zoomDone; map.zoomDone = null; f(); }
-  if (map.ship.t < 1) map.ship.t = Math.min(1, map.ship.t + dt / 1.1);
+  updateShip(dt, targetAngle());
+  followShip();
   for (const id of Object.keys(map.pops)) { map.pops[id] += dt * 2.2; if (map.pops[id] >= 1) delete map.pops[id]; }
   updateCelebration(dt);
 }
@@ -32,7 +36,7 @@ function draw(dt) {
   drawSpurs(ctx, spurOpen);
   drawNodes(ctx);
   drawCelebration(ctx);
-  drawShip(ctx, dt);
+  drawShip(ctx);
   drawParticles(ctx, dt);
 }
 

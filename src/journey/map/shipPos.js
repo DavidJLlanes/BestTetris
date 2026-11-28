@@ -1,25 +1,18 @@
 import { map } from './mapState.js';
-import { MAIN } from '../catalog.js';
+import { travelEase } from './ship/travelEase.js';
+import { routeAt } from './ship/routeAt.js';
 
-const mainIndex = (id) => MAIN.findIndex((l) => l.id === id);
+const smooth = (x) => { const c = Math.min(1, Math.max(0, x)); return c * c * (3 - 2 * c); };
 
-/** Punto del camino a la altura `seg` (índice de parada con decimales). */
-export function pathAt(seg) {
-  const pts = map.path;
-  let i = pts.findIndex((p) => p.seg >= seg);
-  if (i <= 0) return pts[Math.max(0, i)];
-  const a = pts[i - 1], b = pts[i], t = (seg - a.seg) / (b.seg - a.seg || 1);
-  return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
-}
-
-/** Dónde está la nave: en su parada o, si viaja, a lo largo del camino (o del desvío). */
+/**
+ * Dónde está la nave: posada sobre su parada o recorriendo el trayecto. `flying` (0..1) dice
+ * cuánto está en vuelo: al despegar baja al camino y al llegar vuelve a flotar sobre la parada.
+ */
 export function shipPos() {
   const s = map.ship, to = map.byId[s.id];
   if (!to) return null;
-  if (!s.from || s.t >= 1) return to;
-  const from = map.byId[s.from];
-  const e = s.t < 0.5 ? 2 * s.t * s.t : 1 - (-2 * s.t + 2) ** 2 / 2; // acelera y frena
-  const a = mainIndex(from.id), b = mainIndex(to.id);
-  if (a >= 0 && b >= 0) return pathAt(a + (b - a) * e);
-  return { x: from.x + (to.x - from.x) * e, y: from.y + (to.y - from.y) * e };
+  if (!s.from || s.t >= 1 || !s.route) return { x: to.x, y: to.y, dx: 0, dy: 1, flying: 0, progress: 1 };
+  const e = travelEase(s.t);
+  const p = routeAt(s.route, e * s.route.len);
+  return { ...p, flying: smooth(s.t / 0.12) * (1 - smooth((s.t - 0.82) / 0.18)), progress: Math.min(1, e) };
 }
